@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="35dp"
+        android:paddingLeft="35dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/mini_market_item_row_bg"
+        android:layout_gravity="center_horizontal"
+
+        >
+        <com.github.siyamed.shapeimageview.RoundedImageView
+            android:id="@+id/image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/sm"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitXY"
+
+            />
+    </FrameLayout>
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="نسكافيه فانيليا"
+        android:gravity="center"
+        android:singleLine="true"
+
+        />
+    <TextView
+        android:id="@+id/tv_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="13sp"
+        android:textColor="@color/black"
+        android:text="قهوه سريعه التحضير 18.5 جرام 15 كيس"
+        android:gravity="center"
+        android:singleLine="true"
+
+
+        />
+    <TextView
+        android:id="@+id/tv_addto_trolley"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/add_trolley_btn"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:text="أضف الي السلة"
+        android:paddingRight="10dp"
+        android:paddingLeft="5dp"
+        android:layout_marginTop="8dp"
+        android:drawableLeft="@drawable/trolley"
+        android:drawablePadding="10dp"
+        android:textStyle="bold"
+        android:singleLine="true"
+
+        />
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="3dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/cost_color"
+        android:gravity="center"
+        android:text="20,00 ريال"
+        android:singleLine="true"
+
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        >
+        <ImageView
+            android:id="@+id/increase_btn"
+
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/add_icon"
+            android:layout_gravity="center_vertical"
+            />
+        <TextView
+            android:id="@+id/tv_counter"
+
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/count_bg"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="0"
+            android:singleLine="true"
+
+            />
+        <ImageView
+            android:id="@+id/decrease_btn"
+
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/decrease_icon"
+            android:layout_gravity="center_vertical"
+            />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="170dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <com.github.siyamed.shapeimageview.RoundedImageView
+        android:id="@+id/dept_item_image"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/user_profile"
+        app:siRadius="15dp"
+        app:siBorderWidth="1px"
+        app:siSquare="false"
+        app:siBorderColor="@color/colorPrimary"
+        app:siBorderType="stroke"
+        android:layout_gravity="center_horizontal"
+
+        />
+    <TextView
+        android:id="@+id/tv_dept_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:text="اللحوم المجمده"
+        android:gravity="center"
+        />
+</LinearLayout>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/mini_market_item_row_bg"
+    android:layout_margin="8dp"
+    android:layoutDirection="rtl"
+    android:elevation="5dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:padding="5dp"
+        >
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight=".7"
+            android:layout_height="wrap_content"
+
+            >
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sm"
+                android:layout_gravity="top"
+                android:padding="5dp"
+                />
+        </FrameLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1.6"
+            android:layout_marginRight="5dp"
+            android:padding="10dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="نسكافية فانيليا"
+
+                />
+            <TextView
+                android:id="@+id/tv_details"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="18.5 جرام 15 كيس"
+                android:layout_marginTop="3dp"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
+                >
+                <ImageView
+                    android:id="@+id/increase_btn"
+
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/add_icon"
+                    android:layout_gravity="center_vertical"
+                    />
+                <TextView
+                    android:id="@+id/tv_counter"
+
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/count_bg"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:text="0"
+                    />
+                <ImageView
+                    android:id="@+id/decrease_btn"
+
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/decrease_icon"
+                    android:layout_gravity="center_vertical"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <Button
+            android:id="@+id/add_btn"
+
+            android:layout_width="0dp"
+            android:layout_weight=".7"
+            android:layout_height="33dp"
+            android:background="@drawable/reg_btn"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:text="@string/add"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+
+</FrameLayout>

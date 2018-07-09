@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#2196f3</color>
+    <color name="colorPrimaryDark">#2196f3</color>
+    <color name="colorAccent">#000000</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="cp1">#4d95bd</color>
+    <color name="cp2">#78bdf6</color>
+    <color name="cp3">#033e76</color>
+    <color name="cp4">#ebf5fe</color>
+    <color name="cp5_txt">#99d3ff</color>
+    <color name="icon">#0c5ba6</color>
+    <color name="notf">#ffc006</color>
+    <color name="contactus1">#042946</color>
+    <color name="contactus2">#4797d6</color>
+    <color name="un_color">#657a8b</color>
+    <color name="cost_color">#ff9d29</color>
+    <color name="sub_dept">#3fa9fd</color>
+    <color name="txt_color">#bcdffb</color>
+
 </resources>

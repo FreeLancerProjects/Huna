@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/sub_dept"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:layoutDirection="rtl"
+            android:layout_marginRight="15dp"
+            >
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="45dp"
+                android:layout_height="30dp"
+                android:src="@drawable/close_arrow"
+                android:padding="4dp"
+                android:layout_gravity="center_vertical"
+                />
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/white"
+                android:text="مشترياتي"
+                android:layout_gravity="center_vertical"
+
+
+
+                />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:src="@drawable/trolley2"
+                android:padding="3dp"
+                android:layout_gravity="center_vertical"
+
+                />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        app:tabIndicatorHeight="0dp"
+        app:tabBackground="@drawable/tab_indicator_my_order"
+        app:tabTextColor="@color/colorPrimary"
+        app:tabSelectedTextColor="@color/white"
+        >
+
+    </android.support.design.widget.TabLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+</LinearLayout>
