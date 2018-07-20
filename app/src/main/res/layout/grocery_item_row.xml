@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:text="بقالة البركه"
+            android:text="بقالة"
             android:gravity="center"
             android:layout_gravity="center"
             android:textStyle="bold"

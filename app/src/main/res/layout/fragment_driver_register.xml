@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fitsSystemWindows="true"
+    android:fillViewport="false"
+    android:background="@drawable/client_login_bg"
+
+    >
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+
+
+
+    >
+    <LinearLayout
+        android:id="@+id/ll_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:layoutDirection="ltr"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:text="@string/login"
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical"
+            android:drawableLeft="@drawable/back_ar_icon"
+            android:gravity="center_vertical"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="1dp"
+            android:src="@drawable/user_profile"
+            />
+        <EditText
+            android:id="@+id/edt_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:singleLine="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/edt_reg_bg"
+            android:layout_marginTop="40dp"
+            android:drawableLeft="@drawable/reg_user_icon"
+            android:paddingLeft="10dp"
+            android:drawablePadding="5dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/cp2"
+            android:hint="@string/driver_name"
+            android:gravity="center"
+            android:inputType="textPersonName"
+            android:textSize="13sp"
+
+            />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+
+            >
+            <com.lamudi.phonefield.PhoneInputLayout
+                android:id="@+id/edt_check_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                >
+            </com.lamudi.phonefield.PhoneInputLayout>
+            <EditText
+                android:id="@+id/edt_phone"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:singleLine="true"
+                android:background="@drawable/edt_reg_bg"
+                android:drawableLeft="@drawable/phone_icon"
+                android:paddingLeft="10dp"
+                android:drawablePadding="5dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/cp2"
+                android:hint="@string/phone_number"
+                android:gravity="center"
+                android:inputType="phone"
+                android:textSize="13sp"
+
+                />
+        </FrameLayout>
+        <EditText
+            android:id="@+id/edt_city"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:singleLine="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/edt_reg_bg"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/blue_map_icon"
+            android:paddingLeft="10dp"
+            android:drawablePadding="5dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/cp2"
+            android:hint="@string/city"
+            android:gravity="center"
+            android:textSize="13sp"
+
+            />
+        <EditText
+            android:id="@+id/edt_neighborhood"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:singleLine="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/edt_reg_bg"
+            android:layout_marginTop="15dp"
+            android:drawableLeft="@drawable/blue_map_icon"
+            android:paddingLeft="10dp"
+            android:drawablePadding="5dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/cp2"
+            android:hint="@string/neighborhood"
+            android:gravity="center"
+            android:inputType="text"
+            android:textSize="13sp"
+
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="horizontal"
+            android:background="@drawable/edt_reg_img_bg"
+            android:weightSum="1"
+            >
+
+            <TextView
+                android:id="@+id/tv_upload_license_image"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:drawableLeft="@drawable/camera_icon"
+                android:paddingLeft="5dp"
+                android:drawablePadding="5dp"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:text="@string/licence_image"
+                android:gravity="center"
+                />
+            <ImageView
+                android:id="@+id/licence_image"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:padding="3dp"
+                android:scaleType="centerCrop"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="horizontal"
+            android:background="@drawable/edt_reg_img_bg"
+            android:weightSum="1"
+            >
+
+            <TextView
+                android:id="@+id/tv_upload_residence_image"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:drawableLeft="@drawable/camera_icon"
+                android:paddingLeft="5dp"
+                android:drawablePadding="5dp"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:text="@string/residence_image"
+                android:gravity="center"
+                />
+            <ImageView
+                android:id="@+id/residence_image"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:padding="3dp"
+                android:scaleType="centerCrop"
+
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="horizontal"
+            android:background="@drawable/edt_reg_img_bg"
+            android:weightSum="1"
+            >
+
+            <TextView
+                android:id="@+id/tv_upload_car_image"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:drawableLeft="@drawable/camera_icon"
+                android:paddingLeft="5dp"
+                android:drawablePadding="5dp"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:text="@string/car_form_image"
+                android:gravity="center"
+                />
+            <ImageView
+                android:id="@+id/car_form_image"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:padding="3dp"
+                android:scaleType="centerCrop"
+
+                />
+        </LinearLayout>
+        <EditText
+            android:id="@+id/edt_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:singleLine="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/edt_reg_bg"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/reg_user_icon"
+            android:paddingLeft="10dp"
+            android:drawablePadding="5dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/cp2"
+            android:hint="@string/user_name"
+            android:gravity="center"
+            android:textSize="13sp"
+
+            />
+
+        <EditText
+            android:id="@+id/edt_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edt_reg_bg"
+            android:drawableLeft="@drawable/lock_icon"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/cp2"
+            android:textSize="13sp"
+
+            />
+        <EditText
+            android:id="@+id/edt_re_password"
+
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:singleLine="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/edt_reg_bg"
+            android:layout_marginTop="15dp"
+            android:drawableLeft="@drawable/lock_icon"
+            android:paddingLeft="10dp"
+            android:drawablePadding="5dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/cp2"
+            android:hint="@string/re_type_password"
+            android:gravity="center"
+            android:inputType="textPassword"
+            android:textSize="13sp"
+
+            />
+        <Button
+            android:id="@+id/reg_btn"
+
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/reg_btn"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text="@string/register"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
+</ScrollView>

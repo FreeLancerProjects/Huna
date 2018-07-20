@@ -3,29 +3,50 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="30dp"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1"
 
 
     >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight=".93"
         android:background="@drawable/client_login_bg"
 
 
         >
+        <LinearLayout
+            android:id="@+id/ll_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layoutDirection="ltr"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:text="@string/login"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:drawableLeft="@drawable/back_ar_icon"
+                />
+        </LinearLayout>
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             app:civ_border_color="@color/white"
             app:civ_border_width="1dp"
             android:src="@drawable/user_profile"
@@ -168,24 +189,26 @@
 
             />
 
+        <Button
+            android:id="@+id/reg_btn"
+
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/reg_btn"
+            android:textColor="@color/white"
+            android:text="@string/accept_rule"
+            android:textStyle="bold"
+            android:textSize="10sp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            />
 
     </LinearLayout>
-    <Button
-        android:id="@+id/reg_btn"
 
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight=".07"
-        android:layout_marginTop="-18dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/reg_btn"
-        android:textColor="@color/white"
-        android:text="@string/accept_rule"
-        android:paddingRight="30dp"
-        android:paddingLeft="30dp"
-        android:textStyle="bold"
-        android:textSize="15sp"
-        />
 
 
 </LinearLayout>

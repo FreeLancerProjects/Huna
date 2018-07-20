@@ -253,7 +253,7 @@
                 android:textColor="@color/cost_color"
                 android:textSize="13sp"
                 android:gravity="right"
-                android:text="10 ريال"
+                android:text="3"
                 android:layout_marginTop="5dp"
 
 

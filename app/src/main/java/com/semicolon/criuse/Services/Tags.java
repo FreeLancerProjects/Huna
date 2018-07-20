@@ -6,7 +6,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 
 public class Tags {
-
+    public static final String client_register="0";
+    public static final String grocery_register="1";
+    public static final String driver_register = "2";
     public static void CloseKeyBoard(Context context, View view)
     {
         AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) view;

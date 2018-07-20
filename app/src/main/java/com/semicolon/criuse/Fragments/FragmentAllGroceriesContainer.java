@@ -57,11 +57,7 @@ public class FragmentAllGroceriesContainer extends Fragment {
             {
                 p.setMargins(0, 0, 5, 0);
 
-            }else
-                {
-                    p.setMargins(0, 0, 8, 0);
-
-                }
+            }
             tab.requestLayout();
         }
 
@@ -69,17 +65,17 @@ public class FragmentAllGroceriesContainer extends Fragment {
     }
 
     private List<String> AddTitle() {
-        titleList.add(getString(R.string.groceries));
+        //titleList.add(getString(R.string.groceries));
         titleList.add(getString(R.string.sm));
-       // titleList.add(getString(R.string.mm));
+        titleList.add(getString(R.string.mm));
         return titleList;
 
     }
 
     private List<Fragment> AddFragments() {
-        fragmentList.add(Fragment_Groceries.getInstance());
+        //fragmentList.add(Fragment_Groceries.getInstance());
         fragmentList.add(Fragment_Supermarkets.getInstance());
-        //fragmentList.add(Fragment_MiniMarkets.getInstance());
+        fragmentList.add(Fragment_MiniMarkets.getInstance());
 
         return fragmentList;
     }

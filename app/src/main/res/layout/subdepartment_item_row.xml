@@ -82,7 +82,7 @@
         android:textStyle="bold"
         android:textColor="@color/cost_color"
         android:gravity="center"
-        android:text="20,00 ريال"
+        android:text="20,00 "
         android:singleLine="true"
 
         />

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:fillViewport="true"
+    android:background="@drawable/client_login_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/logo"
+            android:scaleType="centerCrop"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layoutDirection="ltr"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="cruise"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="كروز "
+                android:textColor="@color/notf"
+                android:textSize="25dp"
+                android:textStyle="bold"
+
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_centerInParent="true"
+        >
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:fletPaddingBottom="10dp"
+            android:background="@color/white"
+            app:fletPaddingTop="5dp"
+            >
+            <EditText
+                android:id="@+id/edt_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:hint="@string/username"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/cp2"
+                android:drawableRight="@drawable/dr_person_icon"
+                android:singleLine="true"
+                android:drawablePadding="5dp"
+                />
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:fletPaddingBottom="10dp"
+            app:fletPaddingTop="5dp"
+            android:background="@color/white"
+            android:layout_marginTop="5dp"
+
+            >
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:hint="@string/password_login"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/cp2"
+                android:drawableRight="@drawable/password_icon"
+                android:singleLine="true"
+                android:inputType="textPassword"
+                android:drawablePadding="5dp"
+                />
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+        <TextView
+            android:id="@+id/tv_forget_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@color/white"
+            android:text="@string/forget_password"
+            android:layout_marginBottom="15dp"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_below="@id/ll_login"
+        >
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/reg_btn"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
+            android:text="@string/login"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            />
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/back_btn_login"
+            android:src="@drawable/blue_back"
+            android:padding="14dp"
+            />
+    </LinearLayout>
+</RelativeLayout>
+</ScrollView>

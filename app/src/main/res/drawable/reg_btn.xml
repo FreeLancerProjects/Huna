@@ -7,7 +7,7 @@
             <stroke android:color="@color/white" android:width="2px"/>
         </shape>
     </item>
-    <item android:state_pressed="false">
+    <item android:state_pressed="true">
         <shape android:shape="rectangle">
             <corners android:radius="20dp"/>
             <solid android:color="#0277BD"/>
