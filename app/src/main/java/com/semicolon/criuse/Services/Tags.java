@@ -1,19 +1,26 @@
 package com.semicolon.criuse.Services;
 
-import android.content.Context;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AutoCompleteTextView;
-
 public class Tags {
+    public static final String BASE_URL="http://croze.tansiq.net/";
+    public static final String IMAGE_URL=BASE_URL+"/uploads/images/";
     public static final String client_register="0";
     public static final String grocery_register="1";
     public static final String driver_register = "2";
-    public static void CloseKeyBoard(Context context, View view)
-    {
-        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) view;
-        InputMethodManager manager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        manager.hideSoftInputFromWindow(autoCompleteTextView.getWindowToken(),0);
+    public static final String grocery_register2="3";
+    public static final String user_send_photo="1";
+    public static final String user_nosend_photo="2";
+    public static final String session_login="1";
+    public static final String session_logout="0";
+    public static final String user_type_client="1";
+    public static final String user_type_driver="2";
+    public static final String user_type_grocery="3";
+    public static final String update_name="1";
+    public static final String update_phone="2";
+    public static final String update_neighbourhood="3";
+    public static final String update_username="4";
+    public static final String update_password="5";
+    public static final String update_city="6";
 
-    }
+
+
 }

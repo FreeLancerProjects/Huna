@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.semicolon.criuse.R;
-import com.semicolon.criuse.Services.Tags;
+import com.semicolon.criuse.Share.Common;
 
 public class Fragment_Subdepartment extends Fragment {
     private TextView tv_name;
@@ -51,11 +51,11 @@ public class Fragment_Subdepartment extends Fragment {
                     String query = searchView.getText().toString();
                     if (!TextUtils.isEmpty(query))
                     {
-                        Tags.CloseKeyBoard(context,searchView);
+                        Common.CloseKeyBoard(context,searchView);
                         Search(query);
                     }else
                         {
-                            Tags.CloseKeyBoard(context,searchView);
+                            Common.CloseKeyBoard(context,searchView);
                             Toast.makeText(context, R.string.enter_pro_name, Toast.LENGTH_LONG).show();
                         }
                 }

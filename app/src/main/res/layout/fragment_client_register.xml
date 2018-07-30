@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/client_login_bg"
 
 
         >
@@ -169,21 +168,21 @@
             android:textSize="13sp"
 
             />
+
         <Button
             android:id="@+id/reg_btn"
 
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="32dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/reg_btn"
-            android:textColor="@color/white"
-            android:text="@string/register"
-            android:paddingRight="30dp"
-            android:paddingLeft="30dp"
-            android:textStyle="bold"
-            android:textSize="12sp"
             android:layout_marginTop="40dp"
-            />
+            android:background="@drawable/reg_btn"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text="@string/register"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

@@ -5,13 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
     >
+
     <com.github.siyamed.shapeimageview.RoundedImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:siBorderColor="@color/cp3"
         app:siBorderWidth="1px"
-        android:src="@drawable/sm"
         app:siRadius="10dp"
         />
     <com.github.siyamed.shapeimageview.RoundedImageView
@@ -29,25 +29,22 @@
         android:layout_gravity="center"
         >
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_group_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:text="بقالة"
             android:gravity="center"
             android:layout_gravity="center"
             android:textStyle="bold"
             />
-        <TextView
-            android:id="@+id/tv_distance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="13sp"
-            android:text="تبعد 1.5 كم"
-            android:layout_gravity="center"
-            android:gravity="center"
-            />
+
     </LinearLayout>
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        android:src="@drawable/white_down_icon"
+        />
 </FrameLayout>

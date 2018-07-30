@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 
 import com.semicolon.criuse.Adapters.ViewPagerAdapter;
 import com.semicolon.criuse.R;
@@ -26,6 +27,7 @@ public class Fragment_Home extends Fragment{
     private List<Fragment> fragmentList;
     private List<String> titleList;
     private Context context;
+    private AutoCompleteTextView searchView;
 
 
 
@@ -51,6 +53,8 @@ public class Fragment_Home extends Fragment{
             user_type = bundle.getString(TAG);
         }
 
+        searchView = view.findViewById(R.id.searchView);
+        searchView.setSelected(false);
         fragmentList = new ArrayList<>();
         titleList = new ArrayList<>();
         tab = view.findViewById(R.id.tab);

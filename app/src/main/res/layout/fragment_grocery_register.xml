@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/client_login_bg"
+
+    xmlns:android="http://schemas.android.com/apk/res/android">-->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,7 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/client_login_bg"
 
 
         >
@@ -29,6 +35,7 @@
             >
 
             <TextView
+                android:id="@+id/tv_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
@@ -146,6 +153,26 @@
                 />
         </FrameLayout>
         <EditText
+            android:id="@+id/edt_username"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:singleLine="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/edt_reg_bg"
+            android:layout_marginTop="20dp"
+            android:drawableLeft="@drawable/reg_user_icon"
+            android:paddingLeft="10dp"
+            android:drawablePadding="5dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/cp2"
+            android:hint="@string/username"
+            android:gravity="center"
+            android:textSize="13sp"
+
+            />
+        <EditText
             android:id="@+id/edt_password"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -190,14 +217,14 @@
             />
 
         <Button
-            android:id="@+id/reg_btn"
+            android:id="@+id/continue_btn"
 
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/reg_btn"
             android:textColor="@color/white"
-            android:text="@string/accept_rule"
+            android:text="@string/contenue"
             android:textStyle="bold"
             android:textSize="10sp"
             android:paddingRight="5dp"
@@ -205,6 +232,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
+            android:layout_marginBottom="20dp"
             />
 
     </LinearLayout>
@@ -212,3 +240,5 @@
 
 
 </LinearLayout>
+<!--
+</ScrollView>-->
