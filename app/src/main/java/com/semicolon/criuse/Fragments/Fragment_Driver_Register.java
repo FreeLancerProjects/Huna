@@ -345,6 +345,7 @@ public class Fragment_Driver_Register extends Fragment implements GoogleApiClien
                                             Toast.makeText(homeActivity, R.string.reg_success, Toast.LENGTH_SHORT).show();
                                         }else if (session.equals(Tags.session_login))
                                         {
+                                            homeActivity.CloseBottomsheet();
 
                                             Toast.makeText(homeActivity, R.string.reg_success, Toast.LENGTH_SHORT).show();
 

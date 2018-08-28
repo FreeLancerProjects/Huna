@@ -34,6 +34,7 @@ import com.semicolon.criuse.Activities.HomeActivity;
 import com.semicolon.criuse.Models.GroceryPart1;
 import com.semicolon.criuse.R;
 import com.semicolon.criuse.Services.Tags;
+import com.semicolon.criuse.SharedPreferences.Preferences;
 
 import java.io.FileNotFoundException;
 
@@ -54,6 +55,9 @@ public class Fragment_Grocery_Register extends Fragment implements GoogleApiClie
     private Bitmap bitmap=null;
     private Uri uri=null;
     private final int IMG_REQ=5;
+    private Preferences preferences;
+    private String session="";
+
 
     @Nullable
     @Override
@@ -64,6 +68,8 @@ public class Fragment_Grocery_Register extends Fragment implements GoogleApiClie
     }
 
     private void initView(View view) {
+        preferences = Preferences.getInstance();
+        session=preferences.getSession(getActivity());
         homeActivity = (HomeActivity) getActivity();
 
         image = view.findViewById(R.id.image);
@@ -101,6 +107,22 @@ public class Fragment_Grocery_Register extends Fragment implements GoogleApiClie
                 Next();
             }
         });
+
+        if (session!=null&&!TextUtils.isEmpty(session))
+        {
+            if (session.equals(Tags.session_logout))
+            {
+                ll_login.setVisibility(View.VISIBLE);
+            }else if (session.equals(Tags.session_login))
+            {
+                ll_login.setVisibility(View.INVISIBLE);
+
+            }
+        }else if (session!=null&&TextUtils.isEmpty(session))
+        {
+            ll_login.setVisibility(View.VISIBLE);
+
+        }
     }
 
     private void Next() {
@@ -174,7 +196,7 @@ public class Fragment_Grocery_Register extends Fragment implements GoogleApiClie
                 edt_password.setError(null);
                 edt_re_password.setText(null);
 
-                GroceryPart1 groceryPart1 = new GroceryPart1(uri.toString(),m_name,m_hour,m_phone,m_username,m_password);
+                GroceryPart1 groceryPart1 = new GroceryPart1(uri.toString(),m_name,m_hour,m_phone,m_username,m_password,myLat,myLng);
                 homeActivity.DisplayGroceryNextDataToComplete(groceryPart1);
             }
     }

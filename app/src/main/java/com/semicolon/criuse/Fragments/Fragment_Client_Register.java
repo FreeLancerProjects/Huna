@@ -204,7 +204,7 @@ public class Fragment_Client_Register extends Fragment implements GoogleApiClien
                 user_send_photo=Tags.user_send_photo;
 
             }
-            progressDialog = Common.CreateProgressDialog(getActivity(),"Registering....");
+            progressDialog = Common.CreateProgressDialog(getActivity(),getString(R.string.reging));
             progressDialog.show();
             RequestBody imagePart = RequestBody.create(MediaType.parse("image/*"),image_file);
             RequestBody userNamePart = RequestBody.create(MediaType.parse("text/plain"),m_userName);
@@ -244,6 +244,8 @@ public class Fragment_Client_Register extends Fragment implements GoogleApiClien
                                             Toast.makeText(homeActivity, R.string.reg_success, Toast.LENGTH_SHORT).show();
                                         }else if (session.equals(Tags.session_login))
                                         {
+                                            homeActivity.CloseBottomsheet();
+
                                             Toast.makeText(homeActivity, R.string.reg_success, Toast.LENGTH_SHORT).show();
 
                                         }

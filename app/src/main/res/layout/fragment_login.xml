@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:fillViewport="true"
-    android:background="@drawable/client_login_bg"
     xmlns:android="http://schemas.android.com/apk/res/android" >
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"

@@ -113,6 +113,17 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener{
         image_car_form = view.findViewById(R.id.image_car_form);
         ll_driver_data_container = view.findViewById(R.id.ll_driver_data_container);
 
+        image_update.setOnClickListener(this);
+        image_edit_phone.setOnClickListener(this);
+        image_edit_username.setOnClickListener(this);
+        image_edit_password.setOnClickListener(this);
+        image_edit_neighbourhood.setOnClickListener(this);
+        image_license_update.setOnClickListener(this);
+        image_residence_update.setOnClickListener(this);
+        image_edit_city.setOnClickListener(this);
+        image_car_form_update.setOnClickListener(this);
+        tv_edit_name.setOnClickListener(this);
+
         UpdateUi(userModel);
 
     }
@@ -170,6 +181,9 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener{
 
                 break;
             case R.id.image_edit_password:
+
+                CreateUpdateDialog(Tags.update_password);
+
                 break;
             case R.id.image_edit_city:
                 CreateUpdateDialog(Tags.update_city);
@@ -216,6 +230,17 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener{
         Button btn_update =updateView.findViewById(R.id.btn_update);
         switch (type)
         {
+            case Tags.update_username:
+                title.setText(R.string.upd_username);
+                edt_update.setHint(R.string.user_name);
+                edt_phone.setVisibility(View.GONE);
+                newPassword.setVisibility(View.GONE);
+                edt_update.setVisibility(View.VISIBLE);
+                edt_update.setInputType(InputType.TYPE_CLASS_TEXT);
+
+
+                break;
+
             case Tags.update_name:
                 title.setText(R.string.upd_name);
                 edt_update.setHint(R.string.name);
@@ -286,6 +311,7 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener{
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                updateDialog.dismiss();
                 switch (type)
                 {
                     case Tags.update_name:
@@ -586,6 +612,7 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener{
                             if (response.body().getSuccess()==1)
                             {
                                 userModel = response.body();
+                                homeActivity.UpdateData(userModel);
                                 Toast.makeText(homeActivity, R.string.suc_upd, Toast.LENGTH_SHORT).show();
 
                             }else if (response.body().getSuccess()==0)
@@ -794,6 +821,7 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener{
                     homeActivity.UpdateData(userModel);
                     UpdateUi(userModel);
                     progressDialog.dismiss();
+                    Log.e("vvv",userModel.getUser_car_photo());
                     Toast.makeText(homeActivity, R.string.suc_upd, Toast.LENGTH_SHORT).show();
 
                 }

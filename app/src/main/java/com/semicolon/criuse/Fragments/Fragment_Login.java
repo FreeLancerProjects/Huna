@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.semicolon.criuse.Activities.HomeActivity;
@@ -33,6 +34,7 @@ public class Fragment_Login extends Fragment {
     private Button btn_login;
     private String m_username="",m_password="";
     private AlertDialog progressDialog;
+    private TextView tv_forget_password;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,9 +48,15 @@ public class Fragment_Login extends Fragment {
         img_back = view.findViewById(R.id.img_back);
         edt_user_name = view.findViewById(R.id.edt_user_name);
         edt_password = view.findViewById(R.id.edt_password);
+        tv_forget_password = view.findViewById(R.id.tv_forget_password);
         btn_login = view.findViewById(R.id.btn_login);
         btn_login.setOnClickListener(view1 -> Login());
         img_back.setOnClickListener(view1 -> homeActivity.DisplayRegister_Layout());
+        tv_forget_password.setOnClickListener(view1->forgetPassword());
+    }
+
+    private void forgetPassword() {
+        homeActivity.navigateToForgetPassword();
     }
 
     private void Login() {
@@ -90,7 +98,7 @@ public class Fragment_Login extends Fragment {
                             @Override
                             public void onFailure(Call<UserModel> call, Throwable t) {
                                 progressDialog.dismiss();
-                                Toast.makeText(homeActivity, "Error : something went haywire", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(homeActivity, R.string.something_error, Toast.LENGTH_SHORT).show();
                                 Log.e("Error",t.getMessage());
                             }
                         });

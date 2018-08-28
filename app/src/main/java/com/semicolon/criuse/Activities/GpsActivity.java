@@ -77,7 +77,7 @@ public class GpsActivity extends AppCompatActivity {
 
     private void navigateToHome()
     {
-        Intent intent = new Intent(this,HomeActivity.class);
+        Intent intent = new Intent(this,SplashActivity.class);
         startActivity(intent);
         finish();
     }

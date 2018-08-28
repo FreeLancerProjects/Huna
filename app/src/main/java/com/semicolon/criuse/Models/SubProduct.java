@@ -15,6 +15,7 @@ public class SubProduct implements Serializable {
     private String google_long;
     private String image_categories;
 
+
     public SubProduct(String id_product, String product_title, String product_image, String main_department_fk, String product_price, String product_code, String product_content, String product_type, String google_lat, String google_long, String image_categories) {
         this.id_product = id_product;
         this.product_title = product_title;

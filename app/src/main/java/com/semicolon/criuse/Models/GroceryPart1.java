@@ -9,14 +9,18 @@ public class GroceryPart1 implements Serializable {
     private String phone;
     private String username;
     private String password;
+    private double lat;
+    private double lng;
 
-    public GroceryPart1(String uri, String name, String hour, String phone, String username, String password) {
+    public GroceryPart1(String uri, String name, String hour, String phone, String username, String password, double lat, double lng) {
         this.uri = uri;
         this.name = name;
         this.hour = hour;
         this.phone = phone;
         this.username = username;
         this.password = password;
+        this.lat = lat;
+        this.lng = lng;
     }
 
     public String getUri() {
@@ -65,5 +69,13 @@ public class GroceryPart1 implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLng() {
+        return lng;
     }
 }

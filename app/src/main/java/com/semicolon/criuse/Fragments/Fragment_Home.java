@@ -1,6 +1,7 @@
 package com.semicolon.criuse.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,13 +11,16 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 
+import com.semicolon.criuse.Activities.SearchActivity;
 import com.semicolon.criuse.Adapters.ViewPagerAdapter;
 import com.semicolon.criuse.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import spencerstudios.com.bungeelib.Bungee;
 
 public class Fragment_Home extends Fragment{
     private static String TAG = "TAG";
@@ -27,7 +31,7 @@ public class Fragment_Home extends Fragment{
     private List<Fragment> fragmentList;
     private List<String> titleList;
     private Context context;
-    private AutoCompleteTextView searchView;
+    private TextView searchView;
 
 
 
@@ -54,7 +58,6 @@ public class Fragment_Home extends Fragment{
         }
 
         searchView = view.findViewById(R.id.searchView);
-        searchView.setSelected(false);
         fragmentList = new ArrayList<>();
         titleList = new ArrayList<>();
         tab = view.findViewById(R.id.tab);
@@ -66,7 +69,13 @@ public class Fragment_Home extends Fragment{
         adapter.AddTitle(titleList);
         pager.setAdapter(adapter);
         tab.setupWithViewPager(pager);
-
+        searchView.setOnClickListener(view1 ->
+                {
+                    Intent intent = new Intent(context, SearchActivity.class);
+                    context.startActivity(intent);
+                    Bungee.zoom(context);
+                }
+        );
         for(int i=0; i < tab.getTabCount(); i++) {
             View tab = ((ViewGroup) this.tab.getChildAt(0)).getChildAt(i);
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) tab.getLayoutParams();
@@ -97,5 +106,6 @@ public class Fragment_Home extends Fragment{
 
         return fragmentList;
     }
+
 
 }

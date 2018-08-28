@@ -58,8 +58,28 @@
                     android:textSize="14sp"
                     />
             </LinearLayout>
-        </android.support.v7.widget.Toolbar>
 
+
+        </android.support.v7.widget.Toolbar>
+        <TextView
+            android:id="@+id/tv_not_budget"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="-43dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/not_budget"
+            android:gravity="center"
+            android:text="9+"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:clickable="false"
+            android:longClickable="false"
+            android:visibility="invisible"
+
+            />
     </android.support.design.widget.AppBarLayout>
 
     <include
@@ -72,7 +92,16 @@
 
         />
 
-    <com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView
+    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+        android:id="@+id/bottomNav"
+
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        >
+
+    </com.aurelhubert.ahbottomnavigation.AHBottomNavigation>
+   <!-- <com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -86,7 +115,7 @@
         app:bnv_with_text="true"
         >
 
-    </com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView>
+    </com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView>-->
 </LinearLayout>
 
     <include

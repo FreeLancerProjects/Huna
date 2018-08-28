@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="google_api_key">AIzaSyD2dtIHnb-B4RaFtsPb2dC7iMYCQjtBsg8</string>
     <string name="app_name">كروز</string>
     <string name="title_activity_home">الصفحة الرئيسية</string>
     <string name="navigation_drawer_open">افتح</string>
@@ -114,4 +115,45 @@
     <string name="contenue">استمرار</string>
     <string name="time_req">حقل فارغ</string>
     <string name="comp">إستكمال</string>
+    <string name="reging">جار إنشاء حساب ....</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="send">إرسال</string>
+    <string name="subject">الموضوع</string>
+    <string name="message">الرسالة</string>
+    <string name="sub_req">أدخل الموضوع</string>
+    <string name="msg_req">أدخل الرسالة</string>
+    <string name="wtsnotins">جهازك لايحتوي على تطبيق الواتس اب</string>
+    <string name="email_req">أدخل البريد الالكتروني</string>
+    <string name="inv_email">البريد الالكتروني غير صحيح</string>
+    <string name="sending">جار الارسال...</string>
+    <string name="sended">تم الارسال</string>
+    <string name="send_order">متابعة عملية الشراء</string>
+    <string name="km">كم</string>
+    <string name="cat">الاقسام</string>
+    <string name="enter_loc">أدخل عنوان الطلب</string>
+    <string name="sel_loc">إختر عنوان الطلب</string>
+    <string name="inter">تحقق من الاتصال بالانترنت</string>
+    <string name="send_orders">إرسال الطلبات</string>
+    <string name="sub_total">المجموع\u0020\u0020:\u0020\u0020</string>
+    <string name="phone_number2">رقم الجوال\u0020\u0020:\u0020\u0020</string>
+    <string name="delivery">التوصيل\u0020\u0020:\u0020\u0020</string>
+    <string name="total">مجموع الطلب\u0020\u0020:\u0020\u0020</string>
+    <string name="sar">ريال</string>
+    <string name="tot">إجمالي الفواتير</string>
+    <string name="ok">حسنا</string>
+    <string name="cancel">إلغاء</string>
+    <string name="login_or_register_continue">هذه الخدمة متاحة للعملاء والسائقين برجاء تسجيل الدخول أو إنشاء حساب جديد حتى تتمكن من متابعة عملية الشراء.</string>
+    <string name="failed">فشل</string>
+    <string name="succ_send">تم إرسال الطلب بنجاح</string>
+    <string name="sending_order">جار إرسال طلبك...</string>
+    <string name="no_driver">لا توجد سائقين متاحين</string>
+    <string name="inv_loc">تأكد من تحديد موقعك بشكل صحيح</string>
+    <string name="locating">جار تحديد موقعك</string>
+    <string name="password_recovery">إستعادة كلمة المرور</string>
+    <string name="recov_pass">استرداد حسابك. سنرسل لك رابطًا لتغيير كلمة المرور الخاصة بك</string>
+    <string name="reset_password">إستعادة كلمة المرور</string>
+    <string name="restoring_pass">جار استعادة كلمة المرور</string>
+    <string name="msg_will_send_torecover_pass">سيتم ارسال رساله الى البريد الالكتروني لاستعادة كلمة المرور</string>
+    <string name="search2">ما الذي تبحث عنة</string>
+    <string name="upd_username">تعديل اسم المستخدم</string>
 </resources>

@@ -14,20 +14,29 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name=".Services.ServiceUpdateLocation"></service>
-        <activity android:name=".Activities.SplashActivity">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_api_key" />
 
-        </activity>
+        <service android:name=".Services.ServiceUpdateLocation" />
+
+        <activity android:name=".Activities.SplashActivity" />
         <activity
             android:name=".Activities.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity android:name=".Activities.GpsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Activities.MiniMarketDetailsActivity" />
+        <activity android:name=".Activities.SearchActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            >
+
         </activity>
     </application>
 

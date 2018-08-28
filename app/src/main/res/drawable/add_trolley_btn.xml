@@ -6,10 +6,10 @@
             <solid android:color="@color/colorPrimary"/>
         </shape>
     </item>
-    <item android:state_pressed="false">
+    <item android:state_pressed="true">
         <shape android:shape="rectangle">
             <corners android:radius="5dp"/>
-            <solid android:color="#0277BD"/>
+            <solid android:color="#076aa5"/>
         </shape>
     </item>
 </selector>

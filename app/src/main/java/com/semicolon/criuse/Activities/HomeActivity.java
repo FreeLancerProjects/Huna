@@ -9,6 +9,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,25 +22,30 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.aurelhubert.ahbottomnavigation.notification.AHNotification;
 import com.irozon.sneaker.Sneaker;
-import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
-import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView;
-import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
 import com.semicolon.criuse.Fragments.FragmentClientNotification;
 import com.semicolon.criuse.Fragments.FragmentMyOrderContainer;
 import com.semicolon.criuse.Fragments.Fragment_Car;
 import com.semicolon.criuse.Fragments.Fragment_Categories;
 import com.semicolon.criuse.Fragments.Fragment_Client_Register;
+import com.semicolon.criuse.Fragments.Fragment_Contactus;
 import com.semicolon.criuse.Fragments.Fragment_Driver_Register;
+import com.semicolon.criuse.Fragments.Fragment_ForgetPassword;
 import com.semicolon.criuse.Fragments.Fragment_Grocery_Register;
 import com.semicolon.criuse.Fragments.Fragment_Home;
 import com.semicolon.criuse.Fragments.Fragment_Login;
 import com.semicolon.criuse.Fragments.Fragment_Profile;
+import com.semicolon.criuse.Fragments.Fragment_Rules;
 import com.semicolon.criuse.Fragments.Fragment_Setting;
 import com.semicolon.criuse.Models.GroceryPart1;
 import com.semicolon.criuse.Models.LocationUpdateModel;
@@ -50,6 +57,7 @@ import com.semicolon.criuse.Services.ServiceUpdateLocation;
 import com.semicolon.criuse.Services.Tags;
 import com.semicolon.criuse.Share.Common;
 import com.semicolon.criuse.SharedPreferences.Preferences;
+import com.semicolon.criuse.SingleTones.ItemsSingleTone;
 import com.semicolon.criuse.SingleTones.UserSingletone;
 import com.squareup.picasso.Picasso;
 
@@ -70,11 +78,12 @@ public class HomeActivity extends AppCompatActivity
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
-    private BottomNavigationView bottomNav;
+    //private BottomNavigationView bottomNav;
+    private AHBottomNavigation ahBottomNavigation;
     private CircleImageView image;
     private TextView tv_name,tv_address;
     private int pos=0;
-    private TextView tv_notf,tv_title;
+    private TextView tv_notf,tv_title,tv_not_budget;
     private BottomSheetBehavior behavior;
     private View view;
     private Fragment_Client_Register fragment_client_register;
@@ -93,37 +102,47 @@ public class HomeActivity extends AppCompatActivity
     private AlertDialog logoutDialog;
     private Intent serviceIntent;
     private AlertDialog notalertDialog;
+    public FragmentManager fragmentManager;
+    public ItemsSingleTone itemsSingleTone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        fragmentManager = getSupportFragmentManager();
         initView();
         CreateLogoutAlertDialog();
         CreateNotAlertDialog();
     }
 
+
+
     private void initView()
     {
-        Log.e("home fragment","initview");
+        Log.e("home fragment_bill","initview");
+        itemsSingleTone = ItemsSingleTone.getInstance();
         preferences = Preferences.getInstance();
         userSingletone = UserSingletone.getInstance();
         session = preferences.getSession(this);
         toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         drawer = findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
         navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
         not_root =  navigationView.getMenu().findItem(R.id.msg).getActionView();
         tv_notf = not_root.findViewById(R.id.tv_not_txt);
-
+        tv_not_budget = findViewById(R.id.tv_not_budget);
         IncreaseNotification_Counter(5);
+        IncreaseNotificationBudget_Counter(9);
+
         back = findViewById(R.id.back);
         this.view =findViewById(R.id.root);
         tv_title = findViewById(R.id.tv_title);
@@ -134,11 +153,11 @@ public class HomeActivity extends AppCompatActivity
 
                 if (TextUtils.isEmpty(fragment_type))
                 {
-                    bottomNav.selectTab(0);
+                    ahBottomNavigation.setCurrentItem(0);
+                    //bottomNav.selectTab(0);
 
                 }
-                behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                navigationView.getMenu().getItem(0).setChecked(true);
+               CloseBottomsheet();
 
             }
         });
@@ -149,61 +168,86 @@ public class HomeActivity extends AppCompatActivity
         tv_address = view.findViewById(R.id.tv_address);
         ////////////////////////////////////////////////////////
 
-                BottomNavigationItem item1 = new BottomNavigationItem(getString(R.string.main),R.color.un_color,R.drawable.home_icon);
-                BottomNavigationItem item2 = new BottomNavigationItem(getString(R.string.not),R.color.un_color,R.drawable.not_icon);
-                BottomNavigationItem item3 = new BottomNavigationItem(getString(R.string.trolley),R.color.un_color,R.drawable.market_icon);
-                BottomNavigationItem item4 = new BottomNavigationItem(getString(R.string.settings),R.color.un_color,R.drawable.setting_icon);
+        ahBottomNavigation = findViewById(R.id.bottomNav);
+        ahBottomNavigation.setForceTint(false);
+        ahBottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+        ahBottomNavigation.setColored(false);
+        ahBottomNavigation.setTitleTextSize(20f,17f);
+        ahBottomNavigation.setInactiveColor(ContextCompat.getColor(this,R.color.un_color));
+        ahBottomNavigation.setAccentColor(ContextCompat.getColor(this,R.color.colorPrimary));
+        ahBottomNavigation.setDefaultBackgroundResource(R.color.white);
 
-                bottomNav = findViewById(R.id.bottomNav);
-                bottomNav.addTab(item1);
-                bottomNav.addTab(item2);
-                bottomNav.addTab(item3);
-                bottomNav.addTab(item4);
-                bottomNav.willNotRecreate(true);
-                bottomNav.selectTab(0);
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Home.getInstance("")).commit();
-                bottomNav.setOnBottomNavigationItemClickListener(new OnBottomNavigationItemClickListener() {
-                    @Override
-                    public void onNavigationItemClick(int position) {
-                        if (position==0)
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(getString(R.string.main),R.drawable.home_icon,R.color.un_color);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(getString(R.string.not),R.drawable.not_icon,R.color.un_color);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(getString(R.string.trolley),R.drawable.market_icon,R.color.un_color);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem(getString(R.string.settings),R.drawable.setting_icon,R.color.un_color);
+
+        ahBottomNavigation.addItem(item1);
+        ahBottomNavigation.addItem(item2);
+        ahBottomNavigation.addItem(item3);
+        ahBottomNavigation.addItem(item4);
+        ahBottomNavigation.setCurrentItem(0);
+
+        AHNotification ahNotification = new AHNotification.Builder()
+                .setText("9+")
+                .setBackgroundColor(ContextCompat.getColor(this,R.color.notf))
+                .setTextColor(ContextCompat.getColor(this,R.color.white))
+                .build();
+        ahBottomNavigation.setNotification(ahNotification,1);
+
+
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Home.getInstance("")).commit();
+        ahBottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+            @Override
+            public boolean onTabSelected(int position, boolean wasSelected) {
+                if (position==0)
+                {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Home.getInstance("")).commit();
+                    ahBottomNavigation.setCurrentItem(0,false);
+                }else if (position ==1)
+                {
+                    ahBottomNavigation.setCurrentItem(1,false);
+
+                    String session = preferences.getSession(HomeActivity.this);
+                    if (session!=null&& !TextUtils.isEmpty(session))
+                    {
+                        if (session.equals(Tags.session_login))
                         {
-                            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Home.getInstance("")).commit();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, FragmentClientNotification.getInstance("")).commit();
 
-                        }else if (position ==1)
+                        }else if (session.equals(Tags.session_logout))
                         {
-                            String session = preferences.getSession(HomeActivity.this);
-                            if (session!=null&& !TextUtils.isEmpty(session))
-                            {
-                                if (session.equals(Tags.session_login))
-                                {
-                                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, FragmentClientNotification.getInstance("")).commit();
-
-                                }else if (session.equals(Tags.session_logout))
-                                {
-                                    notalertDialog.show();
-                                }
-                            }else
-                            {
-                                notalertDialog.show();
-
-                            }
-
+                            notalertDialog.show();
                         }
-                        else if (position ==2)
-                        {
-                            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Car.getInstance("")).commit();
-
-                        }
-
-                        else if (position ==3)
-                        {
-                            fragment_setting = Fragment_Setting.getInstance("");
-                            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer,fragment_setting ).commit();
-
-                        }
+                    }else
+                    {
+                        notalertDialog.show();
 
                     }
-                });
+
+                }
+                else if (position ==2)
+                {
+                    ahBottomNavigation.setCurrentItem(2,false);
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Car.getInstance("")).commit();
+
+                }
+
+                else if (position ==3)
+                {
+                    ahBottomNavigation.setCurrentItem(3,false);
+
+                    fragment_setting = Fragment_Setting.getInstance("");
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer,fragment_setting ).commit();
+
+                }
+
+
+                return false;
+            }
+        });
 
 
 
@@ -230,6 +274,14 @@ public class HomeActivity extends AppCompatActivity
             {
                 userModel = preferences.getUserData(this);
                 userSingletone.setUserModel(userModel);
+
+                if (userModel.getUser_type().equals(Tags.user_type_driver))
+                {
+                    serviceIntent = new Intent(this, ServiceUpdateLocation.class);
+                    startService(serviceIntent);
+                    EventBus.getDefault().register(this);
+                }
+
                 UpdateUi(userModel);
             }
         }
@@ -301,7 +353,8 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 notalertDialog.dismiss();
-                bottomNav.selectTab(3);
+                ahBottomNavigation.setCurrentItem(3);
+                //bottomNav.selectTab(3);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer,fragment_setting ).commit();
 
             }
@@ -309,7 +362,8 @@ public class HomeActivity extends AppCompatActivity
         btn_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bottomNav.selectTab(0);
+                ahBottomNavigation.setCurrentItem(0);
+                //bottomNav.selectTab(0);
 
                 notalertDialog.dismiss();
             }
@@ -337,13 +391,16 @@ public class HomeActivity extends AppCompatActivity
                 tv_name.setText(userModel.getUser_full_name());
                 tv_address.setText(userModel.getUser_city());
 
-                serviceIntent = new Intent(this, ServiceUpdateLocation.class);
-                startService(serviceIntent);
-                EventBus.getDefault().register(this);
+
+
+            }else if (userModel.getUser_type().equals(Tags.grocery_register2))
+            {
+                Picasso.with(this).load(Uri.parse(Tags.IMAGE_URL+userModel.getUser_photo())).placeholder(R.drawable.user_profile).into(image);
+                tv_name.setText(userModel.getUser_full_name());
             }
         }
     }
-    ////from login and registering fragments and profile fragment
+    ////from login and registering fragments and profile fragment_bill
     public void UpdateData(UserModel userModel)
     {
         userSingletone.setUserModel(userModel);
@@ -357,7 +414,8 @@ public class HomeActivity extends AppCompatActivity
     {
         if (TextUtils.isEmpty(fragment_type))
         {
-            bottomNav.selectTab(0);
+            ahBottomNavigation.setCurrentItem(0);
+            //bottomNav.selectTab(0);
         }
         behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentsContainer);
@@ -378,12 +436,17 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.home) {
-            bottomNav.selectTab(0);
-            bottomNav.setVisibility(View.VISIBLE);
+
+            ahBottomNavigation.setCurrentItem(0);
+            ahBottomNavigation.setVisibility(View.VISIBLE);
+           /* bottomNav.selectTab(0);
+            bottomNav.setVisibility(View.VISIBLE);*/
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Home.getInstance("")).commit();
 
         }else if (id==R.id.profile)
         {
+
+
             String session = preferences.getSession(this);
             if (session!=null&& !TextUtils.isEmpty(session))
             {
@@ -406,7 +469,7 @@ public class HomeActivity extends AppCompatActivity
 
                     CreateSneakerAlert(getString(R.string.reg_log));
                 }
-            }else if (session!=null&& TextUtils.isEmpty(session))
+            }else
             {
                 navigationView.getMenu().getItem(0).setChecked(true);
                 CreateSneakerAlert(getString(R.string.reg_log));
@@ -415,7 +478,6 @@ public class HomeActivity extends AppCompatActivity
             }
         }
         else if (id == R.id.msg) {
-
             String session = preferences.getSession(this);
             if (session!=null&& !TextUtils.isEmpty(session))
             {
@@ -429,8 +491,12 @@ public class HomeActivity extends AppCompatActivity
 
                     CreateSneakerAlert(getString(R.string.reg_log));
                 }
-            }else if (session!=null&& TextUtils.isEmpty(session))
+            }else
             {
+
+
+                ////
+
                 navigationView.getMenu().getItem(0).setChecked(true);
 
                 CreateSneakerAlert(getString(R.string.reg_log));
@@ -439,13 +505,15 @@ public class HomeActivity extends AppCompatActivity
             }
         } else if (id == R.id.purchases) {
 
+            savePos();
+
             String session = preferences.getSession(this);
             if (session!=null&& !TextUtils.isEmpty(session))
             {
                 if (session.equals(Tags.session_login))
                 {
 
-                    bottomNav.setVisibility(View.GONE);
+                    Hide_Navbottom();
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, FragmentMyOrderContainer.getInstance()).commit();
 
                 }else if (session.equals(Tags.session_logout))
@@ -454,7 +522,7 @@ public class HomeActivity extends AppCompatActivity
 
                     CreateSneakerAlert(getString(R.string.reg_log));
                 }
-            }else if (session!=null&& TextUtils.isEmpty(session))
+            }else
             {
                 navigationView.getMenu().getItem(0).setChecked(true);
 
@@ -464,11 +532,16 @@ public class HomeActivity extends AppCompatActivity
             }
 
 
-            //getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, FragmentMyOrderContainer.getInstance()).commit();
 
         } else if (id == R.id.contact) {
+            savePos();
+            Hide_Navbottom();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Contactus.getInstance()).commit();
 
         } else if (id == R.id.rule) {
+            savePos();
+            Hide_Navbottom();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Rules.getInstance()).commit();
 
         }
         else if (id == R.id.logout) {
@@ -485,7 +558,7 @@ public class HomeActivity extends AppCompatActivity
                     finish();
 
                 }
-            }else if (session!=null&& TextUtils.isEmpty(session))
+            }else
             {
                 finish();
 
@@ -494,6 +567,7 @@ public class HomeActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     private void CreateSneakerAlert(String msg)
     {
@@ -521,6 +595,8 @@ public class HomeActivity extends AppCompatActivity
                             if (response.body().getSuccess()==1)
                             {
                                 preferences.Clear_SharedPref(HomeActivity.this);
+                                itemsSingleTone.clear();
+
                                 finish();
                             }else if (response.body().getSuccess()==0)
                             {
@@ -539,7 +615,7 @@ public class HomeActivity extends AppCompatActivity
                 });
 
     }
-    //fragment my order container
+    //fragment_bill my order container
     public void setNavPosition()
     {
         switch (pos)
@@ -549,7 +625,7 @@ public class HomeActivity extends AppCompatActivity
 
                 break;
             case 1:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Profile.getInstance("")).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, FragmentClientNotification.getInstance("")).commit();
 
                 break;
             case 2:
@@ -562,8 +638,11 @@ public class HomeActivity extends AppCompatActivity
                 break;
 
         }
-        bottomNav.setVisibility(View.VISIBLE);
-        bottomNav.selectTab(pos);
+        ahBottomNavigation.setVisibility(View.VISIBLE);
+        ahBottomNavigation.setCurrentItem(pos);
+
+        /*bottomNav.setVisibility(View.VISIBLE);
+        bottomNav.selectTab(pos);*/
         navigationView.getMenu().getItem(0).setChecked(true);
     }
     public void RegisterType(String type)
@@ -666,7 +745,8 @@ public class HomeActivity extends AppCompatActivity
                 break;
 
             case "":
-                bottomNav.selectTab(0);
+                ahBottomNavigation.setCurrentItem(0);
+                //bottomNav.selectTab(0);
                 behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
                 break;
@@ -686,7 +766,7 @@ public class HomeActivity extends AppCompatActivity
                 },500);
 
     }
-    public void BackFromGroceryRegisert2ToRegister1(GroceryPart1 groceryPart1)
+    public void BackFromGroceryRegister2ToRegister1(GroceryPart1 groceryPart1)
     {
         behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         new Handler()
@@ -695,6 +775,41 @@ public class HomeActivity extends AppCompatActivity
                     public void run() {
                         tv_title.setText(getString(R.string.create_accounts));
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer_register, Fragment_Grocery_Register.getInstance(groceryPart1)).commit();
+                        behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    }
+                },500);
+    }
+
+    public void navigateToSettingFragment()
+    {
+        if (behavior.getState()==BottomSheetBehavior.STATE_EXPANDED)
+        {
+            behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+        }
+        fragment_setting = Fragment_Setting.getInstance("");
+        fragmentManager.beginTransaction().replace(R.id.fragmentsContainer,fragment_setting ).commit();
+        ahBottomNavigation.setCurrentItem(3);
+
+       // bottomNav.selectTab(3);
+    }
+    public void navigateToHomeFragment()
+    {
+        fragmentManager.beginTransaction().replace(R.id.fragmentsContainer,Fragment_Home.getInstance("") ).commit();
+        ahBottomNavigation.setCurrentItem(0);
+
+        //bottomNav.selectTab(0);
+    }
+    public void navigateToForgetPassword()
+    {
+        behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+        new Handler()
+                .postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        tv_title.setText(getString(R.string.password_recovery));
+                        fragmentManager.beginTransaction().replace(R.id.fragmentsContainer_register, Fragment_ForgetPassword.getInstance()).commit();
                         behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                     }
                 },500);
@@ -711,6 +826,29 @@ public class HomeActivity extends AppCompatActivity
 
             }
     }
+    public void IncreaseNotificationBudget_Counter(int counter)
+    {
+        if (counter>0)
+        {
+            Animation animation = AnimationUtils.loadAnimation(this,R.anim.not_anim);
+            tv_not_budget.setVisibility(View.VISIBLE);
+            tv_not_budget.setText(String.valueOf(counter));
+            new Handler()
+                    .postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            tv_not_budget.clearAnimation();
+                            tv_not_budget.startAnimation(animation);
+                        }
+                    },2000);
+
+
+        }else
+        {
+            tv_notf.setVisibility(View.INVISIBLE);
+
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -720,7 +858,11 @@ public class HomeActivity extends AppCompatActivity
         {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
+
+
     }
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {
@@ -732,6 +874,24 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
+    public void CloseBottomsheet()
+    {
+        behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        navigationView.getMenu().getItem(0).setChecked(true);
+    }
+
+    public void Hide_Navbottom()
+    {
+
+        ahBottomNavigation.setVisibility(View.GONE);
+        //bottomNav.setVisibility(View.GONE);
+    }
+    public void savePos()
+    {
+        this.pos = ahBottomNavigation.getCurrentItem();
+
+        //this.pos = bottomNav.getCurrentItem();
+    }
     /// drivers
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void UpdateLocation(LocationUpdateModel locationUpdateModel)
@@ -802,18 +962,28 @@ public class HomeActivity extends AppCompatActivity
             navigationView.getMenu().getItem(0).setChecked(true);
 
         }
-        else {
+        else if (fragmentManager.getBackStackEntryCount()>0)
+        {
+            itemsSingleTone.clear();
+            fragmentManager.popBackStack();
+        }
+
+        else{
             if (fragment instanceof Fragment_Home)
             {
+                itemsSingleTone.ClearItemModelList();
+
                 super.onBackPressed();
 
             } else
             {
 
-                bottomNav.setVisibility(View.VISIBLE);
-                bottomNav.selectTab(0);
+                ahBottomNavigation.setVisibility(View.VISIBLE);
+                //bottomNav.setVisibility(View.VISIBLE);
+                setNavPosition();
+               // bottomNav.selectTab(pos);
                 navigationView.getMenu().getItem(0).setChecked(true);
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Home.getInstance("")).commit();
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Home.getInstance("")).commit();
 
             }
         }

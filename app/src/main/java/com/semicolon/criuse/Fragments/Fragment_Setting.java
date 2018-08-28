@@ -1,5 +1,6 @@
 package com.semicolon.criuse.Fragments;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import com.semicolon.criuse.R;
 import com.semicolon.criuse.Services.Tags;
 import com.semicolon.criuse.SharedPreferences.Preferences;
 import com.semicolon.criuse.SingleTones.UserSingletone;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import it.beppi.tristatetogglebutton_library.TriStateToggleButton;
@@ -129,6 +131,7 @@ public class Fragment_Setting extends Fragment{
                 img_state.setVisibility(View.VISIBLE);
                 soundCardView.setVisibility(View.VISIBLE);
                 tv_name.setText(userModel.getUser_full_name());
+                Picasso.with(getActivity()).load(Uri.parse(Tags.IMAGE_URL+userModel.getUser_photo())).into(image);
                 if (connection.getConnction(getActivity()))
                 {
                     tv_state.setVisibility(View.VISIBLE);
@@ -164,5 +167,6 @@ public class Fragment_Setting extends Fragment{
         img_state.setVisibility(View.VISIBLE);
         soundCardView.setVisibility(View.VISIBLE);
         tv_name.setText(userModel.getUser_full_name());
+        Picasso.with(getActivity()).load(Uri.parse(Tags.IMAGE_URL+userModel.getUser_photo())).into(image);
     }
 }

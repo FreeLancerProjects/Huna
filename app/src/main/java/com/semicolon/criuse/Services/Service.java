@@ -1,15 +1,24 @@
 package com.semicolon.criuse.Services;
 
 import com.semicolon.criuse.Models.AllGroceries_SubCategory;
+import com.semicolon.criuse.Models.ContactsModel;
+import com.semicolon.criuse.Models.ItemsModel;
+import com.semicolon.criuse.Models.MiniMarketDataModel;
+import com.semicolon.criuse.Models.Object;
 import com.semicolon.criuse.Models.ResponseModel;
+import com.semicolon.criuse.Models.RuleModel;
+import com.semicolon.criuse.Models.SuperMarketModel;
 import com.semicolon.criuse.Models.UserModel;
 
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -63,16 +72,16 @@ public interface Service {
                                        @Field("user_google_lat") String user_google_lat,
                                        @Field("user_google_long") String user_google_long
                                        );
-    @FormUrlEncoded
+    @Multipart
     @POST("Api/UpdateClientRegistration/{user_id}")
     Call<UserModel> UpdateClientImage(@Path("user_id") String user_id,
                                       @Part("user_name")RequestBody user_name,
                                       @Part("user_phone")RequestBody user_phone,
                                       @Part("user_full_name")RequestBody user_full_name,
                                       @Part("user_email")RequestBody user_email,
-                                      MultipartBody.Part user_photo);
+                                      @Part MultipartBody.Part user_photo);
 
-    @FormUrlEncoded
+    @Multipart
     @POST("Api/UpdateClientRegistration/{user_id}")
     Call<UserModel> UpdateClientData(@Path("user_id") String user_id,
                                      @Part("user_name") RequestBody user_name,
@@ -80,7 +89,7 @@ public interface Service {
                                      @Part("user_full_name")RequestBody user_full_name,
                                      @Part("user_email")RequestBody user_email);
 
-    @FormUrlEncoded
+    @Multipart
     @POST("Api/UpdateDriverRegistration/{user_id}")
     Call<UserModel> UpdateDriverImage(@Path("user_id") String user_id,
                                       @Part("user_name")RequestBody user_name,
@@ -89,9 +98,9 @@ public interface Service {
                                       @Part("user_email")RequestBody user_email,
                                       @Part("user_neighborhood")RequestBody user_neighborhood,
                                       @Part("user_city")RequestBody user_city,
-                                      MultipartBody.Part photo);
+                                      @Part MultipartBody.Part photo);
 
-    @FormUrlEncoded
+    @Multipart
     @POST("Api/UpdateDriverRegistration/{user_id}")
     Call<UserModel> UpdateDriverData(@Path("user_id") String user_id,
                                       @Part("user_name") RequestBody user_name,
@@ -107,5 +116,48 @@ public interface Service {
 
     @GET("Api/AllDepartProduct")
     Call<List<AllGroceries_SubCategory>> getAllGrocery_subcategories();
+
+    @Multipart
+    @POST("Api/GroceryRegistration")
+    Call<UserModel> groceryRegister(@Part("user_name") RequestBody user_name,
+                                    @Part("user_pass")RequestBody user_pass,
+                                    @Part("user_phone")RequestBody user_phone,
+                                    @Part("user_full_name")RequestBody user_full_name,
+                                    @Part("user_token_id")RequestBody user_token_id,
+                                    @Part("user_google_lat")RequestBody user_google_lat,
+                                    @Part("user_google_long")RequestBody user_google_long,
+                                    @Part("user_email")RequestBody user_email,
+                                    @Part("user_work_hours")RequestBody user_work_hours,
+                                    @Part("my_products[]")List<RequestBody> id_product,
+                                    @Part MultipartBody.Part user_photo);
+    @GET("Api/AppDetails/3")
+    Call<RuleModel> getRuleData();
+
+    @POST("Api/mytester")
+    Call<Object> test(@Body List<ItemsModel> lists);
+
+    @GET("Api/ContactUs")
+    Call<ContactsModel> getContacts();
+
+    @FormUrlEncoded
+    @POST("Api/ContactUs")
+    Call<ResponseModel> ContactUs(@FieldMap Map<String,String> map);
+
+    @GET("Api/SuperMarket")
+    Call<List<SuperMarketModel>> getSuperMarketCategories();
+
+    @FormUrlEncoded
+    @POST("Api/MinMarket")
+    Call<List<MiniMarketDataModel>> getMiniMarketData(@Field("my_google_lat") double my_google_lat,@Field("my_google_long") double my_google_long);
+
+    @POST("Api/AddMinOrder")
+    Call<ResponseModel> sendOrderToMiniMarket(@Body List<ItemsModel> itemsModelList);
+
+    @POST("Api/AddSuperOrder")
+    Call<ResponseModel> sendOrderToSuperMarket(@Body List<ItemsModel> itemsModelList);
+
+    @FormUrlEncoded
+    @POST("Api/RestMyPass")
+    Call<ResponseModel> resetPassword(@Field("user_name") String user_name,@Field("user_email") String user_email);
 
 }
