@@ -136,7 +136,7 @@ public class TrolleyAdapter extends RecyclerView.Adapter<TrolleyAdapter.MyHolder
         {
             Picasso.with(context).load(Uri.parse(Tags.IMAGE_URL+itemsModel.getProduct_image())).into(image);
             tv_name.setText(itemsModel.getProduct_name());
-            tv_price.setText(itemsModel.getProduct_cost()+" ريال");
+            tv_price.setText(itemsModel.getProduct_cost()+" "+context.getString(R.string.sar));
             tv_counter.setText(itemsModel.getProduct_amount());
 
         }

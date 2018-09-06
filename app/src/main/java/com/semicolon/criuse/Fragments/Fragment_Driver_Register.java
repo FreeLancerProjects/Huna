@@ -3,17 +3,21 @@ package com.semicolon.criuse.Fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -75,6 +79,12 @@ public class Fragment_Driver_Register extends Fragment implements GoogleApiClien
     private File userPhoto_File,user_license_photoFile,user_car_photoFile,user_residence_photoFile;
     private Preferences preferences;
     private String session="";
+    private LocationManager manager;
+    private android.support.v7.app.AlertDialog dialog;
+    private final int gps_req=1558;
+    private final int read_req=1557;
+    private String read_per = Manifest.permission.READ_EXTERNAL_STORAGE;
+
 
 
     @Nullable
@@ -86,6 +96,8 @@ public class Fragment_Driver_Register extends Fragment implements GoogleApiClien
     }
 
     private void initView(View view) {
+        manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        CreateAlertDialog();
         preferences = Preferences.getInstance();
         session=preferences.getSession(getActivity());
         homeActivity = (HomeActivity) getActivity();
@@ -111,7 +123,7 @@ public class Fragment_Driver_Register extends Fragment implements GoogleApiClien
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SelectImage(IMG_REQ_1);
+                CheckReadPermission();
             }
         });
 
@@ -167,8 +179,14 @@ public class Fragment_Driver_Register extends Fragment implements GoogleApiClien
 
             }
 
-        initGoogleApiClient();
+        if (IsGpsOpen())
+        {
+            initGoogleApiClient();
 
+        }else
+        {
+            dialog.show();
+        }
     }
 
 
@@ -177,6 +195,18 @@ public class Fragment_Driver_Register extends Fragment implements GoogleApiClien
         Fragment_Driver_Register fragment = new Fragment_Driver_Register();
         return fragment;
     }
+    private void CheckReadPermission() {
+        String [] readpermissions = {read_per};
+        if (ContextCompat.checkSelfPermission(getActivity(),read_per)==PackageManager.PERMISSION_GRANTED)
+        {
+            SelectImage(IMG_REQ_1);
+
+        }else
+        {
+            ActivityCompat.requestPermissions(getActivity(),readpermissions,read_req);
+        }
+    }
+
     private void Register()
     {
         m_name = edt_name.getText().toString();
@@ -297,7 +327,7 @@ public class Fragment_Driver_Register extends Fragment implements GoogleApiClien
             user_residence_photoFile = new File(imagePath_3);
             user_send_photo=Tags.user_send_photo;
 
-            progressDialog = Common.CreateProgressDialog(getActivity(),"Registering....");
+            progressDialog = Common.CreateProgressDialog(getActivity(),getString(R.string.reging));
             progressDialog.show();
             RequestBody user_photoPart = RequestBody.create(MediaType.parse("image/*"),userPhoto_File);
             RequestBody user_license_photoPart = RequestBody.create(MediaType.parse("image/*"),user_license_photoFile);
@@ -375,6 +405,40 @@ public class Fragment_Driver_Register extends Fragment implements GoogleApiClien
         }
     }
 
+    private boolean IsGpsOpen() {
+        if (manager!=null)
+        {
+            if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+            {
+                return true;
+            }
+
+        }
+        return false;
+    }
+    private void CreateAlertDialog()
+    {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_gps_dialog,null);
+        Button button = view.findViewById(R.id.openBtn);
+        Button cancelBtn = view.findViewById(R.id.cancelBtn);
+        button.setOnClickListener(view1 -> {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivityForResult(intent,gps_req);
+            dialog.dismiss();
+        });
+
+        cancelBtn.setOnClickListener(view1 -> {
+            dialog.dismiss();
+            homeActivity.navigateToSettingFragment();
+        });
+        dialog = new android.support.v7.app.AlertDialog.Builder(getActivity())
+                .setCancelable(true)
+                .setView(view)
+                .create();
+        dialog.setCanceledOnTouchOutside(false);
+
+    }
+
     private void SelectImage(int IMG_REQ)
     {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -448,6 +512,8 @@ public class Fragment_Driver_Register extends Fragment implements GoogleApiClien
         if (requestCode==IMG_REQ_1 && resultCode== Activity.RESULT_OK && data!=null)
         {
             Uri uri = data.getData();
+            Log.e("url1",uri+"//");
+
             try {
                 bitmap1 = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri));
                 image.setImageBitmap(bitmap1);
@@ -460,7 +526,10 @@ public class Fragment_Driver_Register extends Fragment implements GoogleApiClien
             try {
                 bitmap2 = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri));
                 licence_image.setImageBitmap(bitmap2);
+                Log.e("url2",uri+"//");
                 imagePath_2 = Common.getImagePath(getActivity(), uri);
+                Log.e("path21",imagePath_2+"____");
+                Log.e("path21",uri.getPath()+"____");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -468,6 +537,8 @@ public class Fragment_Driver_Register extends Fragment implements GoogleApiClien
         else if (requestCode==IMG_REQ_3 && resultCode== Activity.RESULT_OK && data!=null) {
             Uri uri = data.getData();
             try {
+                Log.e("url3",uri+"//");
+
                 bitmap3 = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri));
                 residence_image.setImageBitmap(bitmap3);
                 imagePath_3 = Common.getImagePath(getActivity(), uri);
@@ -478,12 +549,54 @@ public class Fragment_Driver_Register extends Fragment implements GoogleApiClien
         else if (requestCode==IMG_REQ_4 && resultCode== Activity.RESULT_OK && data!=null) {
             Uri uri = data.getData();
             try {
+                Log.e("url4",uri+"//");
+
                 bitmap4 = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri));
                 car_image.setImageBitmap(bitmap4);
                 imagePath_4 = Common.getImagePath(getActivity(), uri);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+        }else if (requestCode==gps_req)
+        {
+            if (resultCode== Activity.RESULT_OK)
+            {
+                if (IsGpsOpen())
+                {
+                    initGoogleApiClient();
+
+                }else
+                {
+                    dialog.show();
+                }
+            }else
+            {
+                if (IsGpsOpen())
+                {
+                    initGoogleApiClient();
+
+                }else
+                {
+                    dialog.show();
+                }
+            }
         }
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode==read_req)
+        {
+            if (grantResults.length>0)
+            {
+                if (grantResults[0]!=PackageManager.PERMISSION_GRANTED)
+                {
+                    return;
+                }
+
+                SelectImage(IMG_REQ_1);
+            }
+        }
+    }
+
 }

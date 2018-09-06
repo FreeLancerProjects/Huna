@@ -63,17 +63,17 @@
         </android.support.v7.widget.Toolbar>
         <TextView
             android:id="@+id/tv_not_budget"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginLeft="27dp"
-            android:layout_marginTop="-43dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="-44dp"
             android:layout_marginRight="5dp"
             android:background="@drawable/not_budget"
             android:gravity="center"
             android:text="9+"
             android:singleLine="true"
             android:textColor="@android:color/white"
-            android:textSize="10dp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:clickable="false"
             android:longClickable="false"
@@ -82,15 +82,36 @@
             />
     </android.support.design.widget.AppBarLayout>
 
-    <include
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        layout="@layout/content_home"
         android:layout_weight="1"
-        android:layout_below="@+id/appBar"
-        android:layout_above="@+id/bottomNav"
 
-        />
+        >
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/content_home"
+
+            />
+        <io.github.yavski.fabspeeddial.FabSpeedDial
+            android:id="@+id/fabsd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            app:fabGravity="bottom_end"
+            app:fabMenu="@menu/fab_menu"
+            app:miniFabBackgroundTint="@color/white"
+            app:miniFabDrawableTint="@color/colorPrimary"
+            app:miniFabTitleTextColor="?attr/colorPrimaryDark"
+            app:fabBackgroundTint="@color/colorPrimary"
+            android:layout_marginBottom="40dp"
+            android:visibility="gone"
+
+            />
+    </FrameLayout>
+
 
     <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
         android:id="@+id/bottomNav"

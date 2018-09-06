@@ -70,7 +70,7 @@
     <string name="neighborhood_req">السكن فارغ</string>
     <string name="pass_not_match">كلمة المرور غير متطابقة</string>
     <string name="no_cat">لا توجد اقسام لعرضها</string>
-    <string name="accept">موافق</string>
+    <string name="accept">حسنا</string>
     <string name="ch_prof_img">إختر صورة الملف الشخصي</string>
     <string name="something_error">فشل حاول مره اخرى لاحقا</string>
     <string name="no_not">لا توجد إشعارات لعرضها</string>
@@ -156,4 +156,14 @@
     <string name="msg_will_send_torecover_pass">سيتم ارسال رساله الى البريد الالكتروني لاستعادة كلمة المرور</string>
     <string name="search2">ما الذي تبحث عنة</string>
     <string name="upd_username">تعديل اسم المستخدم</string>
+    <string name="accept2">موافق</string>
+    <string name="refuse2">رفض</string>
+    <string name="more">التفاصيل</string>
+    <string name="newpass_txt">كلمة المرور الجديدة</string>
+    <string name="order_canceld">تم رفض الطلب</string>
+    <string name="details_title">التفاصيل</string>
+    <string name="driver_info">بيانات السائق</string>
+    <string name="groc_info">بيانات البقالة</string>
+    <string name="client_information">بيانات العميل</string>
+    <string name="add_categories">إضافة عناصر</string>
 </resources>

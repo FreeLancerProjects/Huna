@@ -32,17 +32,11 @@ public class GpsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gps);
+        Log.e("hoooooooooogps","hooooooooooooooooosdsd");
         manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         CreateAlertDialog();
         checkPermission();
-        if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-        {
-            navigateToHome();
 
-        }else
-        {
-            dialog.show();
-        }
 
 
 
@@ -52,10 +46,16 @@ public class GpsActivity extends AppCompatActivity {
     {
         View view = LayoutInflater.from(this).inflate(R.layout.custom_gps_dialog,null);
         Button button = view.findViewById(R.id.openBtn);
+        Button cancelBtn = view.findViewById(R.id.cancelBtn);
         button.setOnClickListener(view1 -> {
             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivityForResult(intent,gps_req);
             dialog.dismiss();
+        });
+
+        cancelBtn.setOnClickListener(view1 -> {
+            dialog.dismiss();
+            finish();
         });
         dialog = new AlertDialog.Builder(this)
                 .setCancelable(true)
@@ -71,7 +71,28 @@ public class GpsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==gps_req)
         {
-            navigateToHome();
+            if (resultCode==RESULT_OK)
+            {
+                if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+                {
+                    navigateToHome();
+
+                }else
+                {
+                    dialog.show();
+                }
+            }else
+                {
+                    if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+                    {
+                        navigateToHome();
+
+                    }else
+                    {
+                        dialog.show();
+                    }
+                }
+
         }
     }
 
@@ -83,21 +104,36 @@ public class GpsActivity extends AppCompatActivity {
     }
     private void checkPermission() {
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), FineLoc) == PackageManager.PERMISSION_DENIED) {
-            Log.e("6", "a");
+            Log.e("666666666666666", "aaaaaaaaaaaaaaaaaaaaaad");
 
             if (ActivityCompat.checkSelfPermission(getApplicationContext(), CoarseLoc) == PackageManager.PERMISSION_DENIED) {
-                Log.e("7", "a");
-                navigateToHome();
-            } else {
-                Log.e("8", "a");
+                Log.e("77777777777777", "aaaaaaaaaaaaaaaaaaaaaaaaf");
+                if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+                {
+                    navigateToHome();
+
+                }else
+                {
+                    dialog.show();
+                }            } else {
+                Log.e("88888888888888888", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaac");
 
                 ActivityCompat.requestPermissions(this, permissions, per_req);
             }
         } else {
-            Log.e("9", "a");
+            Log.e("9999999999999999999", "aaaaaaaaaaaaaaaaaaaaaaaav");
+
 
             ActivityCompat.requestPermissions(this, permissions, per_req);
+            if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+            {
+                navigateToHome();
 
+            }else
+            {
+                dialog.show();
+
+            }
         }
     }
 
@@ -106,6 +142,8 @@ public class GpsActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(requestCode==gps_req)
         {
+
+
             if (grantResults.length>0)
             {
                 for (int i=0;i<grantResults.length;i++)
@@ -120,7 +158,11 @@ public class GpsActivity extends AppCompatActivity {
                 {
                     navigateToHome();
 
-                }
+                }else
+                    {
+                        dialog.show();
+
+                    }
                 return;
 
 
@@ -129,6 +171,8 @@ public class GpsActivity extends AppCompatActivity {
         }
 
     }
+
+
 
     @Override
     public void onBackPressed() {

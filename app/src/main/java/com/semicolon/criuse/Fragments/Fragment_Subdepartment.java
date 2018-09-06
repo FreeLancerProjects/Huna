@@ -106,6 +106,7 @@ public class Fragment_Subdepartment extends Fragment {
 
             UpdateUI(itemsModelList,title);
         }
+        homeActivity.HideFab();
     }
     private void Search(String query)
     {

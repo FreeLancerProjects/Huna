@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.semicolon.criuse.Activities.HomeActivity;
 import com.semicolon.criuse.Activities.SearchActivity;
 import com.semicolon.criuse.Adapters.ViewPagerAdapter;
 import com.semicolon.criuse.R;
@@ -32,6 +33,8 @@ public class Fragment_Home extends Fragment{
     private List<String> titleList;
     private Context context;
     private TextView searchView;
+    private HomeActivity homeActivity;
+
 
 
 
@@ -51,6 +54,7 @@ public class Fragment_Home extends Fragment{
         return fragment_home;
     }
     private void initView(View view) {
+        homeActivity = (HomeActivity) getActivity();
         Bundle bundle = getArguments();
         if (bundle!=null)
         {
@@ -81,16 +85,17 @@ public class Fragment_Home extends Fragment{
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) tab.getLayoutParams();
             if (i==0)
             {
-                p.setMargins(45, 0, 8, 0);
+                p.setMargins(10, 0, 8, 0);
 
             }else if (i==this.tab.getTabCount()-1)
             {
-                p.setMargins(0, 0, 45, 0);
+                p.setMargins(8, 0, 10, 0);
 
             }
             tab.requestLayout();
         }
 
+        homeActivity.showFab();
 
     }
     private List<String> AddTitle() {

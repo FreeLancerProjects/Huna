@@ -1,7 +1,9 @@
 package com.semicolon.criuse.Services;
 
 import com.semicolon.criuse.Models.AllGroceries_SubCategory;
+import com.semicolon.criuse.Models.Client_Notification_Model;
 import com.semicolon.criuse.Models.ContactsModel;
+import com.semicolon.criuse.Models.Driver_Grocery_Notification_Model;
 import com.semicolon.criuse.Models.ItemsModel;
 import com.semicolon.criuse.Models.MiniMarketDataModel;
 import com.semicolon.criuse.Models.Object;
@@ -159,5 +161,14 @@ public interface Service {
     @FormUrlEncoded
     @POST("Api/RestMyPass")
     Call<ResponseModel> resetPassword(@Field("user_name") String user_name,@Field("user_email") String user_email);
+
+    @GET("Api/ClientAlerts/{user_id}")
+    Call<List<Client_Notification_Model>> getClientNotifications(@Path("user_id") String user_id);
+
+    @GET("Api/MyDeliveryOrders/{user_id}")
+    Call<List<Driver_Grocery_Notification_Model>> getDriver_Notifications(@Path("user_id") String user_id);
+
+    @GET("Api/GroceryAlerts/{user_id}")
+    Call<List<Driver_Grocery_Notification_Model>> getGrocery_Notifications(@Path("user_id") String user_id);
 
 }

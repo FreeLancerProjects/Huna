@@ -147,6 +147,7 @@ public class ItemsSingleTone {
 
     public void  clear()
     {
+        itemsModelList.clear();
         minimarketItemsList.clear();
         superimarketItemsList.clear();
         bill_modelList.clear();

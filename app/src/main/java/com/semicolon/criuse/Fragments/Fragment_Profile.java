@@ -264,7 +264,8 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener{
             case Tags.update_password:
                 title.setText(R.string.upd_password);
                 edt_update.setHint(R.string.old_password);
-                edt_update.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                edt_update.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                newPassword.setHint(R.string.newpass_txt);
                 edt_update.setVisibility(View.VISIBLE);
                 edt_phone.setVisibility(View.GONE);
                 newPassword.setVisibility(View.VISIBLE);

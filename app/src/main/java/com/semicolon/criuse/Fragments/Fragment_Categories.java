@@ -1,9 +1,14 @@
 package com.semicolon.criuse.Fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -59,6 +64,9 @@ public class Fragment_Categories extends Fragment{
     private Preferences preferences;
     private String session="";
     private File image_file;
+    private LocationManager locationManager;
+    private android.support.v7.app.AlertDialog dialog;
+    private final int gps_req=1558;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -76,6 +84,8 @@ public class Fragment_Categories extends Fragment{
         return  fragment_setting;
     }
     private void initView(View view) {
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        CreateAlertDialog();
         preferences = Preferences.getInstance();
         session = preferences.getSession(getActivity());
         Bundle bundle = getArguments();
@@ -101,6 +111,11 @@ public class Fragment_Categories extends Fragment{
             }
         });
 
+        if (!IsGpsOpen())
+        {
+            dialog.show();
+        }
+
         getData();
 
         reg_btn.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +124,40 @@ public class Fragment_Categories extends Fragment{
                 Register();
             }
         });
+    }
+
+    private void CreateAlertDialog()
+    {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_gps_dialog,null);
+        Button button = view.findViewById(R.id.openBtn);
+        Button cancelBtn = view.findViewById(R.id.cancelBtn);
+        button.setOnClickListener(view1 -> {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivityForResult(intent,gps_req);
+            dialog.dismiss();
+        });
+
+        cancelBtn.setOnClickListener(view1 -> {
+            dialog.dismiss();
+            homeActivity.BackFromGroceryRegister2ToRegister1(groceryPart1);
+        });
+        dialog = new android.support.v7.app.AlertDialog.Builder(getActivity())
+                .setCancelable(true)
+                .setView(view)
+                .create();
+        dialog.setCanceledOnTouchOutside(false);
+
+    }
+    private boolean IsGpsOpen() {
+        if (locationManager!=null)
+        {
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+            {
+                return true;
+            }
+
+        }
+        return false;
     }
 
     private void Register() {
@@ -268,5 +317,27 @@ public class Fragment_Categories extends Fragment{
     {
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain"),part);
         return requestBody;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==gps_req)
+        {
+            if (resultCode== Activity.RESULT_OK)
+            {
+                if (!IsGpsOpen())
+                {
+                    dialog.show();
+
+                }
+            }else
+            {
+                if (IsGpsOpen()){
+                    dialog.show();
+
+                }
+            }
+        }
     }
 }

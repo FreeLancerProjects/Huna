@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -33,11 +34,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.MiniMarketDetailsActivity" />
-        <activity android:name=".Activities.SearchActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            >
-
-        </activity>
+        <activity
+            android:name=".Activities.SearchActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".Activities.ClientNotificationDetailsActivity" />
+        <activity android:name=".Activities.Driver_Grocery_Notification_Details_Activity"></activity>
     </application>
 
 </manifest>

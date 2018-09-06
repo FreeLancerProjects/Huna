@@ -155,4 +155,14 @@
     <string name="msg_will_send_torecover_pass">A message will be sent to the email to recover the password</string>
     <string name="search2">Search</string>
     <string name="upd_username">Update Username</string>
+    <string name="accept2">Accept</string>
+    <string name="refuse2">Refuse</string>
+    <string name="more">More</string>
+    <string name="newpass_txt">New password</string>
+    <string name="order_canceld">Order is canceled</string>
+    <string name="details_title">Details</string>
+    <string name="driver_info">Driver Information</string>
+    <string name="groc_info">Grocery Information</string>
+    <string name="client_information">Client Information</string>
+    <string name="add_categories">Add Categories</string>
 </resources>

@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,6 +58,9 @@ public class Fragment_Grocery_Register extends Fragment implements GoogleApiClie
     private final int IMG_REQ=5;
     private Preferences preferences;
     private String session="";
+    private final int read_req=1557;
+    private String read_per = Manifest.permission.READ_EXTERNAL_STORAGE;
+
 
 
     @Nullable
@@ -97,7 +101,7 @@ public class Fragment_Grocery_Register extends Fragment implements GoogleApiClie
         tv_upload_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SelectImage();
+                CheckReadPermission();
             }
         });
         btn_continue.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +128,17 @@ public class Fragment_Grocery_Register extends Fragment implements GoogleApiClie
 
         }
     }
+    private void CheckReadPermission() {
+        String [] readpermissions = {read_per};
+        if (ContextCompat.checkSelfPermission(getActivity(),read_per)==PackageManager.PERMISSION_GRANTED)
+        {
+            SelectImage();
 
+        }else
+        {
+            ActivityCompat.requestPermissions(getActivity(),readpermissions,read_req);
+        }
+    }
     private void Next() {
         String m_name = edt_name.getText().toString();
         String m_hour = edt_time.getText().toString();
@@ -307,4 +321,22 @@ public class Fragment_Grocery_Register extends Fragment implements GoogleApiClie
         }
         LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient,this);
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode==read_req)
+        {
+            if (grantResults.length>0)
+            {
+                if (grantResults[0]!=PackageManager.PERMISSION_GRANTED)
+                {
+                    return;
+                }
+
+                SelectImage();
+            }
+        }
+    }
+
 }

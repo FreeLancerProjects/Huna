@@ -1,8 +1,11 @@
 package com.semicolon.criuse.Fragments;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,9 +13,11 @@ import android.graphics.Matrix;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +25,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,6 +100,9 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback, Google
     private AutocompleteFilter filter;
     private FloatingActionButton fab;
     private ProgressDialog progressDialog;
+    private LocationManager manager;
+    private AlertDialog dialog;
+    private final int gps_req=1558;
 
 
 
@@ -113,9 +122,12 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback, Google
     private void initView(View view) {
         homeActivity = (HomeActivity) getActivity();
         itemsSingleTone = ItemsSingleTone.getInstance();
+        manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        CreateAlertDialog();
         if (isServiceOk()) {
             checkPermissions();
         }
+
 
         fab = view.findViewById(R.id.fab);
         fab.setEnabled(false);
@@ -149,6 +161,40 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback, Google
 
     }
 
+    private boolean IsGpsOpen() {
+        if (manager!=null)
+        {
+            if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+            {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    private void CreateAlertDialog()
+    {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_gps_dialog,null);
+        Button button = view.findViewById(R.id.openBtn);
+        Button cancelBtn = view.findViewById(R.id.cancelBtn);
+        button.setOnClickListener(view1 -> {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivityForResult(intent,gps_req);
+            dialog.dismiss();
+        });
+
+        cancelBtn.setOnClickListener(view1 -> {
+            dialog.dismiss();
+            homeActivity.fragmentManager.popBackStack();
+        });
+        dialog = new AlertDialog.Builder(getActivity())
+                .setCancelable(true)
+                .setView(view)
+                .create();
+        dialog.setCanceledOnTouchOutside(false);
+
+    }
     private void initMap() {
         if (fragment==null)
         {
@@ -172,7 +218,7 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback, Google
         }
 
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+            //return;
         }
 
 
@@ -219,7 +265,14 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback, Google
         {
             if (ContextCompat.checkSelfPermission(getActivity(),coarseLoc)==PackageManager.PERMISSION_GRANTED)
             {
-                initMap();
+                if (IsGpsOpen())
+                {
+                    initMap();
+
+                }else
+                    {
+                        dialog.show();
+                    }
             }else
                 {
                     ActivityCompat.requestPermissions(getActivity(),permissions,per_req);
@@ -246,7 +299,14 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback, Google
                     }
                 }
 
-                initMap();
+                if (IsGpsOpen())
+                {
+                    initMap();
+
+                }else
+                {
+                    dialog.show();
+                }
             }
         }
     }
@@ -537,4 +597,32 @@ public class Fragment_Map extends Fragment implements OnMapReadyCallback, Google
     }
 
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==gps_req)
+        {
+            if (resultCode== Activity.RESULT_OK)
+            {
+                if (IsGpsOpen())
+                {
+                    initMap();
+
+                }else
+                {
+                    dialog.show();
+                }
+            }else
+            {
+                if (IsGpsOpen())
+                {
+                    initMap();
+
+                }else
+                {
+                    dialog.show();
+                }
+            }
+        }
+    }
 }

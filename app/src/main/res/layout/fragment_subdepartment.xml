@@ -18,9 +18,10 @@
         <ImageView
             android:id="@+id/img_back"
             android:layout_width="45dp"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:src="@drawable/close_arrow"
-            android:padding="5dp"
+            android:padding="12dp"
+
             />
         <TextView
             android:id="@+id/tv_title"

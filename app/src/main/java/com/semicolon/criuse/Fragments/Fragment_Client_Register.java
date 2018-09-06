@@ -3,17 +3,21 @@ package com.semicolon.criuse.Fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -71,6 +75,12 @@ public class Fragment_Client_Register extends Fragment implements GoogleApiClien
     private AlertDialog progressDialog;
     private Preferences preferences;
     private String session="";
+    private LocationManager manager;
+    private android.support.v7.app.AlertDialog dialog;
+    private final int gps_req=1558;
+    private final int read_req=1557;
+    private String read_per = Manifest.permission.READ_EXTERNAL_STORAGE;
+
 
     @Nullable
     @Override
@@ -86,6 +96,8 @@ public class Fragment_Client_Register extends Fragment implements GoogleApiClien
     }
 
     private void initView(View view) {
+        manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        CreateAlertDialog();
         preferences = Preferences.getInstance();
         session=preferences.getSession(getActivity());
         homeActivity = (HomeActivity) getActivity();
@@ -99,7 +111,12 @@ public class Fragment_Client_Register extends Fragment implements GoogleApiClien
         edt_re_password = view.findViewById(R.id.edt_re_password);
         btn_Register = view.findViewById(R.id.reg_btn);
 
-        image.setOnClickListener(view1 -> SelectImage());
+        image.setOnClickListener(view1 ->
+                CheckReadPermission()
+               // SelectImage()
+
+
+        );
         btn_Register.setOnClickListener(view12 -> Register());
 
         ll_login.setOnClickListener(view13 -> homeActivity.DisplayLoginLayout(Tags.client_register));
@@ -122,12 +139,62 @@ public class Fragment_Client_Register extends Fragment implements GoogleApiClien
 
         }
 
-        initGoogleApiClient();
+        if (IsGpsOpen())
+        {
+            initGoogleApiClient();
+
+        }else
+        {
+            dialog.show();
+        }
 
     }
 
+    private void CheckReadPermission() {
+        String [] readpermissions = {read_per};
+        if (ContextCompat.checkSelfPermission(getActivity(),read_per)==PackageManager.PERMISSION_GRANTED)
+        {
+            SelectImage();
+        }else
+            {
+                ActivityCompat.requestPermissions(getActivity(),readpermissions,read_req);
+            }
+    }
 
 
+    private boolean IsGpsOpen() {
+        if (manager!=null)
+        {
+            if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+            {
+                return true;
+            }
+
+        }
+        return false;
+    }
+    private void CreateAlertDialog()
+    {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_gps_dialog,null);
+        Button button = view.findViewById(R.id.openBtn);
+        Button cancelBtn = view.findViewById(R.id.cancelBtn);
+        button.setOnClickListener(view1 -> {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivityForResult(intent,gps_req);
+            dialog.dismiss();
+        });
+
+        cancelBtn.setOnClickListener(view1 -> {
+            dialog.dismiss();
+            homeActivity.navigateToSettingFragment();
+        });
+        dialog = new android.support.v7.app.AlertDialog.Builder(getActivity())
+                .setCancelable(true)
+                .setView(view)
+                .create();
+        dialog.setCanceledOnTouchOutside(false);
+
+    }
 
     private void initGoogleApiClient() {
         googleApiClient = new GoogleApiClient.Builder(getActivity())
@@ -312,6 +379,29 @@ public class Fragment_Client_Register extends Fragment implements GoogleApiClien
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+        }else if (requestCode==gps_req)
+        {
+            if (resultCode== Activity.RESULT_OK)
+            {
+                if (IsGpsOpen())
+                {
+                    initGoogleApiClient();
+
+                }else
+                {
+                    dialog.show();
+                }
+            }else
+            {
+                if (IsGpsOpen())
+                {
+                    initGoogleApiClient();
+
+                }else
+                {
+                    dialog.show();
+                }
+            }
         }
     }
 
@@ -365,4 +455,21 @@ public class Fragment_Client_Register extends Fragment implements GoogleApiClien
         LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient,this);
     }
 
-   }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode==read_req)
+        {
+            if (grantResults.length>0)
+            {
+                if (grantResults[0]!=PackageManager.PERMISSION_GRANTED)
+                {
+                    return;
+                }
+
+                SelectImage();
+            }
+        }
+    }
+}

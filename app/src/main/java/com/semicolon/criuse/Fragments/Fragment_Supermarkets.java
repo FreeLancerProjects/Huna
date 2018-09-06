@@ -60,7 +60,6 @@ public class Fragment_Supermarkets extends Fragment {
         recView.setLayoutManager(manager);
         adapter = new SuperMarketAdapter(getActivity(),superMarketModelList,this);
         recView.setAdapter(adapter);
-
         getData();
     }
 

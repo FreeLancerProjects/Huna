@@ -25,8 +25,12 @@ public class Tags {
     public static final String normal="2";
     public static final String decrese_trolley="1";
     public static final String remove_from_trolley="0";
-    public static final String  isAdmin_supermarket = "1";
-    public static final String  isAdmin_minimarket = "0";
+    public static final String isAdmin_supermarket = "1";
+    public static final String isAdmin_minimarket = "0";
+    public static final String accept="1";
+    public static final String refuse="2";
+    public static final String market_type_driver="1";
+    public static final String market_type_grocery="2";
 
 
 

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.ClientNotificationDetailsActivity"
+    android:orientation="vertical"
+    >
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <ImageView
+                    android:id="@+id/image_back"
+                    android:layout_width="56dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/back_ar_icon"
+                    android:padding="10dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/white"
+                    android:text="@string/details_title"
+                    android:textSize="16sp"
+
+                    />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        android:clickable="true"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_margin="5dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:clickable="false"
+                android:longClickable="false"
+                android:descendantFocusability="blocksDescendants"
+                >
+                <ImageView
+                    android:id="@+id/image_icon"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/collaps_icon"
+                    android:padding="12dp"
+                    android:clickable="false"
+                    android:longClickable="false"
+
+                    />
+
+                <TextView
+                    android:id="@+id/tv_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:textColor="@color/colorPrimary"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:clickable="false"
+                    android:longClickable="false"
+
+
+                    />
+            </LinearLayout>
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/expand_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:el_duration="1000"
+                app:el_expanded="false"
+                app:el_parallax=".5"
+                android:background="@color/white"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp"
+
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/gray1"
+                        android:layout_marginBottom="5dp"
+                        />
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+
+                            >
+                            <FrameLayout
+                                android:layout_width="95dp"
+                                android:layout_height="match_parent">
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/image"
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:src="@drawable/user_profile"
+                                    android:clickable="false"
+                                    android:longClickable="false"
+                                    />
+                            </FrameLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:clickable="false"
+                                    android:longClickable="false"
+                                    android:text="Name"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tv_phone"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:clickable="false"
+                                    android:longClickable="false"
+                                    android:text="phone"
+                                    android:textColor="@color/gray4"
+                                    android:textSize="13sp"
+                                    android:inputType="phone"
+                                    android:layout_marginTop="5dp"
+
+                                    />
+
+                                <TextView
+                                    android:id="@+id/tv_address"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/gray4"
+                                    android:textSize="13sp"
+                                    android:text="Address "
+                                    android:layout_marginTop="5dp"
+                                    android:clickable="false"
+                                    android:longClickable="false"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/tv_cost"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:clickable="false"
+                                    android:longClickable="false"
+                                    android:text="cost"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    />
+                                <TextView
+                                    android:id="@+id/tv_date"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="15sp"
+                                    android:clickable="false"
+                                    android:longClickable="false"
+                                    />
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </net.cachapa.expandablelayout.ExpandableLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

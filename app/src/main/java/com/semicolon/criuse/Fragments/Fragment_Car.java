@@ -125,6 +125,7 @@ public class Fragment_Car extends Fragment{
                 }
             });
 
+        //homeActivity.HideFab();
 
     }
 

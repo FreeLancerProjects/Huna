@@ -206,6 +206,7 @@ public class Fragment_Bill extends Fragment {
                     public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                         if (response.isSuccessful())
                         {
+                            Log.e("ddddddd",response.body().getSuccess_object()+"___");
                             if (response.body().getSuccess_object()==1)
                             {
                                 progressDialog.dismiss();
@@ -225,7 +226,11 @@ public class Fragment_Bill extends Fragment {
 
                                 Toast.makeText(getActivity(), R.string.failed, Toast.LENGTH_LONG).show();
                             }
-                        }
+                        }else
+                            {
+                                Log.e("kkkk","ggggggg___");
+
+                            }
                     }
 
                     @Override

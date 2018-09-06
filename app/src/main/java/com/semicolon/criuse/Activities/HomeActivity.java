@@ -34,6 +34,8 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.notification.AHNotification;
 import com.irozon.sneaker.Sneaker;
 import com.semicolon.criuse.Fragments.FragmentClientNotification;
+import com.semicolon.criuse.Fragments.Fragment_Driver_Notification;
+import com.semicolon.criuse.Fragments.Fragment_Grocery_Notification;
 import com.semicolon.criuse.Fragments.FragmentMyOrderContainer;
 import com.semicolon.criuse.Fragments.Fragment_Car;
 import com.semicolon.criuse.Fragments.Fragment_Categories;
@@ -68,6 +70,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.github.yavski.fabspeeddial.FabSpeedDial;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -104,6 +107,8 @@ public class HomeActivity extends AppCompatActivity
     private AlertDialog notalertDialog;
     public FragmentManager fragmentManager;
     public ItemsSingleTone itemsSingleTone;
+    private FabSpeedDial fab;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +125,7 @@ public class HomeActivity extends AppCompatActivity
     private void initView()
     {
         Log.e("home fragment_bill","initview");
+
         itemsSingleTone = ItemsSingleTone.getInstance();
         preferences = Preferences.getInstance();
         userSingletone = UserSingletone.getInstance();
@@ -143,6 +149,7 @@ public class HomeActivity extends AppCompatActivity
         IncreaseNotification_Counter(5);
         IncreaseNotificationBudget_Counter(9);
 
+        fab = findViewById(R.id.fabsd);
         back = findViewById(R.id.back);
         this.view =findViewById(R.id.root);
         tv_title = findViewById(R.id.tv_title);
@@ -172,7 +179,7 @@ public class HomeActivity extends AppCompatActivity
         ahBottomNavigation.setForceTint(false);
         ahBottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
         ahBottomNavigation.setColored(false);
-        ahBottomNavigation.setTitleTextSize(20f,17f);
+        ahBottomNavigation.setTitleTextSize(28f,24f);
         ahBottomNavigation.setInactiveColor(ContextCompat.getColor(this,R.color.un_color));
         ahBottomNavigation.setAccentColor(ContextCompat.getColor(this,R.color.colorPrimary));
         ahBottomNavigation.setDefaultBackgroundResource(R.color.white);
@@ -214,7 +221,23 @@ public class HomeActivity extends AppCompatActivity
                     {
                         if (session.equals(Tags.session_login))
                         {
-                            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, FragmentClientNotification.getInstance("")).commit();
+                            if (userModel!=null)
+                            {
+                                if (userModel.getUser_type().equals(Tags.user_type_client)){
+                                    fragmentManager.beginTransaction().replace(R.id.fragmentsContainer,FragmentClientNotification.getInstance(userModel.getUser_id())).commit();
+
+                                }else if (userModel.getUser_type().equals(Tags.user_type_driver))
+                                {
+                                    fragmentManager.beginTransaction().replace(R.id.fragmentsContainer, Fragment_Driver_Notification.getInstance(userModel.getUser_id())).commit();
+
+                                }else if (userModel.getUser_type().equals(Tags.user_type_grocery))
+                                {
+                                    fragmentManager.beginTransaction().replace(R.id.fragmentsContainer, Fragment_Grocery_Notification.getInstance(userModel.getUser_id())).commit();
+
+
+                                }
+
+                            }
 
                         }else if (session.equals(Tags.session_logout))
                         {
@@ -277,16 +300,35 @@ public class HomeActivity extends AppCompatActivity
 
                 if (userModel.getUser_type().equals(Tags.user_type_driver))
                 {
+                    fab.setVisibility(View.GONE);
                     serviceIntent = new Intent(this, ServiceUpdateLocation.class);
                     startService(serviceIntent);
                     EventBus.getDefault().register(this);
-                }
+
+                }else if (userModel.getUser_type().equals(Tags.user_type_grocery))
+                {
+                    Log.e("faaaaaaaaaab","faaaaaaab");
+                    UpdateSpeedDial();
+                }else
+                    {
+                        fab.setVisibility(View.GONE);
+
+                    }
 
                 UpdateUi(userModel);
             }
         }
 
     }
+
+    private void UpdateSpeedDial() {
+        Log.e("fb","fb");
+        Animation animation = AnimationUtils.loadAnimation(this,R.anim.fab_anim);
+        fab.setVisibility(View.VISIBLE);
+        fab.clearAnimation();
+        fab.startAnimation(animation);
+    }
+
     private void CreateLogoutAlertDialog()
     {
         logoutDialog = new AlertDialog.Builder(this)
@@ -397,8 +439,57 @@ public class HomeActivity extends AppCompatActivity
             {
                 Picasso.with(this).load(Uri.parse(Tags.IMAGE_URL+userModel.getUser_photo())).placeholder(R.drawable.user_profile).into(image);
                 tv_name.setText(userModel.getUser_full_name());
+                UpdateSpeedDial();
             }
         }
+    }
+    public void HideFab()
+    {
+        Log.e("fabbb","fabbbb");
+        fab.setVisibility(View.GONE);
+    }
+
+    public void showFab()
+    {
+
+        String session = preferences.getSession(this);
+
+        if (session!=null&&!TextUtils.isEmpty(session))
+        {
+            if (session.equals(Tags.session_login))
+            {
+                if (userModel!=null)
+                {
+                    if (userModel.getUser_type().equals(Tags.user_type_grocery))
+                    {
+                        UpdateSpeedDial();
+                    }else
+                        {
+                            fab.setVisibility(View.GONE);
+                        }
+                }
+            }else
+                {
+                    fab.setVisibility(View.GONE);
+                }
+        }else
+            {
+                fab.setVisibility(View.GONE);
+            }
+
+        if (userModel!=null)
+        {
+            if (userModel.getUser_type().equals(Tags.user_type_grocery))
+            {
+                UpdateSpeedDial();
+            }else
+                {
+                    fab.setVisibility(View.GONE);
+                }
+        }else
+            {
+                fab.setVisibility(View.GONE);
+            }
     }
     ////from login and registering fragments and profile fragment_bill
     public void UpdateData(UserModel userModel)
@@ -625,7 +716,7 @@ public class HomeActivity extends AppCompatActivity
 
                 break;
             case 1:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, FragmentClientNotification.getInstance("")).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, FragmentClientNotification.getInstance(userModel.getUser_id())).commit();
 
                 break;
             case 2:

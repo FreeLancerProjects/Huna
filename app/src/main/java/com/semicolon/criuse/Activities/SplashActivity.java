@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.semicolon.criuse.R;
 
@@ -20,6 +21,7 @@ public class SplashActivity extends AppCompatActivity {
                         Intent intent = new Intent(SplashActivity.this,HomeActivity.class);
                         startActivity(intent);
                         finish();
+                        Log.e("splllaaaaaaaaaaaash","splaaaaaaaaaaaaaaaaaaash");
                     }
                 },4000);
     }

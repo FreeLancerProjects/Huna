@@ -156,6 +156,7 @@ public class Fragment_Setting extends Fragment{
                 soundCardView.setVisibility(View.GONE);
             }
 
+            homeActivity.HideFab();
     }
 
     ////from home activity
