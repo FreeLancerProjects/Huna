@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.semicolon.criuse.Fragments.FragmentClientNotification;
+import com.semicolon.criuse.Fragments.Fragment_Client_Notification;
 import com.semicolon.criuse.Models.Client_Notification_Model;
 import com.semicolon.criuse.R;
 import com.semicolon.criuse.Services.Tags;
@@ -27,12 +27,12 @@ public class Client_Notification_Adapter extends RecyclerView.Adapter<RecyclerVi
     private final int ITEM_NOTIFICATION_NORMAL =2;
 
     private Context context;
-    private FragmentClientNotification fragment;
+    private Fragment_Client_Notification fragment;
     private List<Client_Notification_Model> client_notification_modelList;
     public Client_Notification_Adapter(Context context, List<Client_Notification_Model> client_notification_modelList, Fragment fragment) {
         this.context = context;
         this.client_notification_modelList = client_notification_modelList;
-        this.fragment = (FragmentClientNotification) fragment;
+        this.fragment = (Fragment_Client_Notification) fragment;
     }
 
     @NonNull
@@ -65,6 +65,26 @@ public class Client_Notification_Adapter extends RecyclerView.Adapter<RecyclerVi
                     fragment.setItem(model);
                 }
             });
+
+            myHolder.btn_accept.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Client_Notification_Model notificationModel = client_notification_modelList.get(holder.getAdapterPosition());
+                    fragment.sendAccept(myHolder.getAdapterPosition(),notificationModel.getId_delivery_order(),notificationModel.getBill_num_fk(),notificationModel.getId_delivery_user_fk(),notificationModel.getMarket_type());
+
+                }
+            });
+
+            myHolder.btn_refuse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Client_Notification_Model notificationModel = client_notification_modelList.get(holder.getAdapterPosition());
+                    fragment.sendRefuse(myHolder.getAdapterPosition(),notificationModel.getId_delivery_order(),notificationModel.getBill_num_fk(),notificationModel.getId_delivery_user_fk(),notificationModel.getMarket_type());
+
+                }
+            });
+
+
         }else if (holder instanceof MyHolder2)
         {
             MyHolder2 myHolder2 = (MyHolder2) holder;
@@ -112,13 +132,14 @@ public class Client_Notification_Adapter extends RecyclerView.Adapter<RecyclerVi
 
     public class MyHolder2 extends RecyclerView.ViewHolder {
         private CircleImageView image;
-        private TextView tv_name,tv_date;
+        private TextView tv_name,tv_date,tv_not_txt;
         public MyHolder2(View itemView) {
             super(itemView);
 
             image = itemView.findViewById(R.id.image);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_date = itemView.findViewById(R.id.tv_date);
+            tv_not_txt = itemView.findViewById(R.id.tv_not_txt);
 
 
 
@@ -131,6 +152,14 @@ public class Client_Notification_Adapter extends RecyclerView.Adapter<RecyclerVi
             tv_name.setText(notification_model.getDelivery_user_name());
             tv_date.setText(notification_model.getDelivery_order_time());
 
+            if (notification_model.getDelivery_orders_replay().equals(Tags.refuse))
+            {
+                tv_not_txt.setText(context.getString(R.string.order_canceld));
+            }else if (notification_model.getDelivery_orders_replay().equals(Tags.refuse_noavailable_driver))
+            {
+                tv_not_txt.setText(R.string.refuse_nodriver_available);
+
+            }
         }
     }
 

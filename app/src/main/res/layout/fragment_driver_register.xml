@@ -70,7 +70,7 @@
             android:layout_marginLeft="30dp"
             android:background="@drawable/edt_reg_bg"
             android:layout_marginTop="40dp"
-            android:drawableLeft="@drawable/reg_user_icon"
+            android:drawableStart="@drawable/reg_user_icon"
             android:paddingLeft="10dp"
             android:drawablePadding="5dp"
             android:paddingRight="10dp"
@@ -81,7 +81,7 @@
             android:inputType="textPersonName"
             android:textSize="13sp"
 
-            />
+            android:drawableLeft="@drawable/reg_user_icon" />
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
                 android:layout_height="40dp"
                 android:singleLine="true"
                 android:background="@drawable/edt_reg_bg"
-                android:drawableLeft="@drawable/phone_icon"
+                android:drawableStart="@drawable/phone_icon"
                 android:paddingLeft="10dp"
                 android:drawablePadding="5dp"
                 android:paddingRight="10dp"
@@ -114,7 +114,7 @@
                 android:inputType="phone"
                 android:textSize="13sp"
 
-                />
+                android:drawableLeft="@drawable/phone_icon" />
         </FrameLayout>
         <EditText
             android:id="@+id/edt_city"
@@ -125,7 +125,7 @@
             android:layout_marginLeft="30dp"
             android:background="@drawable/edt_reg_bg"
             android:layout_marginTop="10dp"
-            android:drawableLeft="@drawable/blue_map_icon"
+            android:drawableStart="@drawable/blue_map_icon"
             android:paddingLeft="10dp"
             android:drawablePadding="5dp"
             android:paddingRight="10dp"
@@ -135,7 +135,7 @@
             android:gravity="center"
             android:textSize="13sp"
 
-            />
+            android:drawableLeft="@drawable/blue_map_icon" />
         <EditText
             android:id="@+id/edt_neighborhood"
             android:layout_width="match_parent"
@@ -145,7 +145,7 @@
             android:layout_marginLeft="30dp"
             android:background="@drawable/edt_reg_bg"
             android:layout_marginTop="15dp"
-            android:drawableLeft="@drawable/blue_map_icon"
+            android:drawableStart="@drawable/blue_map_icon"
             android:paddingLeft="10dp"
             android:drawablePadding="5dp"
             android:paddingRight="10dp"
@@ -156,7 +156,7 @@
             android:inputType="text"
             android:textSize="13sp"
 
-            />
+            android:drawableLeft="@drawable/blue_map_icon" />
         <LinearLayout
             android:id="@+id/ll_upload_license_image"
 
@@ -168,17 +168,14 @@
             android:orientation="horizontal"
             android:background="@drawable/edt_reg_img_bg"
             android:weightSum="1"
-            android:layoutDirection="ltr"
             android:descendantFocusability="blocksDescendants"
             >
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight=".85"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:drawableLeft="@drawable/camera_icon"
-                android:paddingLeft="5dp"
+                android:drawableStart="@drawable/camera_icon"
                 android:drawablePadding="5dp"
                 android:textColor="@color/white"
                 android:textSize="13sp"
@@ -186,16 +183,21 @@
                 android:gravity="center"
                 android:longClickable="false"
                 android:clickable="false"
+                android:drawableLeft="@drawable/camera_icon"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+
                 />
             <ImageView
                 android:id="@+id/licence_image"
-                android:layout_width="35dp"
+                android:layout_width="0dp"
+                android:layout_weight=".12"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:padding="4dp"
+                android:padding="6dp"
                 android:scaleType="centerCrop"
                 android:longClickable="false"
                 android:clickable="false"
+
                 />
         </LinearLayout>
         <LinearLayout
@@ -209,7 +211,6 @@
             android:orientation="horizontal"
             android:background="@drawable/edt_reg_img_bg"
             android:weightSum="1"
-            android:layoutDirection="ltr"
             android:descendantFocusability="blocksDescendants"
 
 
@@ -217,11 +218,9 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight=".85"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:drawableLeft="@drawable/camera_icon"
-                android:paddingLeft="5dp"
+                android:drawableStart="@drawable/camera_icon"
                 android:drawablePadding="5dp"
                 android:textColor="@color/white"
                 android:textSize="13sp"
@@ -229,13 +228,16 @@
                 android:gravity="center"
                 android:longClickable="false"
                 android:clickable="false"
+                android:drawableLeft="@drawable/camera_icon"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 />
             <ImageView
                 android:id="@+id/residence_image"
-                android:layout_width="35dp"
+                android:layout_width="0dp"
+                android:layout_weight=".13"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:padding="4dp"
+                android:padding="6dp"
                 android:scaleType="centerCrop"
                 android:longClickable="false"
                 android:clickable="false"
@@ -252,18 +254,15 @@
             android:orientation="horizontal"
             android:background="@drawable/edt_reg_img_bg"
             android:weightSum="1"
-            android:layoutDirection="ltr"
             android:descendantFocusability="blocksDescendants"
 
             >
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight=".85"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:drawableLeft="@drawable/camera_icon"
-                android:paddingLeft="5dp"
+                android:drawableStart="@drawable/camera_icon"
                 android:drawablePadding="5dp"
                 android:textColor="@color/white"
                 android:textSize="13sp"
@@ -271,15 +270,17 @@
                 android:gravity="center"
                 android:longClickable="false"
                 android:clickable="false"
+                android:drawableLeft="@drawable/camera_icon"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 />
             <ImageView
                 android:id="@+id/car_form_image"
-                android:layout_width="35dp"
+                android:layout_width="0dp"
+                android:layout_weight=".13"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:padding="4dp"
+                android:padding="6dp"
                 android:scaleType="centerCrop"
-
                 android:longClickable="false"
                 android:clickable="false"
                 />
@@ -293,7 +294,7 @@
             android:layout_marginLeft="30dp"
             android:background="@drawable/edt_reg_bg"
             android:layout_marginTop="10dp"
-            android:drawableLeft="@drawable/reg_user_icon"
+            android:drawableStart="@drawable/reg_user_icon"
             android:paddingLeft="10dp"
             android:drawablePadding="5dp"
             android:paddingRight="10dp"
@@ -303,7 +304,7 @@
             android:gravity="center"
             android:textSize="13sp"
 
-            />
+            android:drawableLeft="@drawable/reg_user_icon" />
 
         <EditText
             android:id="@+id/edt_password"
@@ -313,7 +314,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/edt_reg_bg"
-            android:drawableLeft="@drawable/lock_icon"
+            android:drawableStart="@drawable/lock_icon"
             android:drawablePadding="5dp"
             android:gravity="center"
             android:hint="@string/password"
@@ -325,7 +326,7 @@
             android:textColorHint="@color/cp2"
             android:textSize="13sp"
 
-            />
+            android:drawableLeft="@drawable/lock_icon" />
         <EditText
             android:id="@+id/edt_re_password"
 
@@ -336,7 +337,7 @@
             android:layout_marginLeft="30dp"
             android:background="@drawable/edt_reg_bg"
             android:layout_marginTop="15dp"
-            android:drawableLeft="@drawable/lock_icon"
+            android:drawableStart="@drawable/lock_icon"
             android:paddingLeft="10dp"
             android:drawablePadding="5dp"
             android:paddingRight="10dp"
@@ -347,7 +348,7 @@
             android:inputType="textPassword"
             android:textSize="13sp"
 
-            />
+            android:drawableLeft="@drawable/lock_icon" />
         <Button
             android:id="@+id/reg_btn"
 

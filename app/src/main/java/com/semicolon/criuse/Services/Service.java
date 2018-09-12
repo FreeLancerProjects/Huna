@@ -1,15 +1,18 @@
 package com.semicolon.criuse.Services;
 
 import com.semicolon.criuse.Models.AllGroceries_SubCategory;
+import com.semicolon.criuse.Models.ClientOrderModel;
 import com.semicolon.criuse.Models.Client_Notification_Model;
 import com.semicolon.criuse.Models.ContactsModel;
 import com.semicolon.criuse.Models.Driver_Grocery_Notification_Model;
+import com.semicolon.criuse.Models.Driver_Grocery_OrderModel;
 import com.semicolon.criuse.Models.ItemsModel;
 import com.semicolon.criuse.Models.MiniMarketDataModel;
 import com.semicolon.criuse.Models.Object;
 import com.semicolon.criuse.Models.ResponseModel;
 import com.semicolon.criuse.Models.RuleModel;
 import com.semicolon.criuse.Models.SuperMarketModel;
+import com.semicolon.criuse.Models.UnreadModel;
 import com.semicolon.criuse.Models.UserModel;
 
 import java.util.List;
@@ -171,4 +174,59 @@ public interface Service {
     @GET("Api/GroceryAlerts/{user_id}")
     Call<List<Driver_Grocery_Notification_Model>> getGrocery_Notifications(@Path("user_id") String user_id);
 
+    @GET("Api/ClintUnread/{user_id}")
+    Call<UnreadModel> getClientUnreadNotification(@Path("user_id") String user_id);
+
+    @FormUrlEncoded
+    @POST("Api/ClintUnread/{user_id}")
+    Call<UnreadModel> setClientReadNotification(@Path("user_id") String user_id, @Field("read_all") String read_all);
+
+
+    @GET("Api/DeliverUnread/{user_id}")
+    Call<UnreadModel> getDriver_Grocery_UnreadNotification(@Path("user_id") String user_id);
+
+    @FormUrlEncoded
+    @POST("Api/DeliverUnread/{user_id}")
+    Call<UnreadModel> setDriver_Grocery_ReadNotification(@Path("user_id") String user_id, @Field("read_all") String read_all);
+
+    @FormUrlEncoded
+    @POST("Api/SearchProduct")
+    Call<List<ItemsModel>> search(@Field("searh_title") String query);
+
+    @FormUrlEncoded
+    @POST("Api/ClientReply/{user_id}/{id_delivery_order}")
+    Call<ResponseModel> clientReplyOrder(@Path("user_id")String user_id,
+                                         @Path("id_delivery_order")String id_delivery_order,
+                                         @Field("action") String action,
+                                         @Field("bill_num_fk") String bill_num_fk,
+                                         @Field("id_delivery_user_fk") String id_delivery_user_fk,
+                                         @Field("market_type") String market_type);
+
+    @FormUrlEncoded
+    @POST("Api/DriverReply/{user_id}/{id_delivery_order}")
+    Call<ResponseModel> driverReplyOrder(@Path("user_id")String user_id,
+                                         @Path("id_delivery_order")String id_delivery_order,
+                                         @Field("action") String action,
+                                         @Field("bill_num_fk") String bill_num_fk,
+                                         @Field("id_client_fk") String Id_client_fk);
+
+    @FormUrlEncoded
+    @POST("Api/GroceryReply/{user_id}/{id_delivery_order}")
+    Call<ResponseModel> groceryReplyOrder(@Path("user_id")String user_id,
+                                         @Path("id_delivery_order")String id_delivery_order,
+                                         @Field("action") String action,
+                                         @Field("bill_num_fk") String bill_num_fk,
+                                         @Field("id_client_fk") String Id_client_fk);
+
+    @GET("Api/ClientOrders/1/{user_id}")
+    Call<List<ClientOrderModel>> getClientCurrentOrder(@Path("user_id") String user_id);
+
+    @GET("Api/ClientOrders/2/{user_id}")
+    Call<List<ClientOrderModel>> getClientPreviousOrder(@Path("user_id") String user_id);
+
+    @GET("Api/MyOrders/1/{user_id}")
+    Call<List<Driver_Grocery_OrderModel>> getDriver_Grocery_CurrentOrder(@Path("user_id") String user_id);
+
+    @GET("Api/MyOrders/2/{user_id}")
+    Call<List<Driver_Grocery_OrderModel>> getDriver_Grocery_PreviousOrder(@Path("user_id") String user_id);
 }

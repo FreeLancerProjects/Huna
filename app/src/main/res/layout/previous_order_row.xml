@@ -9,6 +9,8 @@
     android:clickable="false"
     android:longClickable="false"
     android:descendantFocusability="blocksDescendants"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
     >
     <FrameLayout
         android:layout_width="match_parent"
@@ -40,42 +42,68 @@
                 android:orientation="vertical"
                 android:gravity="center_vertical"
                 >
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:text="Name"
-                    android:clickable="false"
-                    android:longClickable="false"
-                    />
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    >
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.4"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:text="Name"
+                        android:clickable="false"
+                        android:longClickable="false"
+                        android:singleLine="true"
+
+                        />
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="0dp"
+                        android:layout_weight=".6"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15sp"
+                        android:text="منذ 2 يوم"
+                        android:clickable="false"
+                        android:longClickable="false"
+                        android:singleLine="true"
+
+                        />
+                </LinearLayout>
+
                 <TextView
-                    android:id="@+id/tv_not_txt"
+                    android:id="@+id/tv_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/gray3"
                     android:textSize="14sp"
-                    android:text="asssd"
+                    android:text="address"
                     android:layout_marginTop="5dp"
                     android:clickable="false"
                     android:longClickable="false"
                     />
+
+
 
                 <TextView
-                    android:id="@+id/tv_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="15sp"
-                    android:text="منذ 2 يوم"
+                    android:textSize="13sp"
+                    android:text="@string/details_title"
                     android:clickable="false"
                     android:longClickable="false"
-                    />
 
+                    />
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

@@ -17,6 +17,7 @@ public class ItemsModel implements Serializable {
     private String market_phone;
     private String delivery_cost;
     private String item_one_cost;
+    private String market_photo;
     private double user_google_lat;
     private double user_google_long;
     private String user_address;
@@ -172,5 +173,9 @@ public class ItemsModel implements Serializable {
 
     public void setUser_address(String user_address) {
         this.user_address = user_address;
+    }
+
+    public String getMarket_photo() {
+        return market_photo;
     }
 }

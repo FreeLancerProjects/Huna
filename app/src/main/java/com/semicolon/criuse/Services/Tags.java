@@ -29,8 +29,11 @@ public class Tags {
     public static final String isAdmin_minimarket = "0";
     public static final String accept="1";
     public static final String refuse="2";
+    public static final String refuse_noavailable_driver="3";
     public static final String market_type_driver="1";
     public static final String market_type_grocery="2";
+    public static final String send_accept_order="1";
+    public static final String send_refuse_order="2";
 
 
 

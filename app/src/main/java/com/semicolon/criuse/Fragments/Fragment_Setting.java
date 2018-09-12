@@ -156,7 +156,6 @@ public class Fragment_Setting extends Fragment{
                 soundCardView.setVisibility(View.GONE);
             }
 
-            homeActivity.HideFab();
     }
 
     ////from home activity
@@ -169,5 +168,7 @@ public class Fragment_Setting extends Fragment{
         soundCardView.setVisibility(View.VISIBLE);
         tv_name.setText(userModel.getUser_full_name());
         Picasso.with(getActivity()).load(Uri.parse(Tags.IMAGE_URL+userModel.getUser_photo())).into(image);
+        homeActivity.HideFab();
+
     }
 }

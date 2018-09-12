@@ -15,11 +15,14 @@ import android.widget.ImageView;
 import com.semicolon.criuse.Activities.HomeActivity;
 import com.semicolon.criuse.Adapters.ViewPagerAdapter;
 import com.semicolon.criuse.R;
+import com.semicolon.criuse.Services.Tags;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentMyOrderContainer extends Fragment {
+    private static final String USER_TYPE="1";
+    private static final String USER_ID="2";
     private TabLayout tab;
     private ViewPager pager;
     private ViewPagerAdapter adapter;
@@ -28,6 +31,7 @@ public class FragmentMyOrderContainer extends Fragment {
     private Context context;
     private ImageView back;
     private HomeActivity homeActivity;
+    private String user_id="",user_type="";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,13 +42,19 @@ public class FragmentMyOrderContainer extends Fragment {
     }
 
     private void initView(View view) {
+        Bundle bundle = getArguments();
+        if (bundle!=null)
+        {
+            user_id = bundle.getString(USER_ID);
+            user_type = bundle.getString(USER_TYPE);
+        }
         homeActivity = (HomeActivity) getActivity();
         fragmentList = new ArrayList<>();
         titleList = new ArrayList<>();
         back = view.findViewById(R.id.back);
         tab = view.findViewById(R.id.tab);
         pager = view.findViewById(R.id.pager);
-        AddFragments();
+        AddFragments(user_type);
         AddTitle();
         adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(),context);
         adapter.AddFragments(fragmentList);
@@ -61,10 +71,12 @@ public class FragmentMyOrderContainer extends Fragment {
 
             }else if (i==this.tab.getTabCount()-1)
             {
-                p.setMargins(0, 0, 15, 0);
+                p.setMargins(15, 0, 15, 0);
 
             }
             tab.requestLayout();
+
+            homeActivity.HideFab();
         }
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -83,16 +95,28 @@ public class FragmentMyOrderContainer extends Fragment {
 
     }
 
-    private List<Fragment> AddFragments() {
-        fragmentList.add(Fragment_Current_Order.getInstance());
-        fragmentList.add(Fragment_Previous_Order.getInstance());
+    private List<Fragment> AddFragments(String user_type) {
+        if (user_type.equals(Tags.user_type_client))
+        {
+            fragmentList.add(Fragment_Client_Current_Order.getInstance(user_id));
+            fragmentList.add(Fragment_Client_Previous_Order.getInstance(user_id));
+        }else if (user_type.equals(Tags.user_type_driver)||user_type.equals(Tags.user_type_grocery))
+        {
+            fragmentList.add(Fragment_Driver_Grocery_Current_Order.getInstance(user_id));
+            fragmentList.add(Fragment_Driver_Grocery_Previous_Order.getInstance(user_id));
+        }
+
 
         return fragmentList;
     }
 
-    public static FragmentMyOrderContainer getInstance()
+    public static FragmentMyOrderContainer getInstance(String user_type,String user_id)
     {
+        Bundle bundle = new Bundle();
         FragmentMyOrderContainer fragment = new FragmentMyOrderContainer();
+        bundle.putString(USER_ID,user_id);
+        bundle.putString(USER_TYPE,user_type);
+        fragment.setArguments(bundle);
         return fragment;
     }
 }

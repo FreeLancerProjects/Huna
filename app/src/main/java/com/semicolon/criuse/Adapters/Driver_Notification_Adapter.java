@@ -51,6 +51,24 @@ public class Driver_Notification_Adapter extends RecyclerView.Adapter<Driver_Not
                 fragment.setItem(notificationModel);
             }
         });
+
+        holder.btn_accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Driver_Grocery_Notification_Model notificationModel = notificationList.get(holder.getAdapterPosition());
+                fragment.sendAccept(holder.getAdapterPosition(),notificationModel.getId_delivery_order(),notificationModel.getBill_num_fk(),notificationModel.getId_client_fk());
+
+            }
+        });
+
+        holder.btn_refuse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Driver_Grocery_Notification_Model notificationModel = notificationList.get(holder.getAdapterPosition());
+                fragment.sendRefuse(holder.getAdapterPosition(),notificationModel.getId_delivery_order(),notificationModel.getBill_num_fk(),notificationModel.getId_client_fk());
+
+            }
+        });
     }
 
     @Override
@@ -69,7 +87,7 @@ public class Driver_Notification_Adapter extends RecyclerView.Adapter<Driver_Not
             image = itemView.findViewById(R.id.image);
             card = itemView.findViewById(R.id.card);
             tv_name = itemView.findViewById(R.id.tv_name);
-            tv_address = itemView.findViewById(R.id.tv_address);
+            tv_address = itemView.findViewById(R.id.tv_order_address);
             tv_date = itemView.findViewById(R.id.tv_date);
             btn_accept = itemView.findViewById(R.id.btn_accept);
             btn_refuse = itemView.findViewById(R.id.btn_refuse);

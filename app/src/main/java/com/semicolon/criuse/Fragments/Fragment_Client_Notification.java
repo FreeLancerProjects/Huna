@@ -22,8 +22,10 @@ import com.semicolon.criuse.Activities.HomeActivity;
 import com.semicolon.criuse.Activities.ClientNotificationDetailsActivity;
 import com.semicolon.criuse.Adapters.Client_Notification_Adapter;
 import com.semicolon.criuse.Models.Client_Notification_Model;
+import com.semicolon.criuse.Models.ResponseModel;
 import com.semicolon.criuse.R;
 import com.semicolon.criuse.Services.Api;
+import com.semicolon.criuse.Services.Tags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentClientNotification extends Fragment{
+public class Fragment_Client_Notification extends Fragment{
     private static String TAG="TAG";
     private String user_id="";
     private HomeActivity homeActivity;
@@ -52,9 +54,9 @@ public class FragmentClientNotification extends Fragment{
         return view;
     }
 
-    public static FragmentClientNotification getInstance(String user_type)
+    public static Fragment_Client_Notification getInstance(String user_type)
     {
-        FragmentClientNotification fragment_setting = new FragmentClientNotification();
+        Fragment_Client_Notification fragment_setting = new Fragment_Client_Notification();
         Bundle bundle = new Bundle();
         bundle.putString(TAG,user_type);
         fragment_setting.setArguments(bundle);
@@ -129,4 +131,85 @@ public class FragmentClientNotification extends Fragment{
         getActivity().startActivity(intent);
     }
 
+    public void sendAccept(int pos,String id_delivery_order,String bill_num_fk,String id_delivery_user_fk,String market_type)
+    {
+        Api.getServices()
+                .clientReplyOrder(user_id,id_delivery_order, Tags.send_accept_order,bill_num_fk,id_delivery_user_fk,market_type)
+                .enqueue(new Callback<ResponseModel>() {
+                    @Override
+                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                        if (response.isSuccessful())
+                        {
+                            Log.e("respons33",response.body().getSuccess_action()+"");
+
+                            if (response.body().getSuccess_action()==1)
+                            {
+                                client_notification_modelList.remove(pos);
+                                adapter.notifyItemRemoved(pos);
+                                if (client_notification_modelList.size()==0)
+                                {
+                                    ll_no_notification.setVisibility(View.VISIBLE);
+                                }else
+                                {
+                                    ll_no_notification.setVisibility(View.GONE);
+
+                                }
+
+                                Toast.makeText(homeActivity, R.string.rep_don, Toast.LENGTH_LONG).show();
+                            }else if (response.body().getSuccess_action()==0)
+                            {
+                                Toast.makeText(homeActivity, R.string.something_error, Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseModel> call, Throwable t) {
+                        Log.e("Error",t.getMessage());
+                        Toast.makeText(homeActivity, R.string.something_error, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    public void sendRefuse(int pos,String id_delivery_order,String bill_num_fk,String id_delivery_user_fk,String market_type)
+    {
+        Api.getServices()
+                .clientReplyOrder(user_id,id_delivery_order, Tags.send_refuse_order,bill_num_fk,id_delivery_user_fk,market_type)
+                .enqueue(new Callback<ResponseModel>() {
+                    @Override
+                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                        if (response.isSuccessful())
+                        {
+                            Log.e("respons444",response.body().getSuccess_action()+"");
+
+                            if (response.body().getSuccess_action()==1)
+                            {
+                                client_notification_modelList.remove(pos);
+                                adapter.notifyItemRemoved(pos);
+                                if (client_notification_modelList.size()==0)
+                                {
+                                    ll_no_notification.setVisibility(View.VISIBLE);
+                                }else
+                                {
+                                    ll_no_notification.setVisibility(View.GONE);
+
+                                }
+                                Toast.makeText(homeActivity, R.string.rep_don, Toast.LENGTH_LONG).show();
+
+                            }else if (response.body().getSuccess_action()==0)
+                            {
+                                Toast.makeText(homeActivity, R.string.something_error, Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseModel> call, Throwable t) {
+                        Log.e("Error",t.getMessage());
+                        Toast.makeText(homeActivity, R.string.something_error, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 }

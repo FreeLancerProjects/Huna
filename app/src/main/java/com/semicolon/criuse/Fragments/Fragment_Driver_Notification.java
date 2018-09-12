@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +22,10 @@ import com.semicolon.criuse.Activities.Driver_Grocery_Notification_Details_Activ
 import com.semicolon.criuse.Activities.HomeActivity;
 import com.semicolon.criuse.Adapters.Driver_Notification_Adapter;
 import com.semicolon.criuse.Models.Driver_Grocery_Notification_Model;
+import com.semicolon.criuse.Models.ResponseModel;
 import com.semicolon.criuse.R;
 import com.semicolon.criuse.Services.Api;
+import com.semicolon.criuse.Services.Tags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,5 +130,88 @@ public class Fragment_Driver_Notification extends Fragment{
         Intent intent = new Intent(getContext(), Driver_Grocery_Notification_Details_Activity.class);
         intent.putExtra("data",item);
         getActivity().startActivity(intent);
+    }
+
+
+    public void sendAccept(int pos,String id_delivery_order,String bill_num_fk,String id_client_fk)
+    {
+        Api.getServices()
+                .driverReplyOrder(user_id,id_delivery_order, Tags.send_accept_order,bill_num_fk,id_client_fk)
+                .enqueue(new Callback<ResponseModel>() {
+                    @Override
+                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                        if (response.isSuccessful())
+                        {
+                            Log.e("respons33",response.body().getSuccess_action()+"");
+
+                            if (response.body().getSuccess_action()==1)
+                            {
+                                notification_modelList.remove(pos);
+                                adapter.notifyItemRemoved(pos);
+                                if (notification_modelList.size()==0)
+                                {
+                                    ll_no_notification.setVisibility(View.VISIBLE);
+                                }else
+                                {
+                                    ll_no_notification.setVisibility(View.GONE);
+
+                                }
+
+                                Toast.makeText(homeActivity, R.string.rep_don, Toast.LENGTH_LONG).show();
+                            }else if (response.body().getSuccess_action()==0)
+                            {
+                                Toast.makeText(homeActivity, R.string.something_error, Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseModel> call, Throwable t) {
+                        Log.e("Error",t.getMessage());
+                        Toast.makeText(homeActivity, R.string.something_error, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    public void sendRefuse(int pos,String id_delivery_order,String bill_num_fk,String id_client_fk)
+    {
+        Api.getServices()
+                .driverReplyOrder(user_id,id_delivery_order, Tags.send_refuse_order,bill_num_fk,id_client_fk)
+                .enqueue(new Callback<ResponseModel>() {
+                    @Override
+                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                        if (response.isSuccessful())
+                        {
+                            Log.e("respons444",response.body().getSuccess_action()+"");
+
+                            if (response.body().getSuccess_action()==1)
+                            {
+                                notification_modelList.remove(pos);
+                                adapter.notifyItemRemoved(pos);
+                                if (notification_modelList.size()==0)
+                                {
+                                    ll_no_notification.setVisibility(View.VISIBLE);
+                                }else
+                                    {
+                                        ll_no_notification.setVisibility(View.GONE);
+
+                                    }
+                                Toast.makeText(homeActivity, R.string.rep_don, Toast.LENGTH_LONG).show();
+
+                            }else if (response.body().getSuccess_action()==0)
+                            {
+                                Toast.makeText(homeActivity, R.string.something_error, Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseModel> call, Throwable t) {
+                        Log.e("Error",t.getMessage());
+                        Toast.makeText(homeActivity, R.string.something_error, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

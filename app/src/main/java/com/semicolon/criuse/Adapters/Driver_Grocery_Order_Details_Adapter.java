@@ -1,0 +1,69 @@
+package com.semicolon.criuse.Adapters;
+
+import android.content.Context;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.github.siyamed.shapeimageview.RoundedImageView;
+import com.semicolon.criuse.Models.Driver_Grocery_OrderModel;
+import com.semicolon.criuse.R;
+import com.semicolon.criuse.Services.Tags;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
+public class Driver_Grocery_Order_Details_Adapter extends RecyclerView.Adapter<Driver_Grocery_Order_Details_Adapter.MyHolder> {
+
+    private Context context;
+    private List<Driver_Grocery_OrderModel.Bill_Product> bill_productList;
+
+    public Driver_Grocery_Order_Details_Adapter(Context context, List<Driver_Grocery_OrderModel.Bill_Product> bill_productList) {
+        this.context = context;
+        this.bill_productList = bill_productList;
+    }
+
+    @NonNull
+    @Override
+    public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.client_notification_details_row,parent,false);
+        return new MyHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+        Driver_Grocery_OrderModel.Bill_Product bill_product = bill_productList.get(position);
+        holder.BindData(bill_product);
+    }
+
+    @Override
+    public int getItemCount() {
+        return bill_productList.size();
+    }
+
+    public class MyHolder extends RecyclerView.ViewHolder {
+        private RoundedImageView image;
+        private TextView tv_name,tv_amount,tv_cost;
+        public MyHolder(View itemView) {
+            super(itemView);
+
+            image = itemView.findViewById(R.id.image);
+            tv_name = itemView.findViewById(R.id.tv_name);
+            tv_amount = itemView.findViewById(R.id.tv_amount);
+            tv_cost = itemView.findViewById(R.id.tv_cost);
+
+        }
+
+        public void BindData(Driver_Grocery_OrderModel.Bill_Product bill_product)
+        {
+            Picasso.with(context).load(Tags.IMAGE_URL+Uri.parse(bill_product.getProduct_image())).into(image);
+            tv_name.setText(bill_product.getProduct_title());
+            tv_amount.setText(bill_product.getProduct_amount());
+            tv_cost.setText(bill_product.getProduct_cost()+" "+context.getString(R.string.sar));
+        }
+    }
+}

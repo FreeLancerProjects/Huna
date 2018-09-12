@@ -51,6 +51,24 @@ public class Grocery_Notification_Adapter extends RecyclerView.Adapter<Grocery_N
                 fragment.setItem(notificationModel);
             }
         });
+
+        holder.btn_accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Driver_Grocery_Notification_Model notificationModel = notificationList.get(holder.getAdapterPosition());
+                fragment.sendAccept(holder.getAdapterPosition(),notificationModel.getId_delivery_order(),notificationModel.getBill_num_fk(),notificationModel.getId_client_fk());
+
+            }
+        });
+
+        holder.btn_refuse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Driver_Grocery_Notification_Model notificationModel = notificationList.get(holder.getAdapterPosition());
+                fragment.sendRefuse(holder.getAdapterPosition(),notificationModel.getId_delivery_order(),notificationModel.getBill_num_fk(),notificationModel.getId_client_fk());
+
+            }
+        });
     }
 
     @Override

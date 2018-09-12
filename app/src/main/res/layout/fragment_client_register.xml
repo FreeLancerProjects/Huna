@@ -59,7 +59,7 @@
             android:layout_marginLeft="30dp"
             android:background="@drawable/edt_reg_bg"
             android:layout_marginTop="40dp"
-            android:drawableLeft="@drawable/reg_user_icon"
+            android:drawableStart="@drawable/reg_user_icon"
             android:paddingLeft="10dp"
             android:drawablePadding="5dp"
             android:paddingRight="10dp"
@@ -70,7 +70,7 @@
             android:inputType="textPersonName"
             android:textSize="13sp"
 
-            />
+            android:drawableLeft="@drawable/reg_user_icon" />
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                 android:layout_height="40dp"
                 android:singleLine="true"
                 android:background="@drawable/edt_reg_bg"
-                android:drawableLeft="@drawable/phone_icon"
+                android:drawableStart="@drawable/phone_icon"
                 android:paddingLeft="10dp"
                 android:drawablePadding="5dp"
                 android:paddingRight="10dp"
@@ -103,7 +103,7 @@
                 android:inputType="phone"
                 android:textSize="13sp"
 
-                />
+                android:drawableLeft="@drawable/phone_icon" />
         </FrameLayout>
         <EditText
             android:id="@+id/edt_user_name"
@@ -114,7 +114,7 @@
             android:layout_marginLeft="30dp"
             android:background="@drawable/edt_reg_bg"
             android:layout_marginTop="10dp"
-            android:drawableLeft="@drawable/reg_user_icon"
+            android:drawableStart="@drawable/reg_user_icon"
             android:paddingLeft="10dp"
             android:drawablePadding="5dp"
             android:paddingRight="10dp"
@@ -124,7 +124,7 @@
             android:gravity="center"
             android:textSize="13sp"
 
-            />
+            android:drawableLeft="@drawable/reg_user_icon" />
         <EditText
             android:id="@+id/edt_password"
             android:layout_width="match_parent"
@@ -134,7 +134,7 @@
             android:layout_marginLeft="30dp"
             android:background="@drawable/edt_reg_bg"
             android:layout_marginTop="15dp"
-            android:drawableLeft="@drawable/lock_icon"
+            android:drawableStart="@drawable/lock_icon"
             android:paddingLeft="10dp"
             android:drawablePadding="5dp"
             android:paddingRight="10dp"
@@ -145,7 +145,7 @@
             android:inputType="textPassword"
             android:textSize="13sp"
 
-            />
+            android:drawableLeft="@drawable/lock_icon" />
         <EditText
             android:id="@+id/edt_re_password"
 
@@ -156,7 +156,7 @@
             android:layout_marginLeft="30dp"
             android:background="@drawable/edt_reg_bg"
             android:layout_marginTop="15dp"
-            android:drawableLeft="@drawable/lock_icon"
+            android:drawableStart="@drawable/lock_icon"
             android:paddingLeft="10dp"
             android:drawablePadding="5dp"
             android:paddingRight="10dp"
@@ -167,7 +167,7 @@
             android:inputType="textPassword"
             android:textSize="13sp"
 
-            />
+            android:drawableLeft="@drawable/lock_icon" />
 
         <Button
             android:id="@+id/reg_btn"

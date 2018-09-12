@@ -3,7 +3,6 @@ package com.semicolon.criuse.Adapters;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.siyamed.shapeimageview.RoundedImageView;
-import com.semicolon.criuse.Fragments.Fragment_MiniMarket_Category_Details;
+import com.semicolon.criuse.Activities.SearchActivity;
 import com.semicolon.criuse.Models.ItemsModel;
 import com.semicolon.criuse.R;
 import com.semicolon.criuse.Services.Tags;
@@ -22,21 +21,21 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class MiniMarketCategoryDetailsAdapter extends RecyclerView.Adapter<MiniMarketCategoryDetailsAdapter.MyHolder>{
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyHolder>{
     private Context context;
     private List<ItemsModel> itemsModelList;
-    private Fragment_MiniMarket_Category_Details fragment_miniMarket_category_details;
+    private SearchActivity activity;
 
-    public MiniMarketCategoryDetailsAdapter(Context context, List<ItemsModel> itemsModelList, Fragment fragment) {
+    public SearchAdapter(Context context, List<ItemsModel> itemsModelList) {
         this.context = context;
         this.itemsModelList = itemsModelList;
-        this.fragment_miniMarket_category_details = (Fragment_MiniMarket_Category_Details) fragment;
+        this.activity= (SearchActivity) context;
     }
 
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.subdepartment_item_row,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.search_row,parent,false);
         return new MyHolder(view);
 
     }
@@ -77,7 +76,7 @@ public class MiniMarketCategoryDetailsAdapter extends RecyclerView.Adapter<MiniM
                 holder.tv_addto_trolley.setVisibility(View.INVISIBLE);
                 itemsModel.setProduct_amount("0");
                 holder.img_trolley.setVisibility(View.GONE);
-                fragment_miniMarket_category_details.Remove_From_Trolley(itemsModel);
+                activity.Remove_From_Trolley(itemsModel);
                 holder.StartAnimation(holder.tv_price);
                 holder.tv_price.setText(itemsModel.getItem_one_cost()+" "+context.getString(R.string.sar));
 
@@ -95,7 +94,7 @@ public class MiniMarketCategoryDetailsAdapter extends RecyclerView.Adapter<MiniM
         });
 
         holder.tv_addto_trolley.setOnClickListener(view -> {
-            fragment_miniMarket_category_details.SaveItem_To_Trolley(itemsModel);
+            activity.SaveItem_To_Trolley(itemsModel);
             holder.img_trolley.setVisibility(View.VISIBLE);
 
         });
@@ -110,7 +109,7 @@ public class MiniMarketCategoryDetailsAdapter extends RecyclerView.Adapter<MiniM
 
     public class MyHolder extends RecyclerView.ViewHolder{
         private RoundedImageView image;
-        private TextView tv_name,tv_price,tv_counter,tv_addto_trolley;
+        private TextView tv_name,tv_price,tv_counter,tv_addto_trolley,tv_market_name;
         private ImageView increase_btn,decrease_btn,img_trolley;
         public MyHolder(View itemView) {
             super(itemView);
@@ -122,6 +121,7 @@ public class MiniMarketCategoryDetailsAdapter extends RecyclerView.Adapter<MiniM
             increase_btn = itemView.findViewById(R.id.increase_btn);
             decrease_btn = itemView.findViewById(R.id.decrease_btn);
             img_trolley = itemView.findViewById(R.id.img_trolley);
+            tv_market_name = itemView.findViewById(R.id.tv_market_name);
 
 
         }
@@ -131,6 +131,7 @@ public class MiniMarketCategoryDetailsAdapter extends RecyclerView.Adapter<MiniM
             Picasso.with(context).load(Uri.parse(Tags.IMAGE_URL+itemsModel.getProduct_image())).into(image);
             tv_name.setText(itemsModel.getProduct_name());
             tv_price.setText(itemsModel.getProduct_cost()+" "+context.getString(R.string.sar));
+            tv_market_name.setText(itemsModel.getMarket_name());
 
         }
         public void StartAnimation(View view)

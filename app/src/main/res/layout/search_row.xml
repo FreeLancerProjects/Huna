@@ -56,7 +56,20 @@
         android:singleLine="true"
 
         />
+    <TextView
+        android:id="@+id/tv_market_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="سوبر ماركت"
+        android:gravity="center"
+        android:singleLine="true"
 
+        />
     <!--<TextView
         android:id="@+id/tv_details"
         android:layout_width="wrap_content"

@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.semicolon.criuse.Adapters.Driver_Grocery_Notification_Details_Adapter;
-import com.semicolon.criuse.Models.Driver_Grocery_Notification_Model;
+import com.semicolon.criuse.Adapters.Client_Order_Details_Adapter;
+import com.semicolon.criuse.Models.ClientOrderModel;
 import com.semicolon.criuse.R;
 import com.semicolon.criuse.Services.Tags;
 import com.squareup.picasso.Picasso;
@@ -21,8 +21,7 @@ import net.cachapa.expandablelayout.ExpandableLayout;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Driver_Grocery_Notification_Details_Activity extends AppCompatActivity {
-
+public class ClientOrderDetailsActivity extends AppCompatActivity {
     private CardView cardView;
     private ImageView image_back,image_icon;
     private TextView tv_name,tv_phone,tv_address,tv_cost;
@@ -31,16 +30,35 @@ public class Driver_Grocery_Notification_Details_Activity extends AppCompatActiv
     private RecyclerView recView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager manager;
-    private Driver_Grocery_Notification_Model driver_grocery_notification_model;
-    private String type="";//
-
+    private ClientOrderModel clientOrderModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_driver__grocery__notification__details_);
+        setContentView(R.layout.activity_order_details);
         initView();
         getDataFromIntent();
     }
+
+    private void getDataFromIntent() {
+        Intent intent = getIntent();
+        if (intent!=null)
+        {
+            clientOrderModel = (ClientOrderModel) intent.getSerializableExtra("data");
+            UpdateUI(clientOrderModel);
+        }
+    }
+
+    private void UpdateUI(ClientOrderModel clientOrderModel) {
+        Picasso.with(this).load(Tags.IMAGE_URL+ Uri.parse(clientOrderModel.getDelivery_user_photo())).placeholder(R.drawable.user_profile).into(image);
+        tv_name.setText(clientOrderModel.getDelivery_user_name());
+        tv_phone.setText(clientOrderModel.getDelivery_user_phone());
+        tv_address.setText(clientOrderModel.getBill_address());
+        tv_cost.setText(String.valueOf(clientOrderModel.getBill_cost())+" "+getString(R.string.sar));
+
+        adapter = new Client_Order_Details_Adapter(this,clientOrderModel.getBill_productList());
+        recView.setAdapter(adapter);
+    }
+
     private void initView() {
         cardView = findViewById(R.id.cardView);
         image_back = findViewById(R.id.image_back);
@@ -82,26 +100,5 @@ public class Driver_Grocery_Notification_Details_Activity extends AppCompatActiv
                 expand_layout.toggle(true);
             }
         });
-    }
-
-    private void getDataFromIntent() {
-        Intent intent = getIntent();
-        if (intent!=null)
-        {
-            driver_grocery_notification_model = (Driver_Grocery_Notification_Model) intent.getSerializableExtra("data");
-            UpdateUI(driver_grocery_notification_model);
-        }
-    }
-    private void UpdateUI(Driver_Grocery_Notification_Model driver_grocery_notification_model) {
-
-
-        Picasso.with(this).load(Tags.IMAGE_URL+ Uri.parse(driver_grocery_notification_model.getClient_photo())).placeholder(R.drawable.user_profile).into(image);
-        tv_name.setText(driver_grocery_notification_model.getClient_name());
-        tv_phone.setText(driver_grocery_notification_model.getClient_phone());
-        tv_address.setText(driver_grocery_notification_model.getBill_address());
-        tv_cost.setText(String.valueOf(driver_grocery_notification_model.getBill_cost())+" "+getString(R.string.sar));
-
-        adapter = new Driver_Grocery_Notification_Details_Adapter(this,driver_grocery_notification_model.getBill_product());
-        recView.setAdapter(adapter);
     }
 }

@@ -33,16 +33,16 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.notification.AHNotification;
 import com.irozon.sneaker.Sneaker;
-import com.semicolon.criuse.Fragments.FragmentClientNotification;
-import com.semicolon.criuse.Fragments.Fragment_Driver_Notification;
-import com.semicolon.criuse.Fragments.Fragment_Grocery_Notification;
+import com.semicolon.criuse.Fragments.Fragment_Client_Notification;
 import com.semicolon.criuse.Fragments.FragmentMyOrderContainer;
 import com.semicolon.criuse.Fragments.Fragment_Car;
 import com.semicolon.criuse.Fragments.Fragment_Categories;
 import com.semicolon.criuse.Fragments.Fragment_Client_Register;
 import com.semicolon.criuse.Fragments.Fragment_Contactus;
+import com.semicolon.criuse.Fragments.Fragment_Driver_Notification;
 import com.semicolon.criuse.Fragments.Fragment_Driver_Register;
 import com.semicolon.criuse.Fragments.Fragment_ForgetPassword;
+import com.semicolon.criuse.Fragments.Fragment_Grocery_Notification;
 import com.semicolon.criuse.Fragments.Fragment_Grocery_Register;
 import com.semicolon.criuse.Fragments.Fragment_Home;
 import com.semicolon.criuse.Fragments.Fragment_Login;
@@ -52,6 +52,7 @@ import com.semicolon.criuse.Fragments.Fragment_Setting;
 import com.semicolon.criuse.Models.GroceryPart1;
 import com.semicolon.criuse.Models.LocationUpdateModel;
 import com.semicolon.criuse.Models.ResponseModel;
+import com.semicolon.criuse.Models.UnreadModel;
 import com.semicolon.criuse.Models.UserModel;
 import com.semicolon.criuse.R;
 import com.semicolon.criuse.Services.Api;
@@ -179,7 +180,7 @@ public class HomeActivity extends AppCompatActivity
         ahBottomNavigation.setForceTint(false);
         ahBottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
         ahBottomNavigation.setColored(false);
-        ahBottomNavigation.setTitleTextSize(28f,24f);
+        ahBottomNavigation.setTitleTextSize(26f,23f);
         ahBottomNavigation.setInactiveColor(ContextCompat.getColor(this,R.color.un_color));
         ahBottomNavigation.setAccentColor(ContextCompat.getColor(this,R.color.colorPrimary));
         ahBottomNavigation.setDefaultBackgroundResource(R.color.white);
@@ -195,12 +196,6 @@ public class HomeActivity extends AppCompatActivity
         ahBottomNavigation.addItem(item4);
         ahBottomNavigation.setCurrentItem(0);
 
-        AHNotification ahNotification = new AHNotification.Builder()
-                .setText("9+")
-                .setBackgroundColor(ContextCompat.getColor(this,R.color.notf))
-                .setTextColor(ContextCompat.getColor(this,R.color.white))
-                .build();
-        ahBottomNavigation.setNotification(ahNotification,1);
 
 
 
@@ -224,14 +219,16 @@ public class HomeActivity extends AppCompatActivity
                             if (userModel!=null)
                             {
                                 if (userModel.getUser_type().equals(Tags.user_type_client)){
-                                    fragmentManager.beginTransaction().replace(R.id.fragmentsContainer,FragmentClientNotification.getInstance(userModel.getUser_id())).commit();
-
+                                    fragmentManager.beginTransaction().replace(R.id.fragmentsContainer, Fragment_Client_Notification.getInstance(userModel.getUser_id())).commit();
+                                    setClientReadAll(userModel.getUser_id());
                                 }else if (userModel.getUser_type().equals(Tags.user_type_driver))
                                 {
                                     fragmentManager.beginTransaction().replace(R.id.fragmentsContainer, Fragment_Driver_Notification.getInstance(userModel.getUser_id())).commit();
-
+                                    setDriver_GroceryReadAll(userModel.getUser_id());
                                 }else if (userModel.getUser_type().equals(Tags.user_type_grocery))
                                 {
+                                    setDriver_GroceryReadAll(userModel.getUser_id());
+
                                     fragmentManager.beginTransaction().replace(R.id.fragmentsContainer, Fragment_Grocery_Notification.getInstance(userModel.getUser_id())).commit();
 
 
@@ -307,7 +304,6 @@ public class HomeActivity extends AppCompatActivity
 
                 }else if (userModel.getUser_type().equals(Tags.user_type_grocery))
                 {
-                    Log.e("faaaaaaaaaab","faaaaaaab");
                     UpdateSpeedDial();
                 }else
                     {
@@ -426,23 +422,109 @@ public class HomeActivity extends AppCompatActivity
             {
                 Picasso.with(this).load(Uri.parse(Tags.IMAGE_URL+userModel.getUser_photo())).placeholder(R.drawable.user_profile).into(image);
                 tv_name.setText(userModel.getUser_full_name());
+                getClientNotCount(userModel.getUser_id());
+
             }else if (userModel.getUser_type().equals(Tags.user_type_driver))
             {
                 Log.e("driver","driver");
                 Picasso.with(this).load(Uri.parse(Tags.IMAGE_URL+userModel.getUser_photo())).placeholder(R.drawable.user_profile).into(image);
                 tv_name.setText(userModel.getUser_full_name());
                 tv_address.setText(userModel.getUser_city());
+                getDriver_grocery_NotCount(userModel.getUser_id());
 
 
-
-            }else if (userModel.getUser_type().equals(Tags.grocery_register2))
+            }else if (userModel.getUser_type().equals(Tags.user_type_grocery))
             {
                 Picasso.with(this).load(Uri.parse(Tags.IMAGE_URL+userModel.getUser_photo())).placeholder(R.drawable.user_profile).into(image);
                 tv_name.setText(userModel.getUser_full_name());
+                getDriver_grocery_NotCount(userModel.getUser_id());
                 UpdateSpeedDial();
             }
         }
     }
+
+    public void getClientNotCount(String user_id)
+    {
+        Api.getServices().getClientUnreadNotification(user_id)
+                .enqueue(new Callback<UnreadModel>() {
+                    @Override
+                    public void onResponse(Call<UnreadModel> call, Response<UnreadModel> response) {
+                        if (response.isSuccessful())
+                        {
+                            IncreaseNotification(response.body().getTotal_unread());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UnreadModel> call, Throwable t) {
+                        Log.e("Error",t.getMessage());
+                    }
+                });
+    }
+
+    public void getDriver_grocery_NotCount(String user_id)
+    {
+        Api.getServices().getDriver_Grocery_UnreadNotification(user_id)
+                .enqueue(new Callback<UnreadModel>() {
+                    @Override
+                    public void onResponse(Call<UnreadModel> call, Response<UnreadModel> response) {
+                        if (response.isSuccessful())
+                        {
+                            IncreaseNotification(response.body().getTotal_unread());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UnreadModel> call, Throwable t) {
+                        Log.e("Error",t.getMessage());
+                    }
+                });
+    }
+
+    private void setClientReadAll(String user_id)
+    {
+        Api.getServices().setClientReadNotification(user_id,String.valueOf(1))
+                .enqueue(new Callback<UnreadModel>() {
+                    @Override
+                    public void onResponse(Call<UnreadModel> call, Response<UnreadModel> response) {
+                        if (response.isSuccessful())
+                        {
+                            if (response.body().getSuccess_read()==1)
+                            {
+                                IncreaseNotification(0);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UnreadModel> call, Throwable t) {
+                        Log.e("Error",t.getMessage());
+                    }
+                });
+    }
+
+    private void setDriver_GroceryReadAll(String user_id)
+    {
+        Api.getServices().setDriver_Grocery_ReadNotification(user_id,String.valueOf(1))
+                .enqueue(new Callback<UnreadModel>() {
+                    @Override
+                    public void onResponse(Call<UnreadModel> call, Response<UnreadModel> response) {
+                        if (response.isSuccessful())
+                        {
+                            if (response.body().getSuccess_read()==1)
+                            {
+                                IncreaseNotification(0);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UnreadModel> call, Throwable t) {
+                        Log.e("Error",t.getMessage());
+                    }
+                });
+    }
+
     public void HideFab()
     {
         Log.e("fabbb","fabbbb");
@@ -605,7 +687,7 @@ public class HomeActivity extends AppCompatActivity
                 {
 
                     Hide_Navbottom();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, FragmentMyOrderContainer.getInstance()).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, FragmentMyOrderContainer.getInstance(preferences.getUserData(HomeActivity.this).getUser_type(),preferences.getUserData(HomeActivity.this).getUser_id())).commit();
 
                 }else if (session.equals(Tags.session_logout))
                 {
@@ -716,7 +798,7 @@ public class HomeActivity extends AppCompatActivity
 
                 break;
             case 1:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, FragmentClientNotification.getInstance(userModel.getUser_id())).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Client_Notification.getInstance(userModel.getUser_id())).commit();
 
                 break;
             case 2:
@@ -937,6 +1019,28 @@ public class HomeActivity extends AppCompatActivity
         }else
         {
             tv_notf.setVisibility(View.INVISIBLE);
+
+        }
+    }
+    public void IncreaseNotification(int counter)
+    {
+        if (counter>0)
+        {
+
+            AHNotification ahNotification = new AHNotification.Builder()
+                    .setText(String.valueOf(counter))
+                    .setBackgroundColor(ContextCompat.getColor(this,R.color.notf))
+                    .setTextColor(ContextCompat.getColor(this,R.color.white))
+                    .build();
+            ahBottomNavigation.setNotification(ahNotification,1);
+
+
+        }else
+        {
+            AHNotification ahNotification = new AHNotification.Builder()
+                    .setText("")
+                    .build();
+            ahBottomNavigation.setNotification(ahNotification,1);
 
         }
     }

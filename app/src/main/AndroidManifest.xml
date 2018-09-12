@@ -38,7 +38,9 @@
             android:name=".Activities.SearchActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".Activities.ClientNotificationDetailsActivity" />
-        <activity android:name=".Activities.Driver_Grocery_Notification_Details_Activity"></activity>
+        <activity android:name=".Activities.Driver_Grocery_Notification_Details_Activity" />
+        <activity android:name=".Activities.ClientOrderDetailsActivity" />
+        <activity android:name=".Activities.Driver_Grocery_OrderDetailsActivity"></activity>
     </application>
 
 </manifest>

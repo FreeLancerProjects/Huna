@@ -165,4 +165,12 @@
     <string name="groc_info">Grocery Information</string>
     <string name="client_information">Client Information</string>
     <string name="add_categories">Add Categories</string>
+    <string name="no_search_results">No Search Results</string>
+    <string name="search3">Search</string>
+    <string name="sear_title">Enter Search Title</string>
+    <string name="rep_don">Replay done</string>
+    <string name="refuse_nodriver_available">Your request has been refused and there are no drivers available to send your request</string>
+    <string name="no_ordertodis">There are no orders to display</string>
+    <string name="delivered">Delivered</string>
+    <string name="live_chat">Live Chat</string>
 </resources>

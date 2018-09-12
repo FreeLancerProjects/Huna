@@ -14,7 +14,7 @@
     <string name="logout">خروج</string>
     <string name="main">الرئيسية</string>
     <string name="dept">الاقسام</string>
-    <string name="search">بحث</string>
+    <string name="search">ما الذي تبحث عنة</string>
     <string name="trolley">العربة</string>
     <string name="settings">الإعدادات</string>
     <string name="free_delivery">توصيل مجاني</string>
@@ -166,4 +166,12 @@
     <string name="groc_info">بيانات البقالة</string>
     <string name="client_information">بيانات العميل</string>
     <string name="add_categories">إضافة عناصر</string>
+    <string name="no_search_results">لا توجد نتائج للبحث</string>
+    <string name="search3">البحث</string>
+    <string name="sear_title">من فضلك ادخل ماتريد البحث عنة</string>
+    <string name="rep_don">تم الرد</string>
+    <string name="refuse_nodriver_available">تم رفض طلبك ولا يوجد سائقين متاحين لإرسال طلبك</string>
+    <string name="no_ordertodis">لا توجد طلبات لعرضها</string>
+    <string name="delivered">تم التوصيل</string>
+    <string name="live_chat">محادثة</string>
 </resources>

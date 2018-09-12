@@ -83,10 +83,10 @@
                 android:textSize="13sp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/cp2"
-                android:drawableRight="@drawable/dr_person_icon"
+                android:drawableStart="@drawable/dr_person_icon"
                 android:singleLine="true"
                 android:drawablePadding="5dp"
-                />
+                android:drawableLeft="@drawable/dr_person_icon" />
         </com.wrapp.floatlabelededittext.FloatLabeledEditText>
         <com.wrapp.floatlabelededittext.FloatLabeledEditText
             android:layout_width="match_parent"
@@ -108,10 +108,13 @@
                 android:textSize="13sp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/cp2"
-                android:drawableRight="@drawable/password_icon"
+                android:drawableStart="@drawable/password_icon"
+                android:drawableLeft="@drawable/password_icon"
                 android:singleLine="true"
                 android:inputType="textPassword"
                 android:drawablePadding="5dp"
+
+
                 />
         </com.wrapp.floatlabelededittext.FloatLabeledEditText>
 
