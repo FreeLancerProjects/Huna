@@ -1,6 +1,6 @@
 <resources>
-    <string name="google_api_key">AIzaSyD2dtIHnb-B4RaFtsPb2dC7iMYCQjtBsg8</string>
-    <string name="app_name">Cruise</string>
+    <string name="google_key">AIzaSyA2frpOOlJ3d4Nu9h5mY6yLxDOIcr_g2ew</string>
+    <string name="app_name">Huna</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -110,7 +110,7 @@
     <string name="suc_upd">Successfully updated</string>
     <string name="reg_log">Please Login or Create a new account</string>
     <string name="inc_old_pass">incorrect old password</string>
-    <string name="trolley_empty">Trolley is empty</string>
+    <string name="trolley_empty">Cart is empty</string>
     <string name="contenue">Continue</string>
     <string name="time_req">time require</string>
     <string name="comp">Complete</string>
@@ -173,4 +173,15 @@
     <string name="no_ordertodis">There are no orders to display</string>
     <string name="delivered">Delivered</string>
     <string name="live_chat">Live Chat</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="type_a_message">Type a message.....</string>
+    <string name="cities">Cities</string>
+    <string name="ending_req">Ending request...</string>
+    <string name="sel_image">Select Image</string>
+    <string name="order_cost">Order Cost :</string>
+    <string name="enter_ord_cost">Enter order cost</string>
+    <string name="enter_del_cost">Enter delivery cost</string>
+    <string name="im_save">image saved</string>
+    <string name="start_down">Start Download...</string>
+    <string name="sent_image">Sent a photo</string>
 </resources>

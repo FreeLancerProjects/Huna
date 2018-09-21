@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         >
         <android.support.v7.widget.Toolbar
+            android:id="@+id/toolBar"
+
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:contentInsetEnd="0dp"
@@ -27,7 +29,6 @@
                     android:id="@+id/image_back"
                     android:layout_width="56dp"
                     android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
                     android:src="@drawable/back_ar_icon"
                     android:padding="10dp"
                     />
@@ -225,46 +226,14 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="5dp"
             android:layout_below="@id/cardView"
-            android:layout_above="@id/ll_container"
             >
 
         </android.support.v7.widget.RecyclerView>
-        <LinearLayout
-            android:id="@+id/ll_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
-            android:weightSum="1"
-            android:background="@color/colorPrimary"
-            >
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_height="40dp"
-                android:background="@color/transparent"
-                android:textColor="@color/white"
-                android:text="@string/delivered"
-                />
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
-                />
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_height="40dp"
-                android:background="@color/transparent"
-                android:textColor="@color/white"
-                android:text="@string/live_chat"
-                />
-        </LinearLayout>
+
+
     </RelativeLayout>
 
 </LinearLayout>

@@ -10,7 +10,7 @@
     >
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:background="@color/sub_dept"
         >
 
@@ -132,7 +132,7 @@
                     android:id="@+id/edt_phone"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:drawableRight="@drawable/blue_phone_icon"
+                    android:drawableRight="@drawable/phone_icon"
                     android:paddingLeft="8dp"
                     android:drawablePadding="5dp"
                     android:textColor="@color/black"

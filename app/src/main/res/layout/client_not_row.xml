@@ -91,7 +91,7 @@
                         android:background="@drawable/refuse_btn"
                         android:textSize="12sp"
                         android:textColor="@color/colorPrimary"
-                        android:drawableEnd="@drawable/refuse_icon"
+                        android:drawableEnd="@drawable/refuse2_icon"
                         android:text="@string/refuse2"
                         android:paddingRight="10dp"
                         android:paddingLeft="10dp"

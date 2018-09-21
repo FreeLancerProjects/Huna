@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.semicolon.criuse"
+        applicationId "com.semicolon.huna"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
@@ -60,4 +60,8 @@ dependencies {
     implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
     implementation 'io.github.yavski:fab-speed-dial:1.0.6'
+    implementation 'com.github.tajchert:WaitingDots:0.4.0'
+    implementation 'com.google.firebase:firebase-core:16.0.3'
+    implementation 'com.google.firebase:firebase-messaging:17.3.1'
 }
+apply plugin: 'com.google.gms.google-services'

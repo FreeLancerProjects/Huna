@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.semicolon.huna.Activities.ChatActivity">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+
+        >
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:contentInsetStart="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layoutDirection="ltr"
+                >
+                <LinearLayout
+                    android:id="@+id/ll_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_alignParentLeft="true"
+                    >
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/back_icon"
+                        android:rotation="180"
+                        android:padding="5dp"
+                        />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/image"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/user_profile"
+                        app:civ_border_color="@color/white"
+                        app:civ_border_width="1dp"
+                        />
+
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:text="Emad magdy"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/ll_back"
+                    android:layout_centerVertical="true"
+                    />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appBar"
+        android:layout_above="@+id/typing_container"
+        android:background="@color/white"
+
+        >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+
+        </android.support.v7.widget.RecyclerView>
+        <ProgressBar
+            android:id="@+id/progBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/typing_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/msgContainer"
+
+        >
+        <LinearLayout
+            android:id="@+id/ll_typing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="8dp"
+            android:gravity="left|center_vertical"
+            android:paddingBottom="5dp"
+            android:visibility="gone"
+
+            >
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/chat_image_circle"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:civ_border_width="1dp"
+                app:civ_border_color="@color/gray1"
+                android:src="@drawable/user_profile"
+                />
+            <pl.tajchert.waitingdots.DotsTextView
+                android:id="@+id/tv_dot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="28sp"
+                android:textColor="@color/gray3"
+                app:autoplay="true"
+                app:period="1000"
+                android:layout_marginLeft="5dp"
+                />
+        </LinearLayout>
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/msgContainer"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:background="@color/g2"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        >
+        <ImageView
+            android:id="@+id/send_imageBtn"
+            android:layout_width="0dp"
+            android:layout_weight=".16"
+            android:layout_height="match_parent"
+            android:src="@drawable/send_icon"
+            android:padding="12dp"
+            android:clickable="true"
+
+            />
+        <EditText
+            android:id="@+id/ed_msg"
+            android:layout_width="0dp"
+            android:layout_weight=".68"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:background="@drawable/msg_container_bg"
+            android:hint="@string/type_a_message"
+            android:textColorHint="@color/gray"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:singleLine="true"
+            android:textSize="15sp"
+            android:scrollHorizontally="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+
+
+            />
+        <ImageView
+            android:id="@+id/upload_imageBtn"
+            android:layout_width="0dp"
+            android:layout_weight=".16"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            android:clickable="true"
+            android:src="@drawable/upload_camera"
+            />
+
+    </LinearLayout>
+</RelativeLayout>

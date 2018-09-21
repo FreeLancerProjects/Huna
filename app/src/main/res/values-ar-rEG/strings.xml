@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="google_api_key">AIzaSyD2dtIHnb-B4RaFtsPb2dC7iMYCQjtBsg8</string>
-    <string name="app_name">كروز</string>
+    <string name="google_key">AIzaSyA2frpOOlJ3d4Nu9h5mY6yLxDOIcr_g2ew</string>
+    <string name="app_name">هنا</string>
     <string name="title_activity_home">الصفحة الرئيسية</string>
     <string name="navigation_drawer_open">افتح</string>
     <string name="navigation_drawer_close">اغلق</string>
@@ -174,4 +174,14 @@
     <string name="no_ordertodis">لا توجد طلبات لعرضها</string>
     <string name="delivered">تم التوصيل</string>
     <string name="live_chat">محادثة</string>
+    <string name="type_a_message">كتابة الرسالة.....</string>
+    <string name="cities">المدينة</string>
+    <string name="ending_req">جار إنهاء الطلب...</string>
+    <string name="sel_image">إختر صورة</string>
+    <string name="order_cost">تكلفة الطلب : </string>
+    <string name="enter_ord_cost">أدخل تكلفة الطلب</string>
+    <string name="enter_del_cost">أدخل تكلفة التوصيل</string>
+    <string name="im_save">تم الحفظ</string>
+    <string name="start_down">جار تحميل الصورة...</string>
+    <string name="sent_image">تم ارسال لك صورة</string>
 </resources>

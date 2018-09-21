@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2196f3</color>
-    <color name="colorPrimaryDark">#2196f3</color>
+    <color name="colorPrimary">#009749</color>
+    <color name="colorPrimaryDark">#009749</color>
     <color name="colorAccent">#000000</color>
     <color name="black">#000000</color>
+    <color name="center">#0eaf5c</color>
     <color name="white">#ffffff</color>
     <color name="cp1">#4d95bd</color>
-    <color name="cp2">#78bdf6</color>
+    <color name="cp2">#0fca69</color>
     <color name="cp3">#033e76</color>
-    <color name="cp4">#ebf5fe</color>
+    <color name="cp4">#f0deffee</color>
     <color name="cp5_txt">#99d3ff</color>
     <color name="icon">#0c5ba6</color>
     <color name="notf">#ffc006</color>
     <color name="contactus1">#042946</color>
     <color name="contactus2">#4797d6</color>
-    <color name="un_color">#657a8b</color>
+    <color name="un_color">#000000</color>
     <color name="cost_color">#ff9d29</color>
-    <color name="sub_dept">#3fa9fd</color>
+    <color name="sub_dept">#09b85e</color>
     <color name="txt_color">#bcdffb</color>
     <color name="state_on">#00C853</color>
     <color name="state_off">#E0E0E0</color>
@@ -33,5 +34,8 @@
     <color name="gray5">#424242</color>
     <color name="gray0">#efefef</color>
     <color name="not_budget">#bc2f0a</color>
+    <color name="g">#50545a</color>
+    <color name="g2">#f2f3f5</color>
+    <color name="msg_color_bg">#eff1f3</color>
 
 </resources>

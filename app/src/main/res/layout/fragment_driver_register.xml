@@ -75,7 +75,7 @@
             android:drawablePadding="5dp"
             android:paddingRight="10dp"
             android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/cp2"
+            android:textColorHint="@color/black"
             android:hint="@string/driver_name"
             android:gravity="center"
             android:inputType="textPersonName"
@@ -108,7 +108,7 @@
                 android:drawablePadding="5dp"
                 android:paddingRight="10dp"
                 android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/cp2"
+                android:textColorHint="@color/black"
                 android:hint="@string/phone_number"
                 android:gravity="center"
                 android:inputType="phone"
@@ -116,8 +116,8 @@
 
                 android:drawableLeft="@drawable/phone_icon" />
         </FrameLayout>
-        <EditText
-            android:id="@+id/edt_city"
+        <TextView
+            android:id="@+id/tv_city"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:singleLine="true"
@@ -130,14 +130,14 @@
             android:drawablePadding="5dp"
             android:paddingRight="10dp"
             android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/cp2"
+            android:textColorHint="@color/black"
             android:hint="@string/city"
             android:gravity="center"
             android:textSize="13sp"
 
             android:drawableLeft="@drawable/blue_map_icon" />
-        <EditText
-            android:id="@+id/edt_neighborhood"
+        <TextView
+            android:id="@+id/tv_neighborhood"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:singleLine="true"
@@ -150,12 +150,12 @@
             android:drawablePadding="5dp"
             android:paddingRight="10dp"
             android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/cp2"
+            android:textColorHint="@color/black"
             android:hint="@string/neighborhood"
             android:gravity="center"
             android:inputType="text"
             android:textSize="13sp"
-
+            android:visibility="gone"
             android:drawableLeft="@drawable/blue_map_icon" />
         <LinearLayout
             android:id="@+id/ll_upload_license_image"
@@ -299,7 +299,7 @@
             android:drawablePadding="5dp"
             android:paddingRight="10dp"
             android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/cp2"
+            android:textColorHint="@color/black"
             android:hint="@string/user_name"
             android:gravity="center"
             android:textSize="13sp"
@@ -323,7 +323,7 @@
             android:paddingRight="10dp"
             android:singleLine="true"
             android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/cp2"
+            android:textColorHint="@color/black"
             android:textSize="13sp"
 
             android:drawableLeft="@drawable/lock_icon" />
@@ -342,7 +342,7 @@
             android:drawablePadding="5dp"
             android:paddingRight="10dp"
             android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/cp2"
+            android:textColorHint="@color/black"
             android:hint="@string/re_type_password"
             android:gravity="center"
             android:inputType="textPassword"

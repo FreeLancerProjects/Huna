@@ -26,6 +26,7 @@
             android:layout_height="80dp"
             android:src="@drawable/logo"
             android:scaleType="centerCrop"
+            android:padding="8dp"
             />
         <LinearLayout
             android:layout_width="wrap_content"
@@ -37,7 +38,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="cruise"
+                android:text="Huna"
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold"
@@ -45,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="كروز "
+                android:text="هنا "
                 android:textColor="@color/notf"
                 android:textSize="25dp"
                 android:textStyle="bold"
@@ -82,11 +83,11 @@
                 android:paddingRight="5dp"
                 android:textSize="13sp"
                 android:textColor="@color/black"
-                android:textColorHint="@color/cp2"
-                android:drawableStart="@drawable/dr_person_icon"
+                android:textColorHint="@color/black"
+                android:drawableStart="@drawable/blue_user_icon"
                 android:singleLine="true"
                 android:drawablePadding="5dp"
-                android:drawableLeft="@drawable/dr_person_icon" />
+                android:drawableLeft="@drawable/blue_user_icon" />
         </com.wrapp.floatlabelededittext.FloatLabeledEditText>
         <com.wrapp.floatlabelededittext.FloatLabeledEditText
             android:layout_width="match_parent"
@@ -107,7 +108,7 @@
                 android:paddingRight="5dp"
                 android:textSize="13sp"
                 android:textColor="@color/black"
-                android:textColorHint="@color/cp2"
+                android:textColorHint="@color/black"
                 android:drawableStart="@drawable/password_icon"
                 android:drawableLeft="@drawable/password_icon"
                 android:singleLine="true"

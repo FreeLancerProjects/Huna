@@ -325,7 +325,7 @@
                     android:layout_marginLeft="10dp"
                     app:tbAnimate="true"
                     app:tbDefaultStatus="on"
-                    app:tbOnColor="@color/cp2"
+                    app:tbOnColor="@color/colorPrimary"
                     app:tbOffColor="@color/gray"
                     app:tbSpotColor="@color/gray1"
                     app:tbIsMidSelectable="false"

@@ -50,7 +50,7 @@
             app:backgroundTint="@color/white"
             app:fabCustomSize="55dp"
             app:rippleColor="@color/state_off"
-            android:src="@drawable/sent_map_icon"
+            android:src="@drawable/send_icon"
             android:layout_above="@id/btn_select_location"
             android:layout_margin="10dp"
             app:elevation="1dp"

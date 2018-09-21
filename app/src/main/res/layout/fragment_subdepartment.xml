@@ -56,7 +56,7 @@
         android:textSize="14sp"
         android:hint="@string/search_pro"
         android:textStyle="bold"
-        android:textColorHint="@color/txt_color"
+        android:textColorHint="@color/black"
         android:imeOptions="actionSearch"
         android:singleLine="true"
         />

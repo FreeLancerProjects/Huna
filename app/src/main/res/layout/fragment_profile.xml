@@ -101,7 +101,7 @@
              android:layout_width="0dp"
              android:layout_weight=".125"
              android:layout_height="40dp"
-             android:src="@drawable/edit_icon"
+             android:src="@drawable/blue_edit_icon"
              android:padding="10dp"
              android:layout_gravity="right|center_vertical"
 
@@ -139,7 +139,7 @@
              android:layout_width="0dp"
              android:layout_weight=".125"
              android:layout_height="40dp"
-             android:src="@drawable/edit_icon"
+             android:src="@drawable/blue_edit_icon"
              android:padding="10dp"
              />
          <TextView
@@ -173,7 +173,7 @@
              android:layout_width="0dp"
              android:layout_weight=".125"
              android:layout_height="40dp"
-             android:src="@drawable/edit_icon"
+             android:src="@drawable/blue_edit_icon"
              android:padding="10dp"
              />
          <TextView
@@ -190,7 +190,7 @@
              android:layout_width="0dp"
              android:layout_weight=".125"
              android:layout_height="40dp"
-             android:src="@drawable/blue_pass_icon"
+             android:src="@drawable/password_icon"
              android:padding="5dp"
              />
 
@@ -218,7 +218,7 @@
                 android:layout_width="0dp"
                 android:layout_weight=".125"
                 android:layout_height="40dp"
-                android:src="@drawable/edit_icon"
+                android:src="@drawable/blue_edit_icon"
                 android:padding="10dp"
                 />
             <TextView
@@ -254,7 +254,7 @@
                 android:layout_width="0dp"
                 android:layout_weight=".125"
                 android:layout_height="40dp"
-                android:src="@drawable/edit_icon"
+                android:src="@drawable/blue_edit_icon"
                 android:padding="10dp"
                 />
             <TextView
