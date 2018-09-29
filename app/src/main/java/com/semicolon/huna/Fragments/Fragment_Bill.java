@@ -16,8 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.semicolon.huna.Activities.HomeActivity;
 import com.semicolon.huna.Adapters.Bill_Adapter;
 import com.semicolon.huna.Models.Bill_Model;
@@ -49,7 +47,6 @@ public class Fragment_Bill extends Fragment {
     private Location_Order_SingleTone location_order_singleTone;
     private ItemsSingleTone itemsSingleTone;
     private List<ItemsModel> miniMarketItemList;
-    private List<ItemsModel> superMarketItemList;
     private ProgressDialog progressDialog;
     private HomeActivity homeActivity;
 
@@ -75,7 +72,6 @@ public class Fragment_Bill extends Fragment {
         homeActivity = (HomeActivity) getActivity();
         bill_modelList = new ArrayList<>();
         miniMarketItemList = new ArrayList<>();
-        superMarketItemList = new ArrayList<>();
         tv_total = view.findViewById(R.id.tv_total);
         recView = view.findViewById(R.id.recView);
         manager = new LinearLayoutManager(getActivity());
@@ -106,37 +102,14 @@ public class Fragment_Bill extends Fragment {
                     String address = location_order_singleTone.getAddress();
                     itemsSingleTone = ItemsSingleTone.getInstance();
                     miniMarketItemList = itemsSingleTone.getMinimarketItemsList();
-                    superMarketItemList= itemsSingleTone.getSupermarketItemsList();
-                    List<ItemsModel> superMarketList = new ArrayList<>();
                     List<ItemsModel> miniMarketList = new ArrayList<>();
 
                     Log.e("orderlat",latLng.latitude+"_");
                     Log.e("orderlng",latLng.longitude+"_");
                     Log.e("orderaddress",address+"_");
 
-                    if (miniMarketItemList.size()>0&&superMarketItemList.size()>0)
-                    {
-                        for (ItemsModel itemsModel:superMarketItemList)
-                        {
-                            itemsModel.setUser_google_lat(latLng.latitude);
-                            itemsModel.setUser_google_long(latLng.longitude);
-                            itemsModel.setUser_address(address);
-                            superMarketList.add(itemsModel);
-                        }
 
-                        for (ItemsModel itemsModel:miniMarketItemList)
-                        {
-                            itemsModel.setUser_google_lat(latLng.latitude);
-                            itemsModel.setUser_google_long(latLng.longitude);
-                            itemsModel.setUser_address(address);
-                            miniMarketList.add(itemsModel);
-                        }
-
-
-
-                        sendOrders(superMarketList,miniMarketList);
-
-                    }else if (miniMarketItemList.size()>0)
+                     if (miniMarketItemList.size()>0)
                     {
 
 
@@ -149,18 +122,7 @@ public class Fragment_Bill extends Fragment {
                         }
 
                         sendOrderToMiniMarket(miniMarketList);
-                    }else if (superMarketItemList.size()>0)
-                    {
-                        for (ItemsModel itemsModel:superMarketItemList)
-                        {
-                            itemsModel.setUser_google_lat(latLng.latitude);
-                            itemsModel.setUser_google_long(latLng.longitude);
-                            itemsModel.setUser_address(address);
-                            superMarketList.add(itemsModel);
-                        }
-                        sendOrderToSuperMarket(superMarketList);
                     }
-
 
 
                 }
@@ -170,10 +132,6 @@ public class Fragment_Bill extends Fragment {
 
     private void sendOrderToMiniMarket(List<ItemsModel> itemsModelList)
     {
-        Gson gson = new GsonBuilder().create();
-
-        String gson2 =gson.toJson(itemsModelList);
-        Log.e("gson",gson2);
         Api.getServices().sendOrderToMiniMarket(itemsModelList)
                 .enqueue(new Callback<ResponseModel>() {
                     @Override
@@ -204,52 +162,8 @@ public class Fragment_Bill extends Fragment {
                 });
     }
 
-    private void sendOrderToSuperMarket(List<ItemsModel> itemsModelList)
-    {
-        Api.getServices().sendOrderToSuperMarket(itemsModelList)
-                .enqueue(new Callback<ResponseModel>() {
-                    @Override
-                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                        if (response.isSuccessful())
-                        {
-                            Log.e("ddddddd",response.body().getSuccess_object()+"___");
-                            if (response.body().getSuccess_object()==1)
-                            {
-                                progressDialog.dismiss();
-                                ClearData();
 
-                                Toast.makeText(getActivity(), R.string.succ_send, Toast.LENGTH_LONG).show();
-
-                            }else if (response.body().getSuccess_object()==2)
-                            {
-                                progressDialog.dismiss();
-                                Toast.makeText(getActivity(), R.string.no_driver, Toast.LENGTH_LONG).show();
-
-
-                            }else
-                            {
-                                progressDialog.dismiss();
-
-                                Toast.makeText(getActivity(), R.string.failed, Toast.LENGTH_LONG).show();
-                            }
-                        }else
-                            {
-                                Log.e("kkkk","ggggggg___");
-
-                            }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseModel> call, Throwable t) {
-                        Log.e("Error",t.getMessage());
-                        progressDialog.dismiss();
-
-                        Toast.makeText(getActivity(),R.string.something_error, Toast.LENGTH_LONG).show();
-                    }
-                });
-    }
-
-    private void  sendOrders(List<ItemsModel> superMarketItemList,List<ItemsModel>miniMarketItemList)
+    /*private void  sendOrders(List<ItemsModel> superMarketItemList,List<ItemsModel>miniMarketItemList)
     {
 
         Api.getServices().sendOrderToMiniMarket(miniMarketItemList)
@@ -314,7 +228,7 @@ public class Fragment_Bill extends Fragment {
                     }
                 });
     }
-
+*/
     private void ClearData()
     {
         itemsSingleTone.clear();

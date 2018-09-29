@@ -12,13 +12,11 @@ public class ItemsSingleTone {
     private static ItemsSingleTone instance=null;
     private  List<ItemsModel> itemsModelList;
     private  List<ItemsModel> minimarketItemsList;
-    private  List<ItemsModel> superimarketItemsList;
     private  List<Bill_Model> bill_modelList;
 
     private ItemsSingleTone() {
         itemsModelList = new ArrayList<>();
         minimarketItemsList = new ArrayList<>();
-        superimarketItemsList = new ArrayList<>();
         bill_modelList= new ArrayList<>();
     }
 
@@ -107,24 +105,7 @@ public class ItemsSingleTone {
         return this.minimarketItemsList;
     }
 
-    public void setSupermarketItemsList(List<ItemsModel> supermarketItemsList,String user_id)
-    {
-        List<ItemsModel> itemsModelList = new ArrayList<>();
-        for (ItemsModel itemsModel1:supermarketItemsList)
-        {
-            Log.e("idddddd",user_id+"___");
-            Log.e("fk",itemsModel1.getMarket_name()+"_");
 
-            itemsModel1.setUser_id(user_id);
-            itemsModelList.add(itemsModel1);
-        }
-        this.superimarketItemsList=itemsModelList;
-    }
-
-    public List<ItemsModel> getSupermarketItemsList()
-    {
-        return this.superimarketItemsList;
-    }
 
     public void setBill_modelList(List<Bill_Model> bill_modelList)
     {
@@ -139,7 +120,6 @@ public class ItemsSingleTone {
     {
         itemsModelList.clear();
         minimarketItemsList.clear();
-        superimarketItemsList.clear();
         bill_modelList.clear();
         Location_Order_SingleTone location_order_singleTone = Location_Order_SingleTone.getInstance();
         location_order_singleTone.clearLocation();
@@ -149,7 +129,6 @@ public class ItemsSingleTone {
     {
         itemsModelList.clear();
         minimarketItemsList.clear();
-        superimarketItemsList.clear();
         bill_modelList.clear();
     }
 

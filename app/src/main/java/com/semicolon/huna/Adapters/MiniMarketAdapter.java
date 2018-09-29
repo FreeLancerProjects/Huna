@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.siyamed.shapeimageview.RoundedImageView;
-import com.semicolon.huna.Fragments.Fragment_MiniMarkets;
+import com.semicolon.huna.Fragments.Fragment_Home;
 import com.semicolon.huna.Models.MiniMarketDataModel;
 import com.semicolon.huna.R;
 import com.semicolon.huna.Services.Tags;
@@ -22,12 +22,12 @@ import java.util.List;
 public class MiniMarketAdapter extends RecyclerView.Adapter<MiniMarketAdapter.MyHolder>{
     private Context context;
     private List<MiniMarketDataModel> miniMarketModelList;
-    private Fragment_MiniMarkets fragment_miniMarkets;
+    private Fragment_Home fragment_home;
 
     public MiniMarketAdapter(Context context, List<MiniMarketDataModel> miniMarketModelList, Fragment fragment) {
         this.context = context;
         this.miniMarketModelList = miniMarketModelList;
-        this.fragment_miniMarkets = (Fragment_MiniMarkets) fragment;
+        this.fragment_home = (Fragment_Home) fragment;
     }
 
     @NonNull
@@ -45,7 +45,7 @@ public class MiniMarketAdapter extends RecyclerView.Adapter<MiniMarketAdapter.My
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragment_miniMarkets.setPos(position);
+                fragment_home.setPos(position);
                 //fragment_miniMarkets.setPos(holder.getAdapterPosition(),miniMarketModel.getName_categories());
             }
         });

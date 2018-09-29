@@ -38,9 +38,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Huna"
+                android:text="Here"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="23sp"
                 android:textStyle="bold"
                 />
             <TextView
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:text="هنا "
                 android:textColor="@color/notf"
-                android:textSize="25dp"
+                android:textSize="25sp"
                 android:textStyle="bold"
 
                 />

@@ -1,98 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
     android:background="@color/gray0"
-    android:orientation="vertical">
-    <FrameLayout
-        android:id="@+id/img_container"
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:layout_alignParentTop="true"
-        android:layoutDirection="rtl"
-        >
-        <ImageView
-            android:id="@+id/grocery_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/sm"
-            android:scaleType="centerCrop"
-            />
-
-            <TextView
-                android:id="@+id/searchView"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginRight="35dp"
-                android:layout_marginLeft="35dp"
-                android:background="@drawable/search_view_dept"
-                android:alpha=".75"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textColorHint="@color/white"
-                android:gravity="center"
-                android:hint="@string/search2"
-                android:singleLine="true"
-                android:drawableLeft="@drawable/white_search_icon"
-                android:paddingLeft="10dp"
-                android:drawablePadding="5dp"
-                android:paddingRight="30dp"
-                android:textStyle="bold"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="40dp"
-
-                />
-
-
-    </FrameLayout>
-    <RelativeLayout
+    >
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="-25dp"
-        android:orientation="vertical"
+        android:background="@color/transparent"
+        android:layout_marginTop="5dp"
         >
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_above="@id/tab"
-                    >
-
-                </android.support.v4.view.ViewPager>
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tab"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="8dp"
-                    app:tabGravity="fill"
-                    app:tabMode="fixed"
-                    app:tabIndicatorHeight="0dp"
-                    app:tabBackground="@drawable/tab_indicator"
-                    app:tabTextAppearance="@style/tab_text_size"
-                    app:tabTextColor="@color/black"
-                    app:tabSelectedTextColor="@color/white"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="8dp"
-
-                    >
-
-                </android.support.design.widget.TabLayout>
-
-            </RelativeLayout>
-        </FrameLayout>
-          </RelativeLayout>
-
-
-</LinearLayout>
+    </android.support.v7.widget.RecyclerView>
+    <ProgressBar
+        android:id="@+id/progBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        />
+    <TextView
+        android:id="@+id/tv_no_cat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:text="@string/no_search_res"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        />
+</FrameLayout>

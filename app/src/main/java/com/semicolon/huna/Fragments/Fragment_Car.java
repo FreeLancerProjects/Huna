@@ -43,7 +43,6 @@ public class Fragment_Car extends Fragment{
     private ItemsSingleTone itemsSingleTone;
     private List<ItemsModel> itemsModelList;
     private Button send_btn;
-    private List<ItemsModel> supermarkerItemList;
 
     private List<ItemsModel> minimarkerItemList;
     private List<List<ItemsModel>> resultList;
@@ -68,6 +67,26 @@ public class Fragment_Car extends Fragment{
         fragment_car.setArguments(bundle);
         return fragment_car;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        itemsModelList.addAll(itemsSingleTone.getItemsModelList());
+
+        if (itemsModelList.size()>0)
+        {
+            adapter  = new TrolleyAdapter(getActivity(),itemsModelList,this);
+            recView.setAdapter(adapter);
+            ll_trolley_container.setVisibility(View.GONE);
+            send_btn.setVisibility(View.VISIBLE);
+        }else
+        {
+            ll_trolley_container.setVisibility(View.VISIBLE);
+
+        }
+
+    }
+
     private void initView(View view) {
         homeActivity = (HomeActivity) getActivity();
 
@@ -84,19 +103,6 @@ public class Fragment_Car extends Fragment{
         manager = new LinearLayoutManager(view.getContext());
         recView.setLayoutManager(manager);
 
-        itemsModelList.addAll(itemsSingleTone.getItemsModelList());
-
-        if (itemsModelList.size()>0)
-        {
-            adapter  = new TrolleyAdapter(getActivity(),itemsModelList,this);
-            recView.setAdapter(adapter);
-            ll_trolley_container.setVisibility(View.GONE);
-            send_btn.setVisibility(View.VISIBLE);
-        }else
-            {
-                ll_trolley_container.setVisibility(View.VISIBLE);
-
-            }
 
             send_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -161,7 +167,6 @@ public class Fragment_Car extends Fragment{
 
 
         bill_modelList = new ArrayList<>();
-        supermarkerItemList = new ArrayList<>();
         minimarkerItemList = new ArrayList<>();
         resultList = new ArrayList<>();
         matrket_id = new ArrayList<>();
@@ -169,50 +174,12 @@ public class Fragment_Car extends Fragment{
         for (int i=0;i<itemsSingleTone.getItemsModelList().size();i++)
         {
             ItemsModel itemsModel_1 = itemsSingleTone.getItemsModelList().get(i);
-            for (int x=0;x<itemsSingleTone.getItemsModelList().size();x++)
-            {
-                ItemsModel itemsModel_2 = itemsSingleTone.getItemsModelList().get(x);
-
-                if (itemsModel_1.getIs_admin().equals(itemsModel_2.getIs_admin())
-                        && itemsModel_1.getIs_admin().equals(Tags.isAdmin_supermarket)
-                        )
-                {
-                    if (!supermarkerItemList.contains(itemsModel_2))
-                    {
-                        supermarkerItemList.add(itemsModel_2);
-
-                    }
-                }else if (itemsModel_1.getIs_admin().equals(itemsModel_2.getIs_admin())
-                        && itemsModel_1.getIs_admin().equals(Tags.isAdmin_minimarket))
-                {
-                    if (!minimarkerItemList.contains(itemsModel_2))
-                    {
-                        minimarkerItemList.add(itemsModel_2);
-
-                    }
-                }
-            }
-        }
-
-        if (supermarkerItemList.size()>0) {
-
-            itemsSingleTone.setSupermarketItemsList(supermarkerItemList,user_id);
-
-            Log.e("smItemSize", supermarkerItemList.size() + "");
-            resultList.add(supermarkerItemList);
-
-            for (int i=0;i<resultList.size();i++)
-            {
-                List<ItemsModel> itemsModelList = resultList.get(i);
-                for (ItemsModel itemsModel1:itemsModelList)
-                {
-                    Log.e("ffffff",itemsModel1.getMarket_id_fk()+"________"+itemsModel1.getProduct_cost());
-                }
-            }
+            minimarkerItemList.add(itemsModel_1);
 
         }
 
-            Log.e("ssssssssssize",resultList.size()+"");
+
+
 
 
 

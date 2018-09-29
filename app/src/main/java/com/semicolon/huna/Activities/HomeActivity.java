@@ -2,6 +2,7 @@ package com.semicolon.huna.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,16 +17,24 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +58,7 @@ import com.semicolon.huna.Fragments.Fragment_ForgetPassword;
 import com.semicolon.huna.Fragments.Fragment_Grocery_Notification;
 import com.semicolon.huna.Fragments.Fragment_Grocery_Register;
 import com.semicolon.huna.Fragments.Fragment_Home;
+import com.semicolon.huna.Fragments.Fragment_Location;
 import com.semicolon.huna.Fragments.Fragment_Login;
 import com.semicolon.huna.Fragments.Fragment_Profile;
 import com.semicolon.huna.Fragments.Fragment_Rules;
@@ -89,15 +99,16 @@ public class HomeActivity extends AppCompatActivity
     //private BottomNavigationView bottomNav;
     private AHBottomNavigation ahBottomNavigation;
     private CircleImageView image;
-    private TextView tv_name,tv_address;
+    private TextView tv_name,tv_address,tv_area_title;
     private int pos=0;
-    private TextView tv_notf,tv_title,tv_not_budget;
+    private TextView tv_notf,tv_title;
     private BottomSheetBehavior behavior;
     private View view;
     private Fragment_Client_Register fragment_client_register;
     private Fragment_Grocery_Register fragment_grocery_register;
     private Fragment_Driver_Register fragment_driver_register;
     private Fragment_Login fragment_login;
+    private Fragment_Home fragment_home;
     private Fragment_Profile fragment_profile;
     private ImageView back;
     private View not_root;
@@ -113,6 +124,11 @@ public class HomeActivity extends AppCompatActivity
     public FragmentManager fragmentManager;
     public ItemsSingleTone itemsSingleTone;
     private FabSpeedDial fab;
+    private String from_id="",area_id="",area_title;
+    private LinearLayout ll_location;
+    private CardView card;
+    private AutoCompleteTextView searchView;
+    private ProgressBar progBar;
 
 
     @Override
@@ -135,6 +151,88 @@ public class HomeActivity extends AppCompatActivity
         preferences = Preferences.getInstance();
         userSingletone = UserSingletone.getInstance();
         session = preferences.getSession(this);
+        from_id = preferences.getFrom_id(this);
+        area_id = preferences.getArea_id(this);
+        area_title = preferences.getArea_title(this);
+        tv_area_title = findViewById(R.id.tv_area_title);
+        tv_area_title.setText(area_title);
+        ll_location = findViewById(R.id.ll_location);
+        card = findViewById(R.id.card);
+        searchView = findViewById(R.id.searchView);
+        progBar = findViewById(R.id.progBar);
+        progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this,R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+        ll_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_title.setText(getString(R.string.your_area));
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer_register, Fragment_Location.getInstance()).commit();
+
+                if (behavior.getState()==BottomSheetBehavior.STATE_COLLAPSED)
+                {
+                    behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+                }
+                else if (behavior.getState()==BottomSheetBehavior.STATE_EXPANDED)
+                {
+                    behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+                }
+            }
+        });
+
+        searchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId== EditorInfo.IME_ACTION_SEARCH)
+                {
+                    String query = searchView.getText().toString();
+                    if (!TextUtils.isEmpty(query))
+                    {
+                        Fragment fragment = fragmentManager.findFragmentById(R.id.fragmentsContainer);
+                        if (fragment instanceof Fragment_Home)
+                        {
+                            progBar.setVisibility(View.VISIBLE);
+                            Common.CloseKeyBoard(HomeActivity.this,searchView);
+
+                            Fragment_Home fragment_home = (Fragment_Home) fragment;
+                            fragment_home.Search(query);
+
+                        }
+                    }
+                }
+                return false;
+            }
+        });
+
+        searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (searchView.getText().toString().length()==0)
+                {
+                    Fragment fragment = fragmentManager.findFragmentById(R.id.fragmentsContainer);
+                    if (fragment instanceof Fragment_Home)
+                    {
+                        Common.CloseKeyBoard(HomeActivity.this,searchView);
+
+                        Fragment_Home fragment_home = (Fragment_Home) fragment;
+                        fragment_home.Search("");
+
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        /////////////////////////////////////////////////////////////////////////
         toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -148,11 +246,11 @@ public class HomeActivity extends AppCompatActivity
         navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
-        not_root =  navigationView.getMenu().findItem(R.id.msg).getActionView();
-        tv_notf = not_root.findViewById(R.id.tv_not_txt);
-        tv_not_budget = findViewById(R.id.tv_not_budget);
-        IncreaseNotification_Counter(5);
-        IncreaseNotificationBudget_Counter(9);
+        /*not_root =  navigationView.getMenu().findItem(R.id.msg).getActionView();
+        tv_notf = not_root.findViewById(R.id.tv_not_txt);*/
+       // tv_not_budget = findViewById(R.id.tv_not_budget);
+        //IncreaseNotification_Counter(5);
+        //IncreaseNotificationBudget_Counter(9);
 
         fab = findViewById(R.id.fabsd);
         back = findViewById(R.id.back);
@@ -184,7 +282,7 @@ public class HomeActivity extends AppCompatActivity
         ahBottomNavigation.setForceTint(false);
         ahBottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
         ahBottomNavigation.setColored(false);
-        ahBottomNavigation.setTitleTextSizeInSp(14f,12f);
+        ahBottomNavigation.setTitleTextSizeInSp(13f,11f);
         ahBottomNavigation.setInactiveColor(ContextCompat.getColor(this,R.color.un_color));
         ahBottomNavigation.setAccentColor(ContextCompat.getColor(this,R.color.colorPrimary));
         ahBottomNavigation.setDefaultBackgroundResource(R.color.white);
@@ -203,16 +301,24 @@ public class HomeActivity extends AppCompatActivity
 
 
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Home.getInstance("")).commit();
+        fragment_home = Fragment_Home.getInstance(from_id,area_id);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, fragment_home).commit();
         ahBottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
                 if (position==0)
                 {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Home.getInstance("")).commit();
+                    fragment_home = Fragment_Home.getInstance(from_id,area_id);
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, fragment_home).commit();
                     ahBottomNavigation.setCurrentItem(0,false);
+                    card.setVisibility(View.VISIBLE);
+                    ll_location.setVisibility(View.VISIBLE);
                 }else if (position ==1)
                 {
+                    card.setVisibility(View.GONE);
+                    ll_location.setVisibility(View.GONE);
+
                     ahBottomNavigation.setCurrentItem(1,false);
 
                     String session = preferences.getSession(HomeActivity.this);
@@ -253,6 +359,9 @@ public class HomeActivity extends AppCompatActivity
                 }
                 else if (position ==2)
                 {
+                    card.setVisibility(View.GONE);
+                    ll_location.setVisibility(View.GONE);
+
                     ahBottomNavigation.setCurrentItem(2,false);
 
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Car.getInstance("")).commit();
@@ -261,6 +370,9 @@ public class HomeActivity extends AppCompatActivity
 
                 else if (position ==3)
                 {
+                    card.setVisibility(View.GONE);
+                    ll_location.setVisibility(View.GONE);
+
                     ahBottomNavigation.setCurrentItem(3,false);
 
                     fragment_setting = Fragment_Setting.getInstance("");
@@ -598,6 +710,11 @@ public class HomeActivity extends AppCompatActivity
                 });
     }
 
+    public void HideLoadProgress()
+
+    {
+        progBar.setVisibility(View.GONE);
+    }
     public void HideFab()
     {
         Log.e("fabbb","fabbbb");
@@ -675,6 +792,18 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
+    public void UpdateFragment_Home(String from_id,String area_id,String area_title)
+    {
+        this.from_id = from_id;
+        this.area_id = area_id;
+        this.area_title = area_title;
+        tv_area_title.setText(area_title);
+        fragment_home = Fragment_Home.getInstance(from_id,area_id);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, fragment_home).commit();
+        behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item)
@@ -687,11 +816,17 @@ public class HomeActivity extends AppCompatActivity
             ahBottomNavigation.setVisibility(View.VISIBLE);
            /* bottomNav.selectTab(0);
             bottomNav.setVisibility(View.VISIBLE);*/
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Home.getInstance("")).commit();
+            fragment_home = Fragment_Home.getInstance(from_id,area_id);
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, fragment_home).commit();
+            card.setVisibility(View.VISIBLE);
+            ll_location.setVisibility(View.VISIBLE);
 
         }else if (id==R.id.profile)
         {
 
+            card.setVisibility(View.GONE);
+            ll_location.setVisibility(View.GONE);
 
             String session = preferences.getSession(this);
             if (session!=null&& !TextUtils.isEmpty(session))
@@ -723,7 +858,7 @@ public class HomeActivity extends AppCompatActivity
 
             }
         }
-        else if (id == R.id.msg) {
+       /* else if (id == R.id.msg) {
             String session = preferences.getSession(this);
             if (session!=null&& !TextUtils.isEmpty(session))
             {
@@ -749,7 +884,10 @@ public class HomeActivity extends AppCompatActivity
 
 
             }
-        } else if (id == R.id.purchases) {
+        }*/ else if (id == R.id.purchases) {
+
+            card.setVisibility(View.GONE);
+            ll_location.setVisibility(View.GONE);
 
             savePos();
 
@@ -780,11 +918,18 @@ public class HomeActivity extends AppCompatActivity
 
 
         } else if (id == R.id.contact) {
+            card.setVisibility(View.GONE);
+            ll_location.setVisibility(View.GONE);
+
             savePos();
             Hide_Navbottom();
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Contactus.getInstance()).commit();
 
         } else if (id == R.id.rule) {
+            card.setVisibility(View.GONE);
+            ll_location.setVisibility(View.GONE);
+
+
             savePos();
             Hide_Navbottom();
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Rules.getInstance()).commit();
@@ -867,7 +1012,9 @@ public class HomeActivity extends AppCompatActivity
         switch (pos)
         {
             case 0:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer, Fragment_Home.getInstance("")).commit();
+                fragment_home = Fragment_Home.getInstance(from_id,area_id);
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentsContainer,fragment_home).commit();
 
                 break;
             case 1:
@@ -1041,7 +1188,9 @@ public class HomeActivity extends AppCompatActivity
     }
     public void navigateToHomeFragment()
     {
-        fragmentManager.beginTransaction().replace(R.id.fragmentsContainer,Fragment_Home.getInstance("") ).commit();
+        fragment_home = Fragment_Home.getInstance(from_id,area_id);
+
+        fragmentManager.beginTransaction().replace(R.id.fragmentsContainer,fragment_home ).commit();
         ahBottomNavigation.setCurrentItem(0);
 
         //bottomNav.selectTab(0);
@@ -1062,7 +1211,7 @@ public class HomeActivity extends AppCompatActivity
     }
     public void IncreaseNotification_Counter(int counter)
     {
-        if (counter>0)
+        /*if (counter>0)
         {
             tv_notf.setVisibility(View.VISIBLE);
             tv_notf.setText(String.valueOf(counter));
@@ -1070,28 +1219,28 @@ public class HomeActivity extends AppCompatActivity
             {
                 tv_notf.setVisibility(View.INVISIBLE);
 
-            }
+            }*/
     }
     public void IncreaseNotificationBudget_Counter(int counter)
     {
         if (counter>0)
         {
             Animation animation = AnimationUtils.loadAnimation(this,R.anim.not_anim);
-            tv_not_budget.setVisibility(View.VISIBLE);
-            tv_not_budget.setText(String.valueOf(counter));
-            new Handler()
+           /* tv_not_budget.setVisibility(View.VISIBLE);
+            tv_not_budget.setText(String.valueOf(counter));*/
+           /* new Handler()
                     .postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             tv_not_budget.clearAnimation();
                             tv_not_budget.startAnimation(animation);
                         }
-                    },2000);
+                    },2000);*/
 
 
         }else
         {
-            tv_notf.setVisibility(View.INVISIBLE);
+            //tv_notf.setVisibility(View.INVISIBLE);
 
         }
     }
@@ -1162,6 +1311,7 @@ public class HomeActivity extends AppCompatActivity
     }
     /// drivers
 
+
     @Override
     protected void onDestroy()
     {
@@ -1199,17 +1349,24 @@ public class HomeActivity extends AppCompatActivity
         {
             behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             navigationView.getMenu().getItem(0).setChecked(true);
+            card.setVisibility(View.VISIBLE);
+            ll_location.setVisibility(View.VISIBLE);
 
-        }
-        else if (fragmentManager.getBackStackEntryCount()>0)
-        {
-            itemsSingleTone.clear();
-            fragmentManager.popBackStack();
+
+
         }
 
         else{
             if (fragment instanceof Fragment_Home)
             {
+                if (fragmentManager.getBackStackEntryCount()>0) {
+                    itemsSingleTone.clear();
+                    fragmentManager.popBackStack();
+                }
+
+                card.setVisibility(View.VISIBLE);
+                ll_location.setVisibility(View.VISIBLE);
+
                 itemsSingleTone.ClearItemModelList();
 
                 super.onBackPressed();

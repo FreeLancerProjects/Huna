@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
                 android:textStyle="bold"
-                android:text="Huna "
+                android:text="Here "
                 android:layout_gravity="center_vertical"
                 />
 

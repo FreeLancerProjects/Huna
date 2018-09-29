@@ -69,7 +69,7 @@
     <string name="city_req">المدينة فارغة</string>
     <string name="neighborhood_req">السكن فارغ</string>
     <string name="pass_not_match">كلمة المرور غير متطابقة</string>
-    <string name="no_cat">لا توجد اقسام لعرضها</string>
+    <string name="no_cat">لا توجد متاجر لعرضها</string>
     <string name="accept">حسنا</string>
     <string name="ch_prof_img">إختر صورة الملف الشخصي</string>
     <string name="something_error">فشل حاول مره اخرى لاحقا</string>
@@ -184,4 +184,7 @@
     <string name="im_save">تم الحفظ</string>
     <string name="start_down">جار تحميل الصورة...</string>
     <string name="sent_image">تم ارسال لك صورة</string>
+    <string name="ch_loc">ابحث عن المدينة او الحي</string>
+    <string name="your_area">منطقتك</string>
+    <string name="no_search_res">لا توجد نتائج للبحث</string>
 </resources>

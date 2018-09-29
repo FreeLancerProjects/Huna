@@ -17,12 +17,12 @@
             android:icon="@drawable/dr_person_icon"
             />
 
-        <item
+        <!--<item
             android:id="@+id/msg"
             android:title="@string/messages"
             android:icon="@drawable/dr_mail_icon"
             app:actionLayout="@layout/drawer_notification_layout"
-            />
+            />-->
         <item
             android:id="@+id/purchases"
             android:icon="@drawable/dr_market_icon"

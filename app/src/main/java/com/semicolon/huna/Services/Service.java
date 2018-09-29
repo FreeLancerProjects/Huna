@@ -152,10 +152,15 @@ public interface Service {
     Call<List<SuperMarketModel>> getSuperMarketCategories();
 
     @FormUrlEncoded
-    @POST("Api/MinMarket")
-    Call<List<MiniMarketDataModel>> getMiniMarketData(@Field("my_google_lat") double my_google_lat,@Field("my_google_long") double my_google_long);
+    //@POST("Api/MinMarket")
+    @POST("Api/PlaceMarkets")
+    Call<List<MiniMarketDataModel>> getMiniMarketData(@Field("my_google_lat") double my_google_lat,
+                                                      @Field("my_google_long") double my_google_long,
+                                                      @Field("id_area") String id_area,
+                                                      @Field("from_id") String from_id
+                                                      );
 
-    @POST("Api/AddMinOrder")
+    @POST("ApiOrder/AddOrder")
     Call<ResponseModel> sendOrderToMiniMarket(@Body List<ItemsModel> itemsModelList);
 
     @POST("Api/AddSuperOrder")
@@ -269,4 +274,18 @@ public interface Service {
     @FormUrlEncoded
     @POST("Api/UpdateTokenId/{user_id}")
     Call<ResponseModel> UpdateToken(@Path("user_id") String user_id,@Field("user_token_id")String token);
+
+    @FormUrlEncoded
+    @POST("Api/SearchPlace")
+    Call<List<CountryModel>> getPlaceSearch(@Field("place_name") String query);
+
+    @FormUrlEncoded
+    @POST("Api/PlaceMarketName")
+    Call<List<MiniMarketDataModel>> getMatgarSearch(@Field("my_google_lat") double my_google_lat,
+                                                    @Field("my_google_long") double my_google_long,
+                                                    @Field("id_area") String id_area,
+                                                    @Field("from_id") String from_id,
+                                                    @Field("search_name") String search_name
+
+    );
 }

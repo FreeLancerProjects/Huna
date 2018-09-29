@@ -75,4 +75,34 @@ public class Preferences {
         String chat_id = sharedPreferences.getString("chat_id","");
         return chat_id;
     }
+
+    public void CreateUpdateCity_id(Context context,String from_id,String area_id,String area_title)
+    {
+        sharedPreferences = context.getSharedPreferences("location",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("from_id",from_id);
+        editor.putString("area_id",area_id);
+        editor.putString("area_title",area_title);
+
+        editor.apply();
+    }
+
+    public String getFrom_id (Context context)
+    {
+        sharedPreferences = context.getSharedPreferences("location",Context.MODE_PRIVATE);
+        String city_id = sharedPreferences.getString("from_id","");
+        return city_id;
+    }
+    public String getArea_id (Context context)
+    {
+        sharedPreferences = context.getSharedPreferences("location",Context.MODE_PRIVATE);
+        String area_id = sharedPreferences.getString("area_id","");
+        return area_id;
+    }
+    public String getArea_title (Context context)
+    {
+        sharedPreferences = context.getSharedPreferences("location",Context.MODE_PRIVATE);
+        String area_title = sharedPreferences.getString("area_title","");
+        return area_title;
+    }
 }

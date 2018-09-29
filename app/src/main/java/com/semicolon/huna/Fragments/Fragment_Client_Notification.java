@@ -70,6 +70,7 @@ public class Fragment_Client_Notification extends Fragment{
         {
             user_id = bundle.getString(TAG);
         }
+        Log.e("sdsd","dfsdfs");
 
         swipe = view.findViewById(R.id.swipe);
         ll_no_notification = view.findViewById(R.id.ll_no_notification);

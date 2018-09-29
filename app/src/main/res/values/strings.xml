@@ -1,6 +1,6 @@
 <resources>
     <string name="google_key">AIzaSyA2frpOOlJ3d4Nu9h5mY6yLxDOIcr_g2ew</string>
-    <string name="app_name">Huna</string>
+    <string name="app_name">Here</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -68,7 +68,7 @@
     <string name="city_req">City required</string>
     <string name="neighborhood_req">Neighborhood required</string>
     <string name="pass_not_match">Password not match</string>
-    <string name="no_cat">There are no categories to display</string>
+    <string name="no_cat">There are no Markets to display</string>
     <string name="accept">Ok</string>
     <string name="ch_prof_img">Choose profile photo</string>
     <string name="something_error">Error : something went haywire try again later</string>
@@ -184,4 +184,7 @@
     <string name="im_save">image saved</string>
     <string name="start_down">Start Download...</string>
     <string name="sent_image">Sent a photo</string>
+    <string name="ch_loc">Search area</string>
+    <string name="your_area">Your area</string>
+    <string name="no_search_res">No search results</string>
 </resources>
