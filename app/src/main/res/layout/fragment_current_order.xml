@@ -35,7 +35,7 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/bluecart"
+            android:src="@drawable/blue_trolley"
             android:scaleType="centerCrop"
             />
         <TextView

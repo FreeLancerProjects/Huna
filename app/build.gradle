@@ -10,12 +10,19 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
     buildTypes {
         release {
+            proguardFile 'proguard-rules.pro'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
     repositories {
         maven { url "https://jitpack.io" }
     }
@@ -23,6 +30,11 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
 }
 
